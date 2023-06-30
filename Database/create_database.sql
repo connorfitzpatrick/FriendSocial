@@ -6,14 +6,16 @@ USE FRIENDSOCIAL;
 
 -- Create the profile table
 CREATE TABLE profiles (
-  profile_id INT PRIMARY KEY AUTO_INCREMENT,
+  profile_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  email VARCHAR(50) NOT NULL UNIQUE,
   username VARCHAR(50) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
   profile_picture VARCHAR(255),
   first_name VARCHAR(50) NOT NULL,
   last_name VARCHAR(50) NOT NULL,
   bio TEXT,
-  join_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  join_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  age INT NOT NULL
 );
 
 -- Create the profile table

@@ -1,9 +1,9 @@
 -- profiles table dummy data
-INSERT INTO profiles (username, password, profile_picture, first_name, last_name, bio, join_timestamp)
+INSERT INTO profiles (email, username, password, profile_picture, first_name, last_name, bio, join_timestamp, age)
 VALUES
-  ('john_doe', 'password', 'profile1.jpg', 'John', 'Doe', 'Hello, I am John!', '2023-06-29 10:00:00'),
-  ('jane_smith', 'password', 'profile2.jpg', 'Jane', 'Smith', 'Nice to meet you!', '2023-06-30 14:30:00'),
-  ('alex_green', 'password', 'profile3.jpg', 'Alex', 'Green', 'Tech enthusiast and nature lover.', '2023-07-01 09:15:00');
+  ('john_doe@gmail.com', 'john_doe', 'password', 'profile1.jpg', 'John', 'Doe', 'Hello, I am John!', '2023-06-29 10:00:00', 20),
+  ('jane_smith@gmail.com', 'jane_smith', 'password', 'profile2.jpg', 'Jane', 'Smith', 'Nice to meet you!', '2023-06-30 14:30:00', 23),
+  ('alex_green@gmail.com', 'alex_green', 'password', 'profile3.jpg', 'Alex', 'Green', 'Tech enthusiast and nature lover.', '2023-07-01 09:15:00', 25);
 
 -- posts table dummy data
 INSERT INTO posts (profile_id, content, image_url, content_type, timestamp)

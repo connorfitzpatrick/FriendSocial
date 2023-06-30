@@ -1,17 +1,56 @@
 package com.friendsocial.Backend.profile;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
+// Map Profile class to database (for hibernate). Entity represents a table. An instance of an entity
+// represents a row in the table.
+@Entity
+// Specify the table name in the database
+@Table(name="profiles")
 public class Profile {
+  // Defines the primary key
+  @Id
+  @Column(name = "profile_id")
+  @SequenceGenerator(
+          // generated sequence name
+          name = "profiles_sequence",
+          // database's sequence name
+          sequenceName = "profiles_sequence",
+          allocationSize = 1
+  )
+  @GeneratedValue(
+          strategy = GenerationType.IDENTITY,
+          generator = "profiles_sequence"
+  )
   private Long id;
+
+  @Column(length=50, nullable=false, unique=true)
   private String email;
+
+  @Column(length=50, nullable=false, unique=true)
   private String username;
+
+  @Column(nullable=false)
   private String password;
+
+  @Column(nullable=false)
   private int age;
+
+  @Column(name = "first_name", length=50, nullable = false)
   private String firstName;
+
+  @Column(name = "last_name", length=50, nullable = false)
   private String lastName;
+
+  @Column(name = "profile_picture")
   private String profilePic;
+
+  @Column()
   private String bio;
+
+  @Column(name = "join_timestamp", nullable = false)
   private LocalDateTime dateJoined;
 
   public Profile() {
