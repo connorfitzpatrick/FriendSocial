@@ -43,8 +43,7 @@ public class Profile {
   // @Transient means we will ignore this column, since we can calculate it on our own using DOB
   // Will no longer be stored in DB
   @Transient
-  @Column()
-  private int age;
+  private Integer age;
 
   @Column(name = "first_name", length=50, nullable = false)
   private String firstName;

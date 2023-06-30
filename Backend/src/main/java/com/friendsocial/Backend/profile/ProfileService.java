@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 // SERVICE LAYER
 //   - Handles business logic
@@ -24,6 +25,14 @@ public class ProfileService {
   }
 
   public void addNewProfile(Profile profile) {
+    Optional<Profile> profileOptional = profileRepository
+      .findProfileByEmail(profile.getEmail());
+    // If another profile has this email, throw error
+    if (profileOptional.isPresent()) {
+      throw new IllegalStateException("Another Profile is Already Using This Email");
+    }
     System.out.println(profile);
+    // Add to Profile table
+    profileRepository.save(profile);
   }
 }

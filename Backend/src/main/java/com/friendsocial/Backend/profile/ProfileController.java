@@ -7,7 +7,7 @@ import java.util.List;
 
 // This will have all of the resources for the API
 @RestController
-@RequestMapping(path="api/v1/profile")
+@RequestMapping(path="api/v1/profiles")
 
 
 // API LAYER
@@ -29,13 +29,15 @@ public class ProfileController {
     this.profileService = profileService;
   }
 
+  // GET ALL PROFILES
   // Get mapping because we want to get something out from our server
   @GetMapping
   public List<Profile> getProfiles() {
     return profileService.getProfiles();
   }
 
-  // @RequestBody because we are taking the student that comes from the client
+  // POST (ADD) A PROFILE
+  // @RequestBody because we are taking the profile that comes from the client. Take request and map to profile
   @PostMapping
   public void registerNewProfile(@RequestBody Profile profile) {
     profileService.addNewProfile(profile);
