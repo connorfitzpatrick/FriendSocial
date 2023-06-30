@@ -2,7 +2,9 @@ package com.friendsocial.Backend.profile;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 
 // Map Profile class to database (for hibernate). Entity represents a table. An instance of an entity
 // represents a row in the table.
@@ -35,7 +37,13 @@ public class Profile {
   @Column(nullable=false)
   private String password;
 
-  @Column(nullable=false)
+  @Column(name="dob", nullable=false)
+  private LocalDate dob;
+
+  // @Transient means we will ignore this column, since we can calculate it on our own using DOB
+  // Will no longer be stored in DB
+  @Transient
+  @Column()
   private int age;
 
   @Column(name = "first_name", length=50, nullable = false)
@@ -61,7 +69,7 @@ public class Profile {
                  String email,
                  String username,
                  String password,
-                 int age,
+                 LocalDate dob,
                  String firstName,
                  String lastName,
                  String profilePic,
@@ -71,7 +79,7 @@ public class Profile {
     this.email = email;
     this.username = username;
     this.password = password;
-    this.age = age;
+    this.dob = dob;
     this.firstName = firstName;
     this.lastName = lastName;
     this.profilePic = profilePic;
@@ -82,7 +90,7 @@ public class Profile {
   public Profile(String email,
                  String username,
                  String password,
-                 int age,
+                 LocalDate dob,
                  String firstName,
                  String lastName,
                  String profilePic,
@@ -91,7 +99,7 @@ public class Profile {
     this.email = email;
     this.username = username;
     this.password = password;
-    this.age = age;
+    this.dob = dob;
     this.firstName = firstName;
     this.lastName = lastName;
     this.profilePic = profilePic;
@@ -131,8 +139,16 @@ public class Profile {
     this.password = password;
   }
 
+  public LocalDate getDob() {
+    return dob;
+  }
+
+  public void setDob(LocalDate dob) {
+    this.dob = dob;
+  }
+
   public int getAge() {
-    return age;
+    return Period.between(this.dob, LocalDate.now()).getYears();
   }
 
   public void setAge(int age) {
@@ -186,6 +202,7 @@ public class Profile {
             ", email='" + email + '\'' +
             ", username='" + username + '\'' +
             ", password='" + password + '\'' +
+            ", dob='" + dob + '\'' +
             ", age=" + age +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +

@@ -1,9 +1,7 @@
 package com.friendsocial.Backend.profile;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,5 +33,11 @@ public class ProfileController {
   @GetMapping
   public List<Profile> getProfiles() {
     return profileService.getProfiles();
+  }
+
+  // @RequestBody because we are taking the student that comes from the client
+  @PostMapping
+  public void registerNewProfile(@RequestBody Profile profile) {
+    profileService.addNewProfile(profile);
   }
 }

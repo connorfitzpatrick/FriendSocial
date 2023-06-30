@@ -4,6 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class ProfileConfig {
               "c@gmail.com",
               "connorfitz429",
               "svsb",
-              24,
+              LocalDate.of(1999, 4, 29),
               "Connor",
               "Fitzpatrick",
               "./HERE.png",
@@ -28,7 +29,7 @@ public class ProfileConfig {
               "alex@gmail.com",
               "alex3",
               "aerkg",
-              29,
+              LocalDate.of(2000, 12, 25),
               "Alex",
               "Apple",
               "./HERE.png",

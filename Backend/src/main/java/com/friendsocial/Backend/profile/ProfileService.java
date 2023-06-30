@@ -22,4 +22,8 @@ public class ProfileService {
   public List<Profile> getProfiles() {
     return profileRepository.findAll();
   }
+
+  public void addNewProfile(Profile profile) {
+    System.out.println(profile);
+  }
 }
