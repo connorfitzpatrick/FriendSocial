@@ -10,6 +10,7 @@ CREATE TABLE profiles (
   email VARCHAR(50) NOT NULL UNIQUE,
   username VARCHAR(50) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
+  dob DATE NOT NULL,
   profile_picture VARCHAR(255),
   first_name VARCHAR(50) NOT NULL,
   last_name VARCHAR(50) NOT NULL,
