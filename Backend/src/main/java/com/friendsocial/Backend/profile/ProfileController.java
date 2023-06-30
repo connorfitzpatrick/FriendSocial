@@ -50,5 +50,13 @@ public class ProfileController {
     profileService.deleteProfile(id);
   }
 
+  @PutMapping(path = "{profileId}")
+  public void updateProfile(
+          @PathVariable("profileId") Long id,
+          @RequestParam(required = false) String email,
+          @RequestParam(required = false) String firstName) {
+    profileService.updateProfile(id, email, firstName);
+  }
+
 
 }
