@@ -42,4 +42,13 @@ public class ProfileController {
   public void registerNewProfile(@RequestBody Profile profile) {
     profileService.addNewProfile(profile);
   }
+
+  // DELETE A PROFILE
+  // pass the profileId within the path. Grab the student ID with @PathVariable
+  @DeleteMapping(path = "{profileId}")
+  public void deleteProfile(@PathVariable("profileId") Long id) {
+    profileService.deleteProfile(id);
+  }
+
+
 }

@@ -20,10 +20,12 @@ public class ProfileService {
     this.profileRepository = profileRepository;
   }
 
+  // Business logic of getting all profiles. Just get them all.
   public List<Profile> getProfiles() {
     return profileRepository.findAll();
   }
 
+  // Business logic of Posting (adding) new profile. Do not add if email already in use.
   public void addNewProfile(Profile profile) {
     Optional<Profile> profileOptional = profileRepository
       .findProfileByEmail(profile.getEmail());
@@ -31,8 +33,18 @@ public class ProfileService {
     if (profileOptional.isPresent()) {
       throw new IllegalStateException("Another Profile is Already Using This Email");
     }
-    System.out.println(profile);
     // Add to Profile table
     profileRepository.save(profile);
+  }
+
+  // Business logic of deleting a profile. Check if it exists first.
+  public void deleteProfile(Long profileId) {
+    boolean exists = profileRepository.existsById(profileId);
+    if (!exists) {
+      throw new IllegalStateException(
+              "Profile with id " + profileId + " does not exist"
+      );
+    }
+    profileRepository.deleteById(profileId);
   }
 }
