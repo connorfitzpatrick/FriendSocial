@@ -1,5 +1,7 @@
 package com.friendsocial.Backend.profile;
 
+import com.friendsocial.Backend.friend.Friend;
+import com.friendsocial.Backend.friend.FriendRepository;
 import com.friendsocial.Backend.post.Post;
 import com.friendsocial.Backend.post.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +43,20 @@ public class ProfileConfig {
               "I Alex",
               LocalDateTime.now()
       );
+      Profile kieran = new Profile(
+              "kieran@gmail.com",
+              "kieran620",
+              "bbbbbbb",
+              LocalDate.of(1995, 06, 20),
+              "Kieran",
+              "Clinm",
+              "./infolder.png",
+              "Dummy date account",
+              LocalDateTime.now()
+      );
 
       repository.saveAll(
-              List.of(connor, alex)
+              List.of(connor, alex, kieran)
       );
     };
   }
@@ -90,6 +103,39 @@ public class ProfileConfig {
 
       drepository.saveAll(
               List.of(connorsFirst, connorsSecond, alexFirst, alexSecond)
+      );
+    };
+  }
+
+  @Autowired
+  private ProfileRepository friendRepository;
+
+  @Bean
+  CommandLineRunner commandLineRunner2(
+          FriendRepository frepository) {
+    return args -> {
+      Long profileId = 1L;
+      Long friendId = 2L;
+      Long friend2Id = 3L;
+      Optional<Profile> profileOptional = profileRepository.findById(profileId);
+      Optional<Profile> profileOptional2 = profileRepository.findById(friendId);
+      Optional<Profile> profileOptional3 = profileRepository.findById(friend2Id);
+      Profile p = profileOptional.orElseThrow(() -> new RuntimeException("Profile not found"));
+      Profile f = profileOptional2.orElseThrow(() -> new RuntimeException("Profile not found"));
+      Profile f2 = profileOptional3.orElseThrow(() -> new RuntimeException("Profile not found"));
+      Friend connorfriend = new Friend(
+              p,
+              f,
+              LocalDate.now()
+      );
+      Friend connorfriend2 = new Friend(
+              p,
+              f2,
+              LocalDate.now()
+      );
+
+      frepository.saveAll(
+              List.of(connorfriend, connorfriend2)
       );
     };
   }
