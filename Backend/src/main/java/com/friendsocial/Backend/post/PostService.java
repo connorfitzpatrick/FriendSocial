@@ -38,7 +38,6 @@ public class PostService {
     }
 
     Profile profile = profileOptional.get();
-    System.out.println(profile);
     postRequest.setProfile(profile);
     profile.addPost(postRequest); // Associate post with profile
     postRepository.save(postRequest);
