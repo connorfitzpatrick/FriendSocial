@@ -1,10 +1,13 @@
 package com.friendsocial.Backend.profile;
 
+import com.friendsocial.Backend.post.Post;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 
 // Map Profile class to database (for hibernate). Entity represents a table. An instance of an entity
 // represents a row in the table.
@@ -60,6 +63,12 @@ public class Profile {
   @Column(name = "join_timestamp", nullable = false)
   private LocalDateTime dateJoined;
 
+  @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Post> posts = new ArrayList<>();
+
+  ///////////////////
+  /// Contructors ///
+  ///////////////////
   public Profile() {
 
   }
@@ -106,6 +115,9 @@ public class Profile {
     this.dateJoined = dateJoined;
   }
 
+  ///////////////////////////
+  /// Getters and Setters ///
+  ///////////////////////////
   public Long getId() {
     return id;
   }
@@ -194,6 +206,9 @@ public class Profile {
     this.dateJoined = dateJoined;
   }
 
+  /////////////////
+  /// To String ///
+  /////////////////
   @Override
   public String toString() {
     return "Profile{" +
