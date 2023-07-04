@@ -6,12 +6,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 // This will have all of the resources for the API
-@RestController
-@RequestMapping(path="api/v1/posts")
 
 // API LAYER
 // -
-
+@RestController
+@RequestMapping(path="api/v1/posts")
 public class PostController {
   private final PostService postService;
 
@@ -39,12 +38,10 @@ public class PostController {
 
   // POST (ADD) A Post
   // @RequestBody because we are taking the profile that comes from the client. Take request and map to profile
-  @PostMapping
-  public void createPost(@RequestBody Post postRequest) {
+  @PostMapping(path = "{profileId}")
+  public void createPost(@PathVariable("profileId") Long profileId, @RequestBody Post postRequest) {
     // Save the post entity
-    Long profile = postRequest.getProfile().getId();
-    postService.addNewPost(postRequest);
-
+    postService.addNewPost(profileId, postRequest);
   }
 
   // DELETE A Post

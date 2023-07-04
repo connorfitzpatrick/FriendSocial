@@ -30,7 +30,7 @@ public class Post {
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "profile_id", nullable = false)
+  @JoinColumn(name = "profile_id")
   private Profile profile;
 
   @Column(length=50, nullable=false)
@@ -97,7 +97,7 @@ public class Post {
     return profile;
   }
 
-  public void setProfile(Profile profileId) {
+  public void setProfile(Profile profile) {
     this.profile = profile;
   }
 

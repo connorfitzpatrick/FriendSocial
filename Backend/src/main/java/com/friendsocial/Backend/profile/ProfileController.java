@@ -6,14 +6,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 // This will have all of the resources for the API
-@RestController
-@RequestMapping(path="api/v1/profiles")
-
 
 // API LAYER
 // -
 
 // ProfileController is used, but you need to go to that URL.
+@RestController
+@RequestMapping(path="api/v1/profiles")
 public class ProfileController {
 
   private final ProfileService profileService;

@@ -1,21 +1,24 @@
 package com.friendsocial.Backend.profile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.friendsocial.Backend.post.Post;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 // Map Profile class to database (for hibernate). Entity represents a table. An instance of an entity
 // represents a row in the table.
+// Specify the table name in the database
 @Entity
 // Specify the table name in the database
 @Table(name="profiles")
 public class Profile {
   // Defines the primary key
+
   @Id
   @Column(name = "profile_id")
   @SequenceGenerator(
@@ -43,11 +46,6 @@ public class Profile {
   @Column(name="dob", nullable=false)
   private LocalDate dob;
 
-  // @Transient means we will ignore this column, since we can calculate it on our own using DOB
-  // Will no longer be stored in DB
-  @Transient
-  private Integer age;
-
   @Column(name = "first_name", length=50, nullable = false)
   private String firstName;
 
@@ -63,8 +61,9 @@ public class Profile {
   @Column(name = "join_timestamp", nullable = false)
   private LocalDateTime dateJoined;
 
-  @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<Post> posts = new ArrayList<>();
+  @OneToMany(mappedBy = "profile")
+  @JsonIgnore
+  private Set<Post> posts;
 
   ///////////////////
   /// Contructors ///
@@ -115,24 +114,6 @@ public class Profile {
     this.dateJoined = dateJoined;
   }
 
-  public List<Post> getPosts() {
-    return posts;
-  }
-
-  public void setPosts(List<Post> posts) {
-    this.posts = posts;
-  }
-
-  public void addPost(Post post) {
-    posts.add(post);
-    post.setProfile(this);
-  }
-
-  public void removePost(Post post) {
-    posts.remove(post);
-    post.setProfile(null);
-  }
-
   ///////////////////////////
   /// Getters and Setters ///
   ///////////////////////////
@@ -176,14 +157,6 @@ public class Profile {
     this.dob = dob;
   }
 
-  public int getAge() {
-    return Period.between(this.dob, LocalDate.now()).getYears();
-  }
-
-  public void setAge(int age) {
-    this.age = age;
-  }
-
   public String getFirstName() {
     return firstName;
   }
@@ -224,6 +197,19 @@ public class Profile {
     this.dateJoined = dateJoined;
   }
 
+  public Set<Post> getPosts() {
+    return this.posts;
+  }
+
+  public void setPosts(Set<Post> posts) {
+    this.posts = posts;
+  }
+
+  public void addPost(Post post) {
+    posts.add(post);
+    post.setProfile(this);
+  }
+
   /////////////////
   /// To String ///
   /////////////////
@@ -235,7 +221,6 @@ public class Profile {
             ", username='" + username + '\'' +
             ", password='" + password + '\'' +
             ", dob='" + dob + '\'' +
-            ", age=" + age +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", profilePic='" + profilePic + '\'' +
