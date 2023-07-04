@@ -27,6 +27,15 @@ public class ProfileService {
     return profileRepository.findAll();
   }
 
+  public Profile getProfileById(Long id) {
+    Optional<Profile> profileOptional = profileRepository.findById(id);
+    // If another profile has this email, throw error
+    if (!profileOptional.isPresent()) {
+      throw new IllegalStateException("Profile is not in database");
+    }
+    return profileOptional.get();
+  }
+
   // Business logic of Posting (adding) new profile. Do not add if email already in use.
   public void addNewProfile(Profile profile) {
     Optional<Profile> profileOptional = profileRepository

@@ -30,9 +30,15 @@ public class ProfileController {
 
   // GET ALL PROFILES
   // Get mapping because we want to get something out from our server
-  @GetMapping
+  @GetMapping()
   public List<Profile> getProfiles() {
     return profileService.getProfiles();
+  }
+
+  // GET ONE PROFILE
+  @GetMapping(path = "{profileId}")
+  public Profile getOneProfileById(@PathVariable("profileId") Long id) {
+    return profileService.getProfileById(id);
   }
 
   // POST (ADD) A PROFILE
