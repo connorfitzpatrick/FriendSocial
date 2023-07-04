@@ -1,10 +1,12 @@
 package com.friendsocial.Backend.profile;
 
+import com.friendsocial.Backend.friend.Friend;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -34,6 +36,23 @@ public class ProfileService {
       throw new IllegalStateException("Profile is not in database");
     }
     return profileOptional.get();
+  }
+
+  public List<Profile> getFriends(Long profileId) {
+    Optional<Profile> profileOptional = profileRepository.findById(profileId);
+    if (profileOptional.isEmpty()) {
+      throw new IllegalArgumentException("Profile not found");
+    }
+
+    Profile profile = profileOptional.get();
+    List<Profile> friends = new ArrayList<>();
+
+    for (Friend profileFriend : profile.getFriends()) {
+      System.out.println(profileFriend);
+      friends.add(profileFriend.getFriend());
+    }
+
+    return friends;
   }
 
   // Business logic of Posting (adding) new profile. Do not add if email already in use.

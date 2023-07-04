@@ -25,6 +25,7 @@ public class FriendService {
     return friendRepository.findAll();
   }
 
+
   // Business logic of Posting (adding) new profile. Do not add if email already in use.
   public void addNewFriend(Long profileId, Long friendId, Friend friendRequest) {
     Optional<Profile> profileOptional = profileRepository.findById(profileId);
@@ -32,7 +33,7 @@ public class FriendService {
     // Add to Profile table
     if (profileOptional.isEmpty() || friendOptional.isEmpty()) {
       // Handle case when profile is not found
-      throw new IllegalArgumentException("Profile not found");
+      throw new IllegalArgumentException("Friendship not found");
     }
 
     Profile profile = profileOptional.get();
@@ -41,6 +42,17 @@ public class FriendService {
     friendRequest.setFriend(friend);
     friend.addFriend(friendRequest); // Associate post with profile
     friendRepository.save(friendRequest);
+  }
+
+  // Business logic of deleting a profile. Check if it exists first.
+  public void deleteFriend(Long friendshipId) {
+    boolean exists = friendRepository.existsById(friendshipId);
+    if (!exists) {
+      throw new IllegalStateException(
+              "Profile with id " + friendshipId + " does not exist"
+      );
+    }
+    friendRepository.deleteById(friendshipId);
   }
 
 }

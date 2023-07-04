@@ -11,9 +11,9 @@ import java.util.Optional;
 public interface FriendRepository
         extends JpaRepository<Friend, Long> {
   // Custom function to find profile by email. Transforms to `SELECT * FROM profiles WHERE email = ?`
-//  @Query("SELECT p FROM Profile p WHERE p.email = ?1")
-//  Optional<Profile> findProfileByEmail(String email);
-//
-//  @Query("SELECT p FROM Profile p WHERE p.id = ?1")
-//  Optional<Profile> findById(Long id);
+//    @Query("SELECT f FROM FRIENDS f WHERE f.profile_id = ?1")
+//    Optional<Friend> findFriendsOfProfileId(Long id);
+
+  //  @Query("SELECT p FROM Profile p WHERE p.id = ?1")
+  //  Optional<Profile> findById(Long id);
 }

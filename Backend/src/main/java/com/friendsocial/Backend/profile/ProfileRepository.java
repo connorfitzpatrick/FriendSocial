@@ -15,8 +15,8 @@ public interface ProfileRepository
     @Query("SELECT p FROM Profile p WHERE p.email = ?1")
     Optional<Profile> findProfileByEmail(String email);
 
-    @Query("SELECT p FROM Profile p WHERE p.id = ?1")
-    Optional<Profile> findById(Long id);
+//    @Query("SELECT p FROM Profile p WHERE p.id = ?1")
+//    Optional<Profile> findById(Long id);
 }
 
 
