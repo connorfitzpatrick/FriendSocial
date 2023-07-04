@@ -1,7 +1,6 @@
 package com.friendsocial.Backend.profile;
 
 import com.friendsocial.Backend.post.Post;
-import com.friendsocial.Backend.post.PostConfig;
 import com.friendsocial.Backend.post.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -17,8 +16,8 @@ import java.util.logging.Logger;
 
 @Configuration
 public class ProfileConfig {
-  @Bean
-  CommandLineRunner commandLineRunner(
+  @Bean(name = "profileCommandLineRunner")
+  CommandLineRunner profileConfig(
           ProfileRepository repository) {
     return args -> {
       Profile connor = new Profile(
@@ -50,7 +49,6 @@ public class ProfileConfig {
     };
   }
 
-  private static final Logger logger = Logger.getLogger(PostConfig.class.getName());
 
   @Autowired
   private ProfileRepository profileRepository;

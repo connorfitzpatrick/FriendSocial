@@ -115,6 +115,24 @@ public class Profile {
     this.dateJoined = dateJoined;
   }
 
+  public List<Post> getPosts() {
+    return posts;
+  }
+
+  public void setPosts(List<Post> posts) {
+    this.posts = posts;
+  }
+
+  public void addPost(Post post) {
+    posts.add(post);
+    post.setProfile(this);
+  }
+
+  public void removePost(Post post) {
+    posts.remove(post);
+    post.setProfile(null);
+  }
+
   ///////////////////////////
   /// Getters and Setters ///
   ///////////////////////////
@@ -198,7 +216,7 @@ public class Profile {
     this.bio = bio;
   }
 
-  public LocalDateTime getdateJoined() {
+  public LocalDateTime getDateJoined() {
     return dateJoined;
   }
 

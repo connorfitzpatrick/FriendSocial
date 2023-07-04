@@ -1,9 +1,11 @@
 package com.friendsocial.Backend.post;
 
 import com.friendsocial.Backend.profile.Profile;
+import com.friendsocial.Backend.profile.ProfileRepository;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.Optional;
 
 // Map Profile class to database (for hibernate). Entity represents a table. An instance of an entity
 // represents a row in the table.
