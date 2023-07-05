@@ -63,14 +63,6 @@ public class Friend {
     this.id = id;
   }
 
-//  public Profile getProfile() {
-//    return profile;
-//  }
-//
-//  public void setProfile(Profile profile) {
-//    this.profile = profile;
-//  }
-
   public Long getProfileId() {
     return profileId;
   }
@@ -86,14 +78,6 @@ public class Friend {
   public void setFriendId(Long friendId) {
     this.friendId = friendId;
   }
-
-//  public Profile getFriend() {
-//    return friend;
-//  }
-//
-//  public void setFriend(Profile friend) {
-//    this.friend = friend;
-//  }
 
   public LocalDate getStartDate() {
     return startDate;

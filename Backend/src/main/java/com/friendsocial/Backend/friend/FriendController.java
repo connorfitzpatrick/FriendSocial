@@ -23,7 +23,6 @@ public class FriendController {
     return friendService.getFriends();
   }
 
-
   // POST (ADD) A Post
   // @RequestBody because we are taking the profile that comes from the client. Take request and map to profile
   @PostMapping(path = "{profileId}/{friendId}")

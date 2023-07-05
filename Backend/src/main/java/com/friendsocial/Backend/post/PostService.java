@@ -28,7 +28,7 @@ public class PostService {
     return postRepository.findAll();
   }
 
-  // Business logic of Posting (adding) new profile. Do not add if email already in use.
+  // Business logic of Posting (adding) new profile
   public void addNewPost(Long profileId, Post postRequest) {
     Optional<Profile> profileOptional = profileRepository.findById(profileId);
     // Add to Profile table
@@ -38,7 +38,7 @@ public class PostService {
     }
 
     Profile profile = profileOptional.get();
-//    postRequest.setProfile(profile);
+    // Otherwise foreign key will be null
     postRequest.setProfileId(profileId);
     profile.addPost(postRequest); // Associate post with profile
     postRepository.save(postRequest);

@@ -70,7 +70,7 @@ public class Profile {
           joinColumns = @JoinColumn(name = "profile_id"),
           inverseJoinColumns = @JoinColumn(name = "friend_id"))
   @JsonIgnore
-  private Set<Profile> friends;
+  private Set<Friend> friends;
 
 
   ///////////////////
@@ -215,7 +215,6 @@ public class Profile {
 
   public void addPost(Post post) {
     posts.add(post);
-    post.setProfileId(post.getProfileId());
   }
 
 //  public Set<Friend> getFriends() {
@@ -226,10 +225,9 @@ public class Profile {
 //    this.friends = friends;
 //  }
 //
-//  public void addFriend(Friend friend) {
-//    friends.add(friend);
-//    friend.setFriendId();
-//  }
+  public void addFriend(Friend friend) {
+    friends.add(friend);
+  }
 //
 //  public void removeFriend(Friend friend) {
 //    friends.remove(friend);
