@@ -19,13 +19,28 @@ public class Friend {
   // @JoinTable specifies the name of the join table that will be created in the DB to store relationship
   // @JoinColumns specifies the foreign key that references the Friend entity
   // @InverseJoinColumns specifies the foreign key that references Profile entity
+  @Column(name = "profile_id")
+  private Long profileId;
+
+  @Column(name = "friend_id")
+  private Long friendId;
+
   @ManyToOne
-  @JoinColumn(name = "profile_id")
+  @JoinColumn(name = "profile_id", referencedColumnName = "profile_id", insertable = false, updatable = false)
   private Profile profile;
 
   @ManyToOne
-  @JoinColumn(name = "Friend_id")
+  @JoinColumn(name = "friend_id", referencedColumnName = "profile_id", insertable = false, updatable = false)
   private Profile friend;
+
+//  @ManyToOne
+//  @JoinColumn(name = "profile_id", insertable = false, updatable = false)
+//  private Profile profile;
+//
+//  @ManyToOne
+//  @JoinColumn(name = "friend_id", insertable = false, updatable = false)
+//  private Profile friend;
+  //private Profile friend;
 
   @Column(name = "start_date")
   private LocalDate startDate;
@@ -34,9 +49,9 @@ public class Friend {
 
   }
 
-  public Friend(Profile profile, Profile friend, LocalDate startDate) {
-    this.profile = profile;
-    this.friend = friend;
+  public Friend(Long profileId, Long friendId, LocalDate startDate) {
+    this.profileId = profileId;
+    this.friendId = friendId;
     this.startDate = startDate;
   }
 
@@ -48,29 +63,37 @@ public class Friend {
     this.id = id;
   }
 
-  public Profile getProfile() {
-    return profile;
-  }
+//  public Profile getProfile() {
+//    return profile;
+//  }
+//
+//  public void setProfile(Profile profile) {
+//    this.profile = profile;
+//  }
 
   public Long getProfileId() {
-    return profile.getId();
+    return profileId;
   }
 
-  public void setProfile(Profile profile) {
-    this.profile = profile;
-  }
-
-  public Profile getFriend() {
-    return friend;
+  public void setProfileId(Long profileId) {
+    this.profileId = profileId;
   }
 
   public Long getFriendId() {
-    return friend.getId();
+    return friendId;
   }
 
-  public void setFriend(Profile friend) {
-    this.friend = friend;
+  public void setFriendId(Long friendId) {
+    this.friendId = friendId;
   }
+
+//  public Profile getFriend() {
+//    return friend;
+//  }
+//
+//  public void setFriend(Profile friend) {
+//    this.friend = friend;
+//  }
 
   public LocalDate getStartDate() {
     return startDate;

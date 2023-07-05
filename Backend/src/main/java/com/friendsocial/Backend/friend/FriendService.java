@@ -38,9 +38,9 @@ public class FriendService {
 
     Profile profile = profileOptional.get();
     Profile friend = friendOptional.get();
-    friendRequest.setProfile(profile);
-    friendRequest.setFriend(friend);
-    friend.addFriend(friendRequest); // Associate post with profile
+//    friendRequest.setProfileId(profileId);
+//    friendRequest.setFriendId(friendId);
+//    friend.addFriend(friendRequest); // Associate post with profile
     friendRepository.save(friendRequest);
   }
 

@@ -27,8 +27,12 @@ public class Post {
   )
   private Long id;
 
+  // Store a foreign key instead of the entire post object
+  @Column(name = "profile_id")
+  private Long profileId;
+
   @ManyToOne
-  @JoinColumn(name = "profile_id")
+  @JoinColumn(name = "profile_id", referencedColumnName = "profile_id", insertable = false, updatable = false)
   private Profile profile;
 
   @Column(length=50, nullable=false)
@@ -51,13 +55,14 @@ public class Post {
   }
 
   public Post(
-          Profile profile,
+          //Profile profile,
+          Long profileId,
           String postType,
           String content,
           Instant timestamp,
           String imageUrl
   ) {
-    this.profile = profile;
+    this.profileId = profileId;
     this.postType = postType;
     this.content = content;
     this.timestamp = timestamp;
@@ -66,14 +71,14 @@ public class Post {
 
   public Post(
           Long id,
-          Profile profile,
+          Long profileId,
           String postType,
           String content,
           Instant timestamp,
           String imageUrl
           ) {
     this.id = id;
-    this.profile = profile;
+    this.profileId = profileId;
     this.postType = postType;
     this.content = content;
     this.timestamp = timestamp;
@@ -91,12 +96,12 @@ public class Post {
     this.id = id;
   }
 
-  public Profile getProfile() {
-    return profile;
+  public Long getProfileId() {
+    return profileId;
   }
 
-  public void setProfile(Profile profile) {
-    this.profile = profile;
+  public void setProfileId(Long profileId) {
+    this.profileId = profileId;
   }
 
   public String getPostType() {
@@ -138,7 +143,7 @@ public class Post {
   public String toString() {
     return "Post{" +
             "id=" + id +
-            ", profile=" + profile.getId() +
+            ", profileId='" + profileId + '\'' +
             ", postType='" + postType + '\'' +
             ", content='" + content + '\'' +
             ", timestamp=" + timestamp +

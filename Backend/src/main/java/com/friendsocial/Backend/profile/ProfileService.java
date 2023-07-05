@@ -38,23 +38,6 @@ public class ProfileService {
     return profileOptional.get();
   }
 
-  public List<Profile> getFriends(Long profileId) {
-    Optional<Profile> profileOptional = profileRepository.findById(profileId);
-    if (profileOptional.isEmpty()) {
-      throw new IllegalArgumentException("Profile not found");
-    }
-
-    Profile profile = profileOptional.get();
-    List<Profile> friends = new ArrayList<>();
-
-    for (Friend profileFriend : profile.getFriends()) {
-      System.out.println(profileFriend);
-      friends.add(profileFriend.getFriend());
-    }
-
-    return friends;
-  }
-
   // Business logic of Posting (adding) new profile. Do not add if email already in use.
   public void addNewProfile(Profile profile) {
     Optional<Profile> profileOptional = profileRepository

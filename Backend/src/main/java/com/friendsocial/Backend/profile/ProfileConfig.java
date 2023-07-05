@@ -73,28 +73,28 @@ public class ProfileConfig {
       Optional<Profile> profileOptional = profileRepository.findById(profileId);
       Profile p = profileOptional.orElseThrow(() -> new RuntimeException("Profile not found"));
       Post connorsFirst = new Post(
-              p,
+              profileId,
               "Text",
               "This is my first post.",
               Instant.now(),
               ""
       );
       Post connorsSecond = new Post(
-              p,
+              profileId,
               "Text",
               "This is my first post.",
               Instant.now(),
               ""
       );
       Post alexFirst = new Post(
-              p,
+              profileId,
               "Text",
               "Ayo I am Alex.",
               Instant.now(),
               ""
       );
       Post alexSecond = new Post(
-              p,
+              profileId,
               "Image",
               "This is a selfie of me, Alex.",
               Instant.now(),
@@ -124,13 +124,13 @@ public class ProfileConfig {
       Profile f = profileOptional2.orElseThrow(() -> new RuntimeException("Profile not found"));
       Profile f2 = profileOptional3.orElseThrow(() -> new RuntimeException("Profile not found"));
       Friend connorfriend = new Friend(
-              p,
-              f,
+              1L,
+              2L,
               LocalDate.now()
       );
       Friend connorfriend2 = new Friend(
-              p,
-              f2,
+              1L,
+              3L,
               LocalDate.now()
       );
 

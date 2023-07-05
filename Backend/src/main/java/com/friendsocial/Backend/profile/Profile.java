@@ -19,7 +19,6 @@ import java.util.Set;
 @Table(name="profiles")
 public class Profile {
   // Defines the primary key
-
   @Id
   @Column(name = "profile_id")
   @SequenceGenerator(
@@ -70,9 +69,8 @@ public class Profile {
   @JoinTable(name = "profile_friends",
           joinColumns = @JoinColumn(name = "profile_id"),
           inverseJoinColumns = @JoinColumn(name = "friend_id"))
-
   @JsonIgnore
-  private Set<Friend> friends;
+  private Set<Profile> friends;
 
 
   ///////////////////
@@ -217,24 +215,25 @@ public class Profile {
 
   public void addPost(Post post) {
     posts.add(post);
-    post.setProfile(this);
+    post.setProfileId(post.getProfileId());
   }
 
-  public Set<Friend> getFriends() {
-    return friends;
-  }
-
-  public void setFriends(Set<Friend> friends) {
-    this.friends = friends;
-  }
-
-  public void addFriend(Friend friend) {
-    friends.add(friend);
-  }
-
-  public void removeFriend(Friend friend) {
-    friends.remove(friend);
-  }
+//  public Set<Friend> getFriends() {
+//    return friends;
+//  }
+//
+//  public void setFriends(Set<Profile> friends) {
+//    this.friends = friends;
+//  }
+//
+//  public void addFriend(Friend friend) {
+//    friends.add(friend);
+//    friend.setFriendId();
+//  }
+//
+//  public void removeFriend(Friend friend) {
+//    friends.remove(friend);
+//  }
 
   /////////////////
   /// To String ///
