@@ -25,6 +25,14 @@ public class FriendService {
     return friendRepository.findAll();
   }
 
+  // Business logic of getting all friendships that are associated with an profile
+  public List<Friend> getFriendsOfProfileById(Long profileId) {
+    List<Friend> friendList = friendRepository.findFriendsOfProfileId(profileId);
+    if (friendList.isEmpty()){
+      throw new IllegalArgumentException("No friendships found");
+    }
+    return friendList;
+  }
 
   // Business logic of Posting (adding) new profile. Do not add if email already in use.
   public void addNewFriend(Long profileId, Long friendId, Friend friendRequest) {
@@ -36,12 +44,13 @@ public class FriendService {
       throw new IllegalArgumentException("Friendship not found");
     }
 
-    Profile profile = profileOptional.get();
+    // Will be needed to associate this friendship with the profile
     Profile friend = friendOptional.get();
     // add foreign keys, otherwise they will return null
     friendRequest.setProfileId(profileId);
     friendRequest.setFriendId(friendId);
-    friend.addFriend(friendRequest); // Associate post with profile
+    // Associate friendship with profile
+    friend.addFriend(friendRequest);
     friendRepository.save(friendRequest);
   }
 

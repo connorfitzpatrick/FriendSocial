@@ -3,6 +3,7 @@ package com.friendsocial.Backend.post;
 // SERVICE LAYER
 //   - Handles business logic
 
+import com.friendsocial.Backend.friend.Friend;
 import com.friendsocial.Backend.profile.Profile;
 import com.friendsocial.Backend.profile.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,15 @@ public class PostService {
   // Business logic of getting all profiles. Just get them all.
   public List<Post> getPosts() {
     return postRepository.findAll();
+  }
+
+  // Business logic of getting all friendships that are associated with an profile
+  public List<Post> getPostsOfProfileById(Long profileId) {
+    List<Post> postList = postRepository.findPostsOfProfileId(profileId);
+    if (postList.isEmpty()){
+      throw new IllegalArgumentException("No friendships found");
+    }
+    return postList;
   }
 
   // Business logic of Posting (adding) new profile

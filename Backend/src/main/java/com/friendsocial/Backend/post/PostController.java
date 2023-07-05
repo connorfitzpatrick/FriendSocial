@@ -1,5 +1,6 @@
 package com.friendsocial.Backend.post;
 
+import com.friendsocial.Backend.friend.Friend;
 import com.friendsocial.Backend.profile.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,11 @@ public class PostController {
   @GetMapping
   public List<Post> getPosts() {
     return postService.getPosts();
+  }
+
+  @GetMapping(path = "{profileId}")
+  public List<Post> getFriends(@PathVariable("profileId") Long id) {
+    return postService.getPostsOfProfileById(id);
   }
 
   // POST (ADD) A Post
