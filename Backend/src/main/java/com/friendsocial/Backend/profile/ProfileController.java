@@ -1,10 +1,16 @@
 package com.friendsocial.Backend.profile;
 
-import jakarta.annotation.Resource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 // This will have all of the resources for the API
@@ -42,12 +48,29 @@ public class ProfileController {
   public Profile getOneProfileById(@PathVariable("profileId") Long id) {
     return profileService.getProfileById(id);
   }
-  /*
-  // GetProfilePicById
-  @GetMapping(path = "{profileId}/profile_pic")
-  public ResponseEntity<Resource> getProfilePic(@PathVariable Long profileId) {
-    String imagePath = profileService.getProfileImagePath(profileId);
-  } */
+
+//  // GetProfilePicById
+//  @GetMapping(path = "{profileId}/profile_pic")
+//  public ResponseEntity<Resource> getProfilePic(@PathVariable Long id) {
+//    String imagePath = profileService.getProfilePicPathById(id);
+//    Resource imageResource = profileService.loadProfilePic(imagePath);
+//    if (imageResource != null && imageResource.exists()) {
+//      // Set the appropriate headers for the image response
+//      System.out.println("IMAGE FOUND!");
+//      HttpHeaders headers = new HttpHeaders();
+//      headers.setContentType(MediaType.IMAGE_JPEG);
+//      try {
+//        // Read the image data from the resource and return it in the response
+//        InputStream inputStream = imageResource.getInputStream();
+//        return new ResponseEntity<>(new InputStreamResource(inputStream), headers, HttpStatus.OK);
+//      } catch (IOException e) {
+//        // Handle the error if image data cannot be read
+//        e.printStackTrace();
+//      }
+//    }
+//    // Return an error response if the image is not found
+//    return ResponseEntity.notFound().build();
+//  }
 
   // POST (ADD) A PROFILE
   // @RequestBody because we are taking the profile that comes from the client. Take request and map to profile

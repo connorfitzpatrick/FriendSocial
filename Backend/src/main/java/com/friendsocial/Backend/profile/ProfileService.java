@@ -3,8 +3,12 @@ package com.friendsocial.Backend.profile;
 import com.friendsocial.Backend.friend.Friend;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +41,25 @@ public class ProfileService {
     }
     return profileOptional.get();
   }
+
+//  public String getProfilePicPathById(Long id) {
+//    Optional<Profile> profileOptional = profileRepository.findById(id);
+//    if (!profileOptional.isPresent()) {
+//      throw new IllegalStateException("Profile is not in database");
+//    }
+//    return profileOptional.get().getProfilePic();
+//  }
+//
+//  public Resource loadProfilePic(String imagePath) {
+//    try {
+//      Path path = Paths.get(imagePath);
+//      Resource imageResource = new FileSystemResource(path);
+//      return imageResource;
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+//    return null;
+//  }
 
   // Business logic of Posting (adding) new profile. Do not add if email already in use.
   public void addNewProfile(Profile profile) {

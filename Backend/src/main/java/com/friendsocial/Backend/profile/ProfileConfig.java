@@ -28,7 +28,7 @@ public class ProfileConfig {
               LocalDate.of(1999, 4, 29),
               "Connor",
               "Fitzpatrick",
-              "./HERE.png",
+              "https://media.licdn.com/dms/image/C4D03AQFKSde3VPK…eta&t=Ozxm103s9GfqgBO6DVOTnC6yXmOvubfo7eHvUPtcWjs",
               "MY APP",
               LocalDateTime.now()
       );
@@ -39,7 +39,7 @@ public class ProfileConfig {
               LocalDate.of(2000, 12, 25),
               "Alex",
               "Rodriguez",
-              "../images/profile_pics/alex_profile.jpeg",
+              "./images/profile_pics/alex_profile.jpeg",
               "I Alex",
               LocalDateTime.now()
       );
@@ -50,8 +50,8 @@ public class ProfileConfig {
               LocalDate.of(1995, 06, 20),
               "Kieran",
               "Thomas",
-              "./infolder.png",
-              "Dummy date account",
+              "../../../../../images/profile_pics/kieran_profile.jpeg",
+              "Dummy data account",
               LocalDateTime.now()
       );
 
