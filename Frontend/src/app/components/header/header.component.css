@@ -1,5 +1,6 @@
 header {
     border-radius: 1px solid;
+
 }
 
 .reddit-icon-svg {
@@ -60,4 +61,9 @@ header {
 
 .sign-up:hover {
     opacity: 0.6;
+}
+
+header {
+    position: relative;
+    z-index: 1;
 }

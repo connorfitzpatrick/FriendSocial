@@ -1,0 +1,45 @@
+.body-container {
+    display: flex;
+}
+  
+  
+
+.btn-primary {
+    position: relative;
+    z-index: 2;
+  }
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    }
+  
+  main {
+    position: relative;
+    padding-top: 50px; /* Adjust the padding top value to create space for the header */
+}
+
+.button-container {
+    position: absolute;
+    top: 100%; /* Adjust the top value to position the button below the header */
+    left: 0;
+    width: 100%;
+    padding: 20px 0; /* Adjust the padding as needed */
+}
+
+.btn-primary {
+    margin: 0 auto; /* Center the button horizontally within its container */
+}
+
+.blue-div {
+    flex: 1;
+    background-color: lightblue;
+  }
+  
+.container {
+    display: flex;
+}
+  
