@@ -82,24 +82,46 @@ public class ProfileConfig {
       Post connorsSecond = new Post(
               profileId,
               "Text",
-              "This is my first post.",
+              "This is my second post.",
               Instant.now(),
               ""
       );
       Post alexFirst = new Post(
               profileId,
               "Text",
-              "Ayo I am Alex.",
+              "Ayo I am Connor.",
               Instant.now(),
               ""
       );
       Post alexSecond = new Post(
               profileId,
               "Image",
-              "This is a selfie of me, Alex.",
+              "This is a selfie of me, Connor.",
               Instant.now(),
               "../imageStore/image3"
       );
+      Post connorsThird = new Post(
+              profileId,
+              "Text",
+              "This is my second post.",
+              Instant.now(),
+              ""
+      );
+      Post connorsFourth = new Post(
+              profileId,
+              "Text",
+              "Ayo I am Connor.",
+              Instant.now(),
+              ""
+      );
+      Post connorsFifth = new Post(
+              profileId,
+              "Image",
+              "This is a selfie of me, Connor.",
+              Instant.now(),
+              "../imageStore/image3"
+      );
+
 
       drepository.saveAll(
               List.of(connorsFirst, connorsSecond, alexFirst, alexSecond)
