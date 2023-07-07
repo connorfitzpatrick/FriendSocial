@@ -25,8 +25,8 @@ public class PostService {
   }
 
   // Business logic of getting all profiles. Just get them all.
-  public List<Post> getPosts() {
-    return postRepository.findAll();
+  public List<Object[]> getPosts() {
+    return postRepository.findPostsAndProfileInfo();
   }
 
   // Business logic of getting all friendships that are associated with an profile

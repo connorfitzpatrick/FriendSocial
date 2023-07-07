@@ -33,7 +33,7 @@ public class PostController {
   // GET ALL POSTS
   // Get mapping because we want to get something out from our server
   @GetMapping
-  public List<Post> getPosts() {
+  public List<Object[]> getPosts() {
     return postService.getPosts();
   }
 

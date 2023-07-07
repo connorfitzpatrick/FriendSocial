@@ -1,6 +1,8 @@
 package com.friendsocial.Backend.profile;
 
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,6 +42,12 @@ public class ProfileController {
   public Profile getOneProfileById(@PathVariable("profileId") Long id) {
     return profileService.getProfileById(id);
   }
+  /*
+  // GetProfilePicById
+  @GetMapping(path = "{profileId}/profile_pic")
+  public ResponseEntity<Resource> getProfilePic(@PathVariable Long profileId) {
+    String imagePath = profileService.getProfileImagePath(profileId);
+  } */
 
   // POST (ADD) A PROFILE
   // @RequestBody because we are taking the profile that comes from the client. Take request and map to profile

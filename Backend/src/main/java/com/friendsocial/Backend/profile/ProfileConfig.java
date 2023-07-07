@@ -33,13 +33,13 @@ public class ProfileConfig {
               LocalDateTime.now()
       );
       Profile alex = new Profile(
-              "alex@gmail.com",
-              "alex3",
+              "alexrodriguez@gmail.com",
+              "arod",
               "aerkg",
               LocalDate.of(2000, 12, 25),
               "Alex",
-              "Apple",
-              "./HERE.png",
+              "Rodriguez",
+              "../images/profile_pics/alex_profile.jpeg",
               "I Alex",
               LocalDateTime.now()
       );
@@ -49,7 +49,7 @@ public class ProfileConfig {
               "bbbbbbb",
               LocalDate.of(1995, 06, 20),
               "Kieran",
-              "Clinm",
+              "Thomas",
               "./infolder.png",
               "Dummy date account",
               LocalDateTime.now()
@@ -87,14 +87,14 @@ public class ProfileConfig {
               ""
       );
       Post alexFirst = new Post(
-              profileId,
+              2L,
               "Text",
-              "Ayo I am Connor.",
+              "Ayo I am Alex.",
               Instant.now(),
               ""
       );
       Post alexSecond = new Post(
-              profileId,
+              3L,
               "Image",
               "This is a selfie of me, Connor.",
               Instant.now(),
@@ -103,28 +103,30 @@ public class ProfileConfig {
       Post connorsThird = new Post(
               profileId,
               "Text",
-              "This is my second post.",
+              "This is long post to check and see how the information I put down is formatted within the Angular component. I hope" +
+                      "that this looks okay! If it doesn't I'll be up all night. figure out how to send pictures next " +
+                      "as well as figure out image-post-components.",
               Instant.now(),
               ""
       );
       Post connorsFourth = new Post(
-              profileId,
+              3L,
               "Text",
-              "Ayo I am Connor.",
+              "I'm hungry.",
               Instant.now(),
               ""
       );
       Post connorsFifth = new Post(
-              profileId,
+              2L,
               "Image",
-              "This is a selfie of me, Connor.",
+              "Just more test data.",
               Instant.now(),
               "../imageStore/image3"
       );
 
 
       drepository.saveAll(
-              List.of(connorsFirst, connorsSecond, alexFirst, alexSecond)
+              List.of(connorsFirst, connorsSecond, alexFirst, alexSecond, connorsThird, connorsFourth, connorsFifth)
       );
     };
   }
