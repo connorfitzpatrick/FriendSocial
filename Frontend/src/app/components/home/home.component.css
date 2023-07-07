@@ -1,9 +1,8 @@
 .body-container {
     display: flex;
+    flex: 1;
 }
   
-  
-
 .btn-primary {
     position: relative;
     z-index: 2;
@@ -20,26 +19,13 @@ header {
   main {
     position: relative;
     padding-top: 50px; /* Adjust the padding top value to create space for the header */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-.button-container {
-    position: absolute;
-    top: 100%; /* Adjust the top value to position the button below the header */
-    left: 0;
-    width: 100%;
-    padding: 20px 0; /* Adjust the padding as needed */
-}
-
-.btn-primary {
-    margin: 0 auto; /* Center the button horizontally within its container */
-}
-
-.blue-div {
+.content-container {
     flex: 1;
     background-color: lightblue;
-  }
-  
-.container {
-    display: flex;
+    min-height: calc(100vh - 50px); /* Subtract the height of the header */
 }
-  

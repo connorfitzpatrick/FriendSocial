@@ -1,33 +1,12 @@
 .sidemenu {
     position: fixed;
-    top: 50px; /* Adjust the top value to match the height of the header */
+    top: 50px;
     left: 0;
     width: 280px;
-    height: calc(100vh - 50px); /* Subtract the height of the header */
+    height: calc(100vh - 50px);
     z-index: 1;
     background-color: #f1f1f1;
     display: flex;
     flex-direction: column;
-
-}
-
-.sidebar-container {
-    display: flex;
-    min-height: calc(100vh - 50px); /* Subtract the height of the header */
-    margin-top: 50px; /* Adjust the margin top value to create space below the header */
-      /* margin-top: 50px; Adjust the margin top value to create space below the header */
 }
   
-.dropdown-container {
-    flex: 1;
-    background-color: #f1f1f1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    
-}
-  
-.dropdown {
-    padding: 10px;
-    background-color: #f1f1f1;
-  }
