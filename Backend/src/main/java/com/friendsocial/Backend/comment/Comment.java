@@ -14,14 +14,14 @@ public class Comment {
   @Column(name = "comment_id")
   @SequenceGenerator(
           // generated sequence name
-          name = "posts_sequence",
+          name = "comments_sequence",
           // database's sequence name
-          sequenceName = "posts_sequence",
+          sequenceName = "comments_sequence",
           allocationSize = 1
   )
   @GeneratedValue(
           strategy = GenerationType.IDENTITY,
-          generator = "posts_sequence"
+          generator = "comments_sequence"
   )
   private Long id;
 
@@ -138,9 +138,7 @@ public class Comment {
     return "Comment{" +
             "id=" + id +
             ", profileId=" + profileId +
-            ", profile=" + profile +
             ", postId=" + postId +
-            ", post=" + post +
             ", content='" + content + '\'' +
             ", timestamp=" + timestamp +
             '}';

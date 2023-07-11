@@ -1,5 +1,7 @@
 package com.friendsocial.Backend.profile;
 
+import com.friendsocial.Backend.comment.Comment;
+import com.friendsocial.Backend.comment.CommentRepository;
 import com.friendsocial.Backend.friend.Friend;
 import com.friendsocial.Backend.friend.FriendRepository;
 import com.friendsocial.Backend.post.Post;
@@ -160,6 +162,32 @@ public class ProfileConfig {
 
       frepository.saveAll(
               List.of(connorfriend, connorfriend2)
+      );
+    };
+  }
+
+  @Autowired
+  private CommentRepository cRepository;
+
+  @Bean
+  CommandLineRunner commandLineRunner3(
+          CommentRepository crepository) {
+    return args -> {
+      Comment comment1 = new Comment(
+              2L,
+              1L,
+              "This is a comment",
+              Instant.now()
+      );
+      Comment comment2 = new Comment(
+              3L,
+              1L,
+              "This is another comment",
+              Instant.now()
+      );
+
+      crepository.saveAll(
+              List.of(comment1, comment2)
       );
     };
   }

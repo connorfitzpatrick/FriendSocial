@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-  @Query("SELECT p, pr.username, pr.firstName, pr.lastName, pr.profilePic FROM Post p JOIN p.profile pr")
-  List<Comment[]> findPost();
+  @Query("SELECT c, pr.username, pr.id, po.id FROM Comment c JOIN c.profile pr JOIN c.post po")
+  List<Comment> findCommentsAndPostProfileInfo();
 
-  @Query("SELECT p FROM Post p WHERE p.profileId = ?1")
+  @Query("SELECT c FROM Comment c WHERE c.postId = ?1")
   List<Comment> findCommentsOfPostId(Long id);
 }

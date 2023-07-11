@@ -25,7 +25,7 @@ public class CommentService {
 
   // Business logic of getting all comments. Just get them all.
   public List<Comment> getComments() {
-    return commentRepository.findAll();
+    return commentRepository.findCommentsAndPostProfileInfo();
   }
 
   // Business logic of getting all friendships that are associated with an profile
