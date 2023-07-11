@@ -1,9 +1,12 @@
 package com.friendsocial.Backend.post;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.friendsocial.Backend.comment.Comment;
 import com.friendsocial.Backend.profile.Profile;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.Set;
 
 // Map Profile class to database (for hibernate). Entity represents a table. An instance of an entity
 // represents a row in the table.
@@ -46,6 +49,10 @@ public class Post {
 
   @Column(name = "image_url")
   private String imageUrl;
+
+  @OneToMany(mappedBy = "post")
+  @JsonIgnore
+  private Set<Comment> comments;
 
   ///////////////////
   /// Contructors ///
@@ -135,6 +142,19 @@ public class Post {
   public void setImageUrl(String imageUrl) {
     this.imageUrl = imageUrl;
   }
+
+  public Set<Comment> getComments() {
+    return this.comments;
+  }
+
+  public void setComments(Set<Comment> comments) {
+    this.comments = comments;
+  }
+
+  public void addComment(Comment comment) {
+    comments.add(comment);
+  }
+
 
   /////////////////
   /// To String ///

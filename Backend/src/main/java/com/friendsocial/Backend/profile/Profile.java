@@ -1,6 +1,7 @@
 package com.friendsocial.Backend.profile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.friendsocial.Backend.comment.Comment;
 import com.friendsocial.Backend.friend.Friend;
 import com.friendsocial.Backend.post.Post;
 import jakarta.persistence.*;
@@ -64,6 +65,10 @@ public class Profile {
   @OneToMany(mappedBy = "profile")
   @JsonIgnore
   private Set<Post> posts;
+
+  @OneToMany(mappedBy = "profile")
+  @JsonIgnore
+  private Set<Comment> comments;
 
   @ManyToMany
   @JoinTable(name = "profile_friends",
@@ -227,6 +232,18 @@ public class Profile {
 //
   public void addFriend(Friend friend) {
     friends.add(friend);
+  }
+
+  public Set<Comment> getComments() {
+    return this.comments;
+  }
+
+  public void setComments(Set<Comment> comments) {
+    this.comments = comments;
+  }
+
+  public void addComment(Comment comment) {
+    comments.add(comment);
   }
 //
 //  public void removeFriend(Friend friend) {

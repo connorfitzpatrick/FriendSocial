@@ -8,7 +8,7 @@
 
 .post-content {
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* Align items at the top */
   padding: 16px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -22,6 +22,11 @@
   height: 40px;
   border-radius: 50%;
   margin-right: 12px;
+  flex-shrink: 0; /* Prevent the image from shrinking */
+}
+
+.post-details {
+  flex-grow: 1; /* Allow the details to take up remaining space */
 }
 
 .username {
@@ -32,6 +37,9 @@
 
 .post-text {
   margin: 8px 0;
+  overflow-wrap: break-word; /* Break long content into multiple lines */
+  word-break: break-word; /* Break long words */
+  hyphens: auto; /* Enable hyphenation */
 }
 
 .timestamp {
