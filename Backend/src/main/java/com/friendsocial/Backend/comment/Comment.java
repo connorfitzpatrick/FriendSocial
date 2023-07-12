@@ -93,28 +93,12 @@ public class Comment {
     this.profileId = profileId;
   }
 
-  public Profile getProfile() {
-    return profile;
-  }
-
-  public void setProfile(Profile profile) {
-    this.profile = profile;
-  }
-
   public Long getPostId() {
     return postId;
   }
 
   public void setPostId(Long postId) {
     this.postId = postId;
-  }
-
-  public Post getPost() {
-    return post;
-  }
-
-  public void setPost(Post post) {
-    this.post = post;
   }
 
   public String getContent() {

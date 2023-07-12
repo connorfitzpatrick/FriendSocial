@@ -1,12 +1,10 @@
 package com.friendsocial.Backend.comment;
 
+import com.friendsocial.Backend.post.Post;
 import com.friendsocial.Backend.post.PostRepository;
 import com.friendsocial.Backend.profile.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,8 +32,18 @@ public class CommentController {
   }
 
   @GetMapping(path = "{postId}")
-  public List<Comment> getCommentsByPost(@PathVariable("postId") Long id) {
+  public List<Object[]> getCommentsByPost(@PathVariable("postId") Long id) {
     return commentService.getCommentsOfPostById(id);
+  }
+
+  @PostMapping(path = "{profileId}/{postId}")
+  public void createComment(@PathVariable("profileId") Long profileId, @PathVariable("postId") Long postId, @RequestBody Comment commentRequest) {
+    commentService.addNewComment(profileId, postId, commentRequest);
+  }
+
+  @DeleteMapping(path = "{commentId}")
+  public void deleteComment(@PathVariable("commentId") Long commentId, @PathVariable("profileId") Long profileId) {
+    commentService.deleteComment(commentId);
   }
 
 }

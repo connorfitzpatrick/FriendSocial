@@ -1,0 +1,13 @@
+.comment-row {
+    margin-bottom: 10px; /* Adjust the margin bottom as per your preference */
+  }
+  
+  .comment-row p {
+    margin: 0;
+    padding: 5px 0; /* Adjust the padding as per your preference */
+  }
+  
+  .comment-row .see-all-comments {
+    margin-top: 5px; /* Adjust the margin top as per your preference */
+  }
+  

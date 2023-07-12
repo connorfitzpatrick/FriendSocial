@@ -1,6 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { CommentsService } from '../../services/CommentsService';
+import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -8,33 +11,24 @@ import { DatePipe } from '@angular/common';
   templateUrl: './blog-post.component.html',
   styleUrls: ['./blog-post.component.css']
 })
-export class BlogPostComponent {
+export class BlogPostComponent implements OnInit {
+  postId!: number;
   @Input() post: any;
+  @Input() comments: any[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private commentService: CommentsService, private route: ActivatedRoute) {}
 
-  /*
-  ngOnInit() {
-    this.getProfilePicture();
+  // ngOnInit is called after the component has been initialized and its Input has been bound
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      console.log(params);
+      this.postId = this.post[0].id; // Get the postId from route params and convert it to a number
+      console.log(this.postId);
+      // Fetch the post data based on the postId
+      this.commentService.getComments(this.postId).subscribe(comments => {
+        this.comments = comments;
+      });
+      console.log(this.comments);
+    });
   }
-
-  
-  getProfilePicture() {
-    const profilePictureUrl = `http://localhost:8080/api/v1/profiles/${this.post[0].profileId}/picture`;
-    this.http.get(profilePictureUrl, { responseType: 'blob' }).subscribe(
-      (data: any) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const base64data = reader.result as string;
-          this.post.profilePicture = base64data;
-        }
-        reader.readAsDataURL(data);
-      },
-      (error) => {
-        console.log('Error retrieving profile picture:', error);
-      }
-    );
-  }
-  */
-
 }

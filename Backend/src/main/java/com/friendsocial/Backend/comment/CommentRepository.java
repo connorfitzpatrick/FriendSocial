@@ -10,6 +10,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
   @Query("SELECT c, pr.username, pr.id, po.id FROM Comment c JOIN c.profile pr JOIN c.post po")
   List<Comment> findCommentsAndPostProfileInfo();
 
-  @Query("SELECT c FROM Comment c WHERE c.postId = ?1")
-  List<Comment> findCommentsOfPostId(Long id);
+  @Query("SELECT c as comment, pr.username as username, pr.id as profileId, po.id as postId FROM Comment c JOIN c.profile pr JOIN c.post po WHERE c.postId = ?1")
+  List<Object[]> findCommentsOfPostId(Long id);
 }

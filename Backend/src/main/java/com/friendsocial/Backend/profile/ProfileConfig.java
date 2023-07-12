@@ -185,9 +185,27 @@ public class ProfileConfig {
               "This is another comment",
               Instant.now()
       );
+      Comment comment3 = new Comment(
+              1L,
+              3L,
+              "This is the third comment",
+              Instant.now()
+      );
+      Comment comment4 = new Comment(
+              1L,
+              1L,
+              "Too many Comments!",
+              Instant.now()
+      );
+      Comment comment5 = new Comment(
+              2L,
+              4L,
+              "Weird post bro",
+              Instant.now()
+      );
 
       crepository.saveAll(
-              List.of(comment1, comment2)
+              List.of(comment1, comment2, comment3, comment4, comment5)
       );
     };
   }

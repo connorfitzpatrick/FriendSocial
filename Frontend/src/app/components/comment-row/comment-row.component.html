@@ -1,0 +1,5 @@
+<div class="comment-row">
+    <p *ngFor="let comment of comments.slice(0, showAllComments ? comments.length : threshold)">@{{ comment[1] }}: {{ comment[0].content }}</p>
+    <a *ngIf="!showAllComments && comments.length > threshold" (click)="toggleComments()" class="see-all-comments">See all comments</a>
+  </div>
+  

@@ -10,6 +10,7 @@ import { HomeComponent } from './components/home/home.component';
 import { SidemenuComponent } from './components/sidemenu/sidemenu.component';
 import { BlogPostComponent } from './components/blog-post/blog-post.component';
 import { FeedComponent } from './components/feed/feed.component';
+import { CommentRowComponent } from './components/comment-row/comment-row.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FeedComponent } from './components/feed/feed.component';
     HomeComponent,
     SidemenuComponent,
     BlogPostComponent,
-    FeedComponent
+    FeedComponent,
+    CommentRowComponent
   ],
   imports: [
     BrowserModule,

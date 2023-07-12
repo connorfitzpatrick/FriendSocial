@@ -8,6 +8,10 @@
         <h4 class="bio">{{ post[0].content }}</h4>
         <br>
         <button class="like-button btn btn-primary">Like</button>
+        <div class="comments-section">
+          <h5>Comments:</h5>
+          <app-comment-row [comments]="comments"></app-comment-row>
+        </div>
         <p class="timestamp">Posted on July 10, 2023</p>
       </div>
     </div>
