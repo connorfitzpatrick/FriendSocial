@@ -1,11 +1,15 @@
 package com.friendsocial.Backend.like;
 
+import com.friendsocial.Backend.comment.Comment;
+import com.friendsocial.Backend.post.Post;
 import com.friendsocial.Backend.post.PostRepository;
+import com.friendsocial.Backend.profile.Profile;
 import com.friendsocial.Backend.profile.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LikeService {
@@ -34,5 +38,25 @@ public class LikeService {
       throw new IllegalArgumentException("No comments found");
     }
     return likeList;
+  }
+
+  // Business logic of Posting (adding) new Like
+  public void addNewLike(Long profileId, Long postId, Like likeRequest) {
+    Optional<Post> postOptional = postRepository.findById(postId);
+    Optional<Profile> profileOptional = profileRepository.findById(profileId);
+    // Add to like table
+    if (postOptional.isEmpty() || profileOptional.isEmpty()) {
+      // Handle case when profile is not found
+      throw new IllegalArgumentException("Post or Profile not found");
+    }
+
+    Post post = postOptional.get();
+    Profile profile = profileOptional.get();;
+    // Otherwise foreign key will be null
+    likeRequest.setProfileId(profileId);
+    likeRequest.setPostId(postId);
+    post.addLike(likeRequest); // Associate comment with post
+    profile.addLike(likeRequest); // Associate comment with profile
+    likeRepository.save(likeRequest);
   }
 }

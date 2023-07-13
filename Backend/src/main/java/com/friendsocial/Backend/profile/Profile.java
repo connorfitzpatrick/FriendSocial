@@ -78,7 +78,7 @@ public class Profile {
   @JsonIgnore
   private Set<Friend> friends;
 
-  @OneToMany(mappedBy = "post")
+  @OneToMany(mappedBy = "profile")
   @JsonIgnore
   private Set<Like> likes;
 
