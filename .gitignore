@@ -30,3 +30,4 @@ replay_pid*
 .idea
 
 images/
+node_modules/
