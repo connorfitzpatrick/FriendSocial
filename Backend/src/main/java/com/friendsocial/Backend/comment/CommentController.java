@@ -1,6 +1,5 @@
 package com.friendsocial.Backend.comment;
 
-import com.friendsocial.Backend.post.Post;
 import com.friendsocial.Backend.post.PostRepository;
 import com.friendsocial.Backend.profile.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +23,14 @@ public class CommentController {
     this.commentService = commentService;
   }
 
-  // GET ALL POSTS
+  // GET ALL COMMENTS
   // Get mapping because we want to get something out from our server
   @GetMapping
   public List<Comment> getComments() {
     return commentService.getComments();
   }
 
+  // GET LIKES OF A POST BY POST ID
   @GetMapping(path = "{postId}")
   public List<Object[]> getCommentsByPost(@PathVariable("postId") Long id) {
     return commentService.getCommentsOfPostById(id);
