@@ -4,6 +4,8 @@ import com.friendsocial.Backend.comment.Comment;
 import com.friendsocial.Backend.comment.CommentRepository;
 import com.friendsocial.Backend.friend.Friend;
 import com.friendsocial.Backend.friend.FriendRepository;
+import com.friendsocial.Backend.like.Like;
+import com.friendsocial.Backend.like.LikeRepository;
 import com.friendsocial.Backend.post.Post;
 import com.friendsocial.Backend.post.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -287,6 +289,62 @@ public class ProfileConfig {
                       comment14,
                       comment15,
                       comment16
+              )
+      );
+    };
+  }
+
+  @Autowired
+  private LikeRepository lRepository;
+
+  @Bean
+  CommandLineRunner commandLineRunner4(
+          LikeRepository lrepository) {
+    return args -> {
+      Like like1 = new Like(
+              2L,
+              1L,
+              Instant.now()
+      );
+      Like like2 = new Like(
+              3L,
+              1L,
+              Instant.now()
+      );
+      Like like3 = new Like(
+              1L,
+              2L,
+              Instant.now()
+      );
+      Like like4 = new Like(
+              2L,
+              2L,
+              Instant.now()
+      );
+      Like like5 = new Like(
+              3L,
+              2L,
+              Instant.now()
+      );
+      Like like6 = new Like(
+              1L,
+              3L,
+              Instant.now()
+      );
+      Like like7 = new Like(
+              1L,
+              4L,
+              Instant.now()
+      );
+
+      lrepository.saveAll(
+              List.of(like1,
+                      like2,
+                      like3,
+                      like4,
+                      like5,
+                      like6,
+                      like7
               )
       );
     };
