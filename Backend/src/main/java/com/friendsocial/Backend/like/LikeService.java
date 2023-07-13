@@ -59,4 +59,16 @@ public class LikeService {
     profile.addLike(likeRequest); // Associate comment with profile
     likeRepository.save(likeRequest);
   }
+
+  // Business logic of deleting a like. Check if it exists first.
+  public void deleteLike(Long likeId) {
+    boolean exists = likeRepository.existsById(likeId);
+    if (!exists) {
+      throw new IllegalStateException(
+              "Like with id " + likeId + " does not exist"
+      );
+    }
+    // Check if profile trying to delete is original poster or commenter
+    likeRepository.deleteById(likeId);
+  }
 }
