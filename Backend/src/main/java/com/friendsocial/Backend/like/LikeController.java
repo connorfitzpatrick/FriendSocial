@@ -39,4 +39,10 @@ public class LikeController {
   public void createLike(@PathVariable("profileId") Long profileId, @PathVariable("postId") Long postId, @RequestBody Like likeRequest) {
     likeService.addNewLike(profileId, postId, likeRequest);
   }
+
+  @DeleteMapping(path = "{likeId}")
+  public void deleteLike(@PathVariable("likeId") Long likeId) {
+    likeService.deleteLike(likeId);
+  }
+
 }

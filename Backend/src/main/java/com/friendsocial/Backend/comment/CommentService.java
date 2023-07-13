@@ -59,7 +59,7 @@ public class CommentService {
     commentRepository.save(commentRequest);
   }
 
-  // Business logic of deleting a profile. Check if it exists first.
+  // Business logic of deleting a comment. Check if it exists first.
   public void deleteComment(Long commentId) {
     boolean exists = commentRepository.existsById(commentId);
     if (!exists) {
