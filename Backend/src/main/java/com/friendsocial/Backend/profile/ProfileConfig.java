@@ -203,9 +203,91 @@ public class ProfileConfig {
               "Weird post bro",
               Instant.now()
       );
+      Comment comment6 = new Comment(
+              1L,
+              1L,
+              "This is the Fourth comment",
+              Instant.now()
+      );
+      Comment comment7 = new Comment(
+              1L,
+              1L,
+              "This is the Fifth comment",
+              Instant.now()
+      );
+      Comment comment8 = new Comment(
+              1L,
+              1L,
+              "This is the Sixth comment",
+              Instant.now()
+      );
+      Comment comment9 = new Comment(
+              1L,
+              1L,
+              "This is the Seventh comment",
+              Instant.now()
+      );
+      Comment comment10 = new Comment(
+              3L,
+              1L,
+              "This is the Eighth comment",
+              Instant.now()
+      );
+      Comment comment11 = new Comment(
+              2L,
+              1L,
+              "This is the Ninth comment",
+              Instant.now()
+      );
+      Comment comment12 = new Comment(
+              1L,
+              1L,
+              "This is the Tenth comment",
+              Instant.now()
+      );
+      Comment comment13 = new Comment(
+              1L,
+              1L,
+              "This is the Eleventh comment",
+              Instant.now()
+      );
+      Comment comment14 = new Comment(
+              3L,
+              1L,
+              "This is the Twelvth comment",
+              Instant.now()
+      );
+      Comment comment15 = new Comment(
+              2L,
+              1L,
+              "This is the Thirtheenth comment",
+              Instant.now()
+      );
+      Comment comment16 = new Comment(
+              1L,
+              1L,
+              "This is the Fourtheenth comment",
+              Instant.now()
+      );
 
       crepository.saveAll(
-              List.of(comment1, comment2, comment3, comment4, comment5)
+              List.of(comment1,
+                      comment2,
+                      comment3,
+                      comment4,
+                      comment5,
+                      comment6,
+                      comment7,
+                      comment8,
+                      comment9,
+                      comment10,
+                      comment11,
+                      comment12,
+                      comment13,
+                      comment14,
+                      comment15,
+                      comment16
+              )
       );
     };
   }
