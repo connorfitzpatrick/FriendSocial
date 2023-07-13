@@ -3,6 +3,7 @@ package com.friendsocial.Backend.profile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.friendsocial.Backend.comment.Comment;
 import com.friendsocial.Backend.friend.Friend;
+import com.friendsocial.Backend.like.Like;
 import com.friendsocial.Backend.post.Post;
 import jakarta.persistence.*;
 
@@ -76,6 +77,10 @@ public class Profile {
           inverseJoinColumns = @JoinColumn(name = "friend_id"))
   @JsonIgnore
   private Set<Friend> friends;
+
+  @OneToMany(mappedBy = "post")
+  @JsonIgnore
+  private Set<Like> likes;
 
 
   ///////////////////
@@ -244,6 +249,18 @@ public class Profile {
 
   public void addComment(Comment comment) {
     comments.add(comment);
+  }
+
+  public Set<Like> getLikes() {
+    return this.likes;
+  }
+
+  public void setLikes(Set<Like> comments) {
+    this.likes = likes;
+  }
+
+  public void addLike(Like like) {
+    likes.add(like);
   }
 //
 //  public void removeFriend(Friend friend) {

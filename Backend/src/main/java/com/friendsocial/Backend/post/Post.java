@@ -2,6 +2,7 @@ package com.friendsocial.Backend.post;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.friendsocial.Backend.comment.Comment;
+import com.friendsocial.Backend.like.Like;
 import com.friendsocial.Backend.profile.Profile;
 import jakarta.persistence.*;
 
@@ -53,6 +54,10 @@ public class Post {
   @OneToMany(mappedBy = "post")
   @JsonIgnore
   private Set<Comment> comments;
+
+  @OneToMany(mappedBy = "post")
+  @JsonIgnore
+  private Set<Like> likes;
 
   ///////////////////
   /// Contructors ///
@@ -153,6 +158,18 @@ public class Post {
 
   public void addComment(Comment comment) {
     comments.add(comment);
+  }
+
+  public Set<Like> getLikes() {
+    return this.likes;
+  }
+
+  public void setLikes(Set<Like> comments) {
+    this.likes = likes;
+  }
+
+  public void addLike(Like like) {
+    likes.add(like);
   }
 
 
