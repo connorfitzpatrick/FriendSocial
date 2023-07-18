@@ -1,4 +1,4 @@
-package com.friendsocial.Backend.profile;
+package com.friendsocial.Backend.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.friendsocial.Backend.comment.Comment;
@@ -13,26 +13,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-// Map Profile class to database (for hibernate). Entity represents a table. An instance of an entity
+// Map UserUser class to database (for hibernate). Entity represents a table. An instance of an entity
 // represents a row in the table.
 // Specify the table name in the database
 @Entity
 // Specify the table name in the database
-@Table(name="profiles")
-public class Profile {
+@Table(name="users")
+public class User {
   // Defines the primary key
   @Id
-  @Column(name = "profile_id")
+  @Column(name = "user_id")
   @SequenceGenerator(
           // generated sequence name
-          name = "profiles_sequence",
+          name = "users_sequence",
           // database's sequence name
-          sequenceName = "profiles_sequence",
+          sequenceName = "users_sequence",
           allocationSize = 1
   )
   @GeneratedValue(
           strategy = GenerationType.IDENTITY,
-          generator = "profiles_sequence"
+          generator = "users_sequence"
   )
   private Long id;
 
@@ -54,8 +54,8 @@ public class Profile {
   @Column(name = "last_name", length=50, nullable = false)
   private String lastName;
 
-  @Column(name = "profile_picture")
-  private String profilePic;
+  @Column(name = "user_picture")
+  private String userPic;
 
   @Column()
   private String bio;
@@ -63,22 +63,22 @@ public class Profile {
   @Column(name = "join_timestamp", nullable = false)
   private LocalDateTime dateJoined;
 
-  @OneToMany(mappedBy = "profile")
+  @OneToMany(mappedBy = "user")
   @JsonIgnore
   private Set<Post> posts;
 
-  @OneToMany(mappedBy = "profile")
+  @OneToMany(mappedBy = "user")
   @JsonIgnore
   private Set<Comment> comments;
 
   @ManyToMany
-  @JoinTable(name = "profile_friends",
-          joinColumns = @JoinColumn(name = "profile_id"),
+  @JoinTable(name = "user_friends",
+          joinColumns = @JoinColumn(name = "user_id"),
           inverseJoinColumns = @JoinColumn(name = "friend_id"))
   @JsonIgnore
   private Set<Friend> friends;
 
-  @OneToMany(mappedBy = "profile")
+  @OneToMany(mappedBy = "user")
   @JsonIgnore
   private Set<Like> likes;
 
@@ -86,20 +86,20 @@ public class Profile {
   ///////////////////
   /// Contructors ///
   ///////////////////
-  public Profile() {
+  public User() {
 
   }
 
-  public Profile(Long id,
-                 String email,
-                 String username,
-                 String password,
-                 LocalDate dob,
-                 String firstName,
-                 String lastName,
-                 String profilePic,
-                 String bio,
-                 LocalDateTime dateJoined) {
+  public User(Long id,
+              String email,
+              String username,
+              String password,
+              LocalDate dob,
+              String firstName,
+              String lastName,
+              String userPic,
+              String bio,
+              LocalDateTime dateJoined) {
     this.id = id;
     this.email = email;
     this.username = username;
@@ -107,27 +107,27 @@ public class Profile {
     this.dob = dob;
     this.firstName = firstName;
     this.lastName = lastName;
-    this.profilePic = profilePic;
+    this.userPic = userPic;
     this.bio = bio;
     this.dateJoined = dateJoined;
   }
 
-  public Profile(String email,
-                 String username,
-                 String password,
-                 LocalDate dob,
-                 String firstName,
-                 String lastName,
-                 String profilePic,
-                 String bio,
-                 LocalDateTime dateJoined) {
+  public User(String email,
+              String username,
+              String password,
+              LocalDate dob,
+              String firstName,
+              String lastName,
+              String userPic,
+              String bio,
+              LocalDateTime dateJoined) {
     this.email = email;
     this.username = username;
     this.password = password;
     this.dob = dob;
     this.firstName = firstName;
     this.lastName = lastName;
-    this.profilePic = profilePic;
+    this.userPic = userPic;
     this.bio = bio;
     this.dateJoined = dateJoined;
   }
@@ -191,12 +191,12 @@ public class Profile {
     this.lastName = lastName;
   }
 
-  public String getProfilePic() {
-    return profilePic;
+  public String getUserPic() {
+    return userPic;
   }
 
-  public void setProfilePic(String profilePic) {
-    this.profilePic = profilePic;
+  public void setUserPic(String userPic) {
+    this.userPic = userPic;
   }
 
   public String getBio() {
@@ -231,7 +231,7 @@ public class Profile {
 //    return friends;
 //  }
 //
-//  public void setFriends(Set<Profile> friends) {
+//  public void setFriends(Set<UserUser> friends) {
 //    this.friends = friends;
 //  }
 //
@@ -272,7 +272,7 @@ public class Profile {
   /////////////////
   @Override
   public String toString() {
-    return "Profile{" +
+    return "UserUser{" +
             "id=" + id +
             ", email='" + email + '\'' +
             ", username='" + username + '\'' +
@@ -280,7 +280,7 @@ public class Profile {
             ", dob='" + dob + '\'' +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
-            ", profilePic='" + profilePic + '\'' +
+            ", userPic='" + userPic + '\'' +
             ", bio='" + bio + '\'' +
             ", dateJoined=" + dateJoined +
             '}';

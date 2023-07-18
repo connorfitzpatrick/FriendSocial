@@ -1,7 +1,7 @@
 package com.friendsocial.Backend.post;
 
-//import com.friendsocial.Backend.profile.Profile;
-//import com.friendsocial.Backend.profile.ProfileRepository;
+//import com.friendsocial.Backend.userUser;
+//import com.friendsocial.Backend.userofileRepository;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.CommandLineRunner;
 //import org.springframework.context.annotation.Bean;
@@ -28,8 +28,8 @@ package com.friendsocial.Backend.post;
 //          PostRepository repository) {
 //    return args -> {
 //      Long profileId = 1L;
-//      Optional<Profile> profileOptional = profileRepository.findById(profileId);
-//      Profile p = profileOptional.orElseThrow(() -> new RuntimeException("Profile not found"));
+//      Optional<User> profileOptional = profileRepository.findById(profileId);
+//      User p = profileOptional.orElseThrow(() -> new RuntimeException("User not found"));
 //      Post connorsFirst = new Post(
 //              p,
 //              "Text",

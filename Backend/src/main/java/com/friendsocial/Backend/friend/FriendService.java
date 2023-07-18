@@ -1,8 +1,7 @@
 package com.friendsocial.Backend.friend;
 
-import com.friendsocial.Backend.post.Post;
-import com.friendsocial.Backend.profile.Profile;
-import com.friendsocial.Backend.profile.ProfileRepository;
+import com.friendsocial.Backend.user.User;
+import com.friendsocial.Backend.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +11,12 @@ import java.util.Optional;
 @Service
 public class FriendService {
   private final FriendRepository friendRepository;
-  private final ProfileRepository profileRepository;
+  private final UserRepository userRepository;
 
   @Autowired
-  public FriendService(FriendRepository friendRepository, ProfileRepository profileRepository) {
+  public FriendService(FriendRepository friendRepository, UserRepository userRepository) {
     this.friendRepository = friendRepository;
-    this.profileRepository = profileRepository;
+    this.userRepository = userRepository;
   }
 
   // Business logic of getting all friends. Just get them all.
@@ -25,41 +24,41 @@ public class FriendService {
     return friendRepository.findAll();
   }
 
-  // Business logic of getting all friendships that are associated with an profile
-  public List<Friend> getFriendsOfProfileById(Long profileId) {
-    List<Friend> friendList = friendRepository.findFriendsOfProfileId(profileId);
+  // Business logic of getting all friendships that are associated with an user
+  public List<Friend> getFriendsOfUserById(Long userId) {
+    List<Friend> friendList = friendRepository.findFriendsOfUserId(userId);
     if (friendList.isEmpty()){
       throw new IllegalArgumentException("No friendships found");
     }
     return friendList;
   }
 
-  // Business logic of Posting (adding) new profile. Do not add if email already in use.
-  public void addNewFriend(Long profileId, Long friendId, Friend friendRequest) {
-    Optional<Profile> profileOptional = profileRepository.findById(profileId);
-    Optional<Profile> friendOptional = profileRepository.findById(friendId);
-    // Add to Profile table
-    if (profileOptional.isEmpty() || friendOptional.isEmpty()) {
-      // Handle case when profile is not found
+  // Business logic of Posting (adding) new user. Do not add if email already in use.
+  public void addNewFriend(Long userId, Long friendId, Friend friendRequest) {
+    Optional<User> userOptional = userRepository.findById(userId);
+    Optional<User> friendOptional = userRepository.findById(friendId);
+    // Add to User table
+    if (userOptional.isEmpty() || friendOptional.isEmpty()) {
+      // Handle case when user is not found
       throw new IllegalArgumentException("Friendship not found");
     }
 
-    // Will be needed to associate this friendship with the profile
-    Profile friend = friendOptional.get();
+    // Will be needed to associate this friendship with the user
+    User friend = friendOptional.get();
     // add foreign keys, otherwise they will return null
-    friendRequest.setProfileId(profileId);
+    friendRequest.setUserId(userId);
     friendRequest.setFriendId(friendId);
-    // Associate friendship with profile
+    // Associate friendship with user
     friend.addFriend(friendRequest);
     friendRepository.save(friendRequest);
   }
 
-  // Business logic of deleting a profile. Check if it exists first.
+  // Business logic of deleting a user. Check if it exists first.
   public void deleteFriend(Long friendshipId) {
     boolean exists = friendRepository.existsById(friendshipId);
     if (!exists) {
       throw new IllegalStateException(
-              "Profile with id " + friendshipId + " does not exist"
+              "User with id " + friendshipId + " does not exist"
       );
     }
     friendRepository.deleteById(friendshipId);

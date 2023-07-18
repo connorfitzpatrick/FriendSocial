@@ -1,7 +1,7 @@
 package com.friendsocial.Backend.like;
 
 import com.friendsocial.Backend.post.PostRepository;
-import com.friendsocial.Backend.profile.ProfileRepository;
+import com.friendsocial.Backend.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +13,7 @@ public class LikeController {
   private final LikeService likeService;
 
   @Autowired
-  private ProfileRepository profileRepository;
+  private UserRepository userRepository;
 
   @Autowired
   private PostRepository postRepository;
@@ -35,9 +35,9 @@ public class LikeController {
     return likeService.getLikesOfPostById(id);
   }
 
-  @PostMapping(path = "{profileId}/{postId}")
-  public void createLike(@PathVariable("profileId") Long profileId, @PathVariable("postId") Long postId, @RequestBody Like likeRequest) {
-    likeService.addNewLike(profileId, postId, likeRequest);
+  @PostMapping(path = "{userId}/{postId}")
+  public void createLike(@PathVariable("userId") Long userId, @PathVariable("postId") Long postId, @RequestBody Like likeRequest) {
+    likeService.addNewLike(userId, postId, likeRequest);
   }
 
   @DeleteMapping(path = "{likeId}")

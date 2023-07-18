@@ -1,4 +1,4 @@
-export interface Profile {
+export interface User {
     id: number;
     email: string;
     username: string;
@@ -6,7 +6,7 @@ export interface Profile {
     dob: string;
     firstName: string;
     lastName: string;
-    profilePic: string;
+    postPic: string;
     bio: string;
     dateJoined: string;
 }

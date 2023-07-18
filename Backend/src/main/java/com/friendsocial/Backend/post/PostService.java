@@ -3,9 +3,8 @@ package com.friendsocial.Backend.post;
 // SERVICE LAYER
 //   - Handles business logic
 
-import com.friendsocial.Backend.friend.Friend;
-import com.friendsocial.Backend.profile.Profile;
-import com.friendsocial.Backend.profile.ProfileRepository;
+import com.friendsocial.Backend.user.User;
+import com.friendsocial.Backend.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,50 +15,50 @@ import java.util.Optional;
 @Service
 public class PostService {
   private final PostRepository postRepository;
-  private final ProfileRepository profileRepository;
+  private final UserRepository userRepository;
 
   @Autowired
-  public PostService(PostRepository postRepository, ProfileRepository profileRepository) {
+  public PostService(PostRepository postRepository, UserRepository userRepository) {
     this.postRepository = postRepository;
-    this.profileRepository = profileRepository;
+    this.userRepository = userRepository;
   }
 
-  // Business logic of getting all profiles. Just get them all.
+  // Business logic of getting all users. Just get them all.
   public List<Object[]> getPosts() {
-    return postRepository.findPostsAndProfileInfo();
+    return postRepository.findPostsAndUserInfo();
   }
 
-  // Business logic of getting all friendships that are associated with an profile
-  public List<Post> getPostsOfProfileById(Long profileId) {
-    List<Post> postList = postRepository.findPostsOfProfileId(profileId);
+  // Business logic of getting all friendships that are associated with an user
+  public List<Post> getPostsOfUserById(Long userId) {
+    List<Post> postList = postRepository.findPostsOfUserId(userId);
     if (postList.isEmpty()){
       throw new IllegalArgumentException("No friendships found");
     }
     return postList;
   }
 
-  // Business logic of Posting (adding) new profile
-  public void addNewPost(Long profileId, Post postRequest) {
-    Optional<Profile> profileOptional = profileRepository.findById(profileId);
-    // Add to Profile table
-    if (profileOptional.isEmpty()) {
-      // Handle case when profile is not found
-      throw new IllegalArgumentException("Profile not found");
+  // Business logic of Posting (adding) new user
+  public void addNewPost(Long userId, Post postRequest) {
+    Optional<User> userOptional = userRepository.findById(userId);
+    // Add to User table
+    if (userOptional.isEmpty()) {
+      // Handle case when user is not found
+      throw new IllegalArgumentException("User not found");
     }
 
-    Profile profile = profileOptional.get();
+    User user = userOptional.get();
     // Otherwise foreign key will be null
-    postRequest.setProfileId(profileId);
-    profile.addPost(postRequest); // Associate post with profile
+    postRequest.setUserId(userId);
+    user.addPost(postRequest); // Associate post with user
     postRepository.save(postRequest);
   }
 
-  // Business logic of deleting a profile. Check if it exists first.
+  // Business logic of deleting a user. Check if it exists first.
   public void deletePost(Long postId) {
     boolean exists = postRepository.existsById(postId);
     if (!exists) {
       throw new IllegalStateException(
-              "Profile with id " + postId + " does not exist"
+              "User with id " + postId + " does not exist"
       );
     }
     postRepository.deleteById(postId);

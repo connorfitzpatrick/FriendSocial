@@ -18,6 +18,7 @@ import { BlogPostComponent } from './components/blog-post/blog-post.component';
 import { FeedComponent } from './components/feed/feed.component';
 import { CommentRowComponent } from './components/comment-row/comment-row.component';
 import { CommentDialogComponent } from './components/comment-dialog/comment-dialog.component';
+import { LikesDialogComponent } from './components/likes-dialog/likes-dialog.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { CommentDialogComponent } from './components/comment-dialog/comment-dial
     BlogPostComponent,
     FeedComponent,
     CommentRowComponent,
-    CommentDialogComponent
+    CommentDialogComponent,
+    LikesDialogComponent
   ],
   imports: [
     BrowserModule,

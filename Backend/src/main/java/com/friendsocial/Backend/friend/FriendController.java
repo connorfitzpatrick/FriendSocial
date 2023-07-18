@@ -1,8 +1,6 @@
 package com.friendsocial.Backend.friend;
 
-import com.friendsocial.Backend.post.Post;
-import com.friendsocial.Backend.profile.Profile;
-import com.friendsocial.Backend.profile.ProfileService;
+import com.friendsocial.Backend.user.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,11 +9,11 @@ import java.util.List;
 @RequestMapping(path="api/v1/friends")
 public class FriendController {
   private final FriendService friendService;
-  private final ProfileService profileService;
+  private final UserService userService;
 
-  public FriendController(FriendService friendService, ProfileService profileService) {
+  public FriendController(FriendService friendService, UserService userService) {
     this.friendService = friendService;
-    this.profileService = profileService;
+    this.userService = userService;
   }
 
   @GetMapping
@@ -23,17 +21,17 @@ public class FriendController {
     return friendService.getFriends();
   }
 
-  @GetMapping(path = "{profileId}")
-  public List<Friend> getFriends(@PathVariable("profileId") Long id) {
-    return friendService.getFriendsOfProfileById(id);
+  @GetMapping(path = "{userId}")
+  public List<Friend> getFriends(@PathVariable("userId") Long id) {
+    return friendService.getFriendsOfUserById(id);
   }
 
   // POST (ADD) A Post
-  // @RequestBody because we are taking the profile that comes from the client. Take request and map to profile
-  @PostMapping(path = "{profileId}/{friendId}")
-  public void createFriend(@PathVariable("profileId") Long profileId, @PathVariable("friendId") Long friendId, @RequestBody Friend friendRequest) {
+  // @RequestBody because we are taking the user that comes from the client. Take request and map to user
+  @PostMapping(path = "{userId}/{friendId}")
+  public void createFriend(@PathVariable("userId") Long userId, @PathVariable("friendId") Long friendId, @RequestBody Friend friendRequest) {
     // Save the post entity
-    friendService.addNewFriend(profileId, friendId, friendRequest);
+    friendService.addNewFriend(userId, friendId, friendRequest);
   }
 
   // DELETE A Post

@@ -3,13 +3,13 @@ package com.friendsocial.Backend.post;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.friendsocial.Backend.comment.Comment;
 import com.friendsocial.Backend.like.Like;
-import com.friendsocial.Backend.profile.Profile;
+import com.friendsocial.Backend.user.User;
 import jakarta.persistence.*;
 
 import java.time.Instant;
 import java.util.Set;
 
-// Map Profile class to database (for hibernate). Entity represents a table. An instance of an entity
+// Map User class to database (for hibernate). Entity represents a table. An instance of an entity
 // represents a row in the table.
 @Entity
 // Specify the table name in the database
@@ -32,12 +32,13 @@ public class Post {
   private Long id;
 
   // Store a foreign key instead of the entire post object
-  @Column(name = "profile_id")
-  private Long profileId;
+  @Column(name = "user_id")
+  private Long userId;
+
 
   @ManyToOne
-  @JoinColumn(name = "profile_id", referencedColumnName = "profile_id", insertable = false, updatable = false)
-  private Profile profile;
+  @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
+  private User user;
 
   @Column(length=50, nullable=false)
   private String postType;
@@ -67,14 +68,14 @@ public class Post {
   }
 
   public Post(
-          //Profile profile,
-          Long profileId,
+          //User user,
+          Long userId,
           String postType,
           String content,
           Instant timestamp,
           String imageUrl
   ) {
-    this.profileId = profileId;
+    this.userId = userId;
     this.postType = postType;
     this.content = content;
     this.timestamp = timestamp;
@@ -83,14 +84,14 @@ public class Post {
 
   public Post(
           Long id,
-          Long profileId,
+          Long userId,
           String postType,
           String content,
           Instant timestamp,
           String imageUrl
           ) {
     this.id = id;
-    this.profileId = profileId;
+    this.userId = userId;
     this.postType = postType;
     this.content = content;
     this.timestamp = timestamp;
@@ -108,12 +109,12 @@ public class Post {
     this.id = id;
   }
 
-  public Long getProfileId() {
-    return profileId;
+  public Long getUserId() {
+    return userId;
   }
 
-  public void setProfileId(Long profileId) {
-    this.profileId = profileId;
+  public void setUserId(Long userId) {
+    this.userId = userId;
   }
 
   public String getPostType() {
@@ -180,7 +181,7 @@ public class Post {
   public String toString() {
     return "Post{" +
             "id=" + id +
-            ", profileId='" + profileId + '\'' +
+            ", userId='" + userId + '\'' +
             ", postType='" + postType + '\'' +
             ", content='" + content + '\'' +
             ", timestamp=" + timestamp +

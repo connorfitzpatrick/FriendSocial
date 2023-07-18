@@ -1,7 +1,7 @@
 package com.friendsocial.Backend.like;
 
 import com.friendsocial.Backend.post.Post;
-import com.friendsocial.Backend.profile.Profile;
+import com.friendsocial.Backend.user.User;
 import jakarta.persistence.*;
 
 import java.time.Instant;
@@ -25,13 +25,13 @@ public class Like {
   )
   private Long id;
 
-  // Store a foreign key instead of the entire profile object
-  @Column(name = "profile_id")
-  private Long profileId;
+  // Store a foreign key instead of the entire user object
+  @Column(name = "user_id")
+  private Long userId;
 
   @ManyToOne
-  @JoinColumn(name = "profile_id", referencedColumnName = "profile_id", insertable = false, updatable = false)
-  private Profile profile;
+  @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
+  private User user;
 
   // Store a foreign key instead of the entire post object
   @Column(name = "post_id")
@@ -49,23 +49,23 @@ public class Like {
   }
 
   public Like(
-          Long profileId,
+          Long userId,
           Long postId,
           Instant timestamp
   ) {
-    this.profileId = profileId;
+    this.userId = userId;
     this.postId = postId;
     this.timestamp = timestamp;
   }
 
   public Like(
           Long id,
-          Long profileId,
+          Long userId,
           Long postId,
           Instant timestamp
   ) {
     this.id = id;
-    this.profileId = profileId;
+    this.userId = userId;
     this.postId = postId;
     this.timestamp = timestamp;
   }
@@ -78,12 +78,12 @@ public class Like {
     this.id = id;
   }
 
-  public Long getProfileId() {
-    return profileId;
+  public Long getUserId() {
+    return userId;
   }
 
-  public void setProfileId(Long profileId) {
-    this.profileId = profileId;
+  public void setUserId(Long userId) {
+    this.userId = userId;
   }
 
   public Long getPostId() {
@@ -106,7 +106,7 @@ public class Like {
   public String toString() {
     return "Comment{" +
             "id=" + id +
-            ", profileId=" + profileId +
+            ", userId=" + userId +
             ", postId=" + postId +
             ", timestamp=" + timestamp +
             '}';

@@ -1,4 +1,4 @@
-package com.friendsocial.Backend.profile;
+package com.friendsocial.Backend.user;
 
 import com.friendsocial.Backend.comment.Comment;
 import com.friendsocial.Backend.comment.CommentRepository;
@@ -20,12 +20,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Configuration
-public class ProfileConfig {
-  @Bean(name = "profileCommandLineRunner")
-  CommandLineRunner profileConfig(
-          ProfileRepository repository) {
+public class UserConfig {
+  @Bean(name = "userCommandLineRunner")
+  CommandLineRunner userConfig(
+          UserRepository repository) {
     return args -> {
-      Profile connor = new Profile(
+      User connor = new User(
               "c@gmail.com",
               "connorfitz429",
               "svsb",
@@ -36,18 +36,18 @@ public class ProfileConfig {
               "MY APP",
               LocalDateTime.now()
       );
-      Profile alex = new Profile(
+      User alex = new User(
               "alexrodriguez@gmail.com",
               "arod",
               "aerkg",
               LocalDate.of(2000, 12, 25),
               "Alex",
               "Rodriguez",
-              "https://i.imgur.com/FVJF2bb.jpg",
+              "https://i.imgur.com/Vdcn5Yj.jpg",
               "I Alex",
               LocalDateTime.now()
       );
-      Profile kieran = new Profile(
+      User kieran = new User(
               "kieran@gmail.com",
               "kieran620",
               "bbbbbbb",
@@ -58,33 +58,44 @@ public class ProfileConfig {
               "Dummy data account",
               LocalDateTime.now()
       );
+      User peyton = new User(
+              "peyton@gmail.com",
+              "PeytonManning",
+              "bbbbsdfbbb",
+              LocalDate.of(1979, 03, 12),
+              "Peyton",
+              "Manning",
+              "https://i.imgur.com/bZaoFOU.jpg",
+              "Not affiliated with real Peyton Manning",
+              LocalDateTime.now()
+      );
 
       repository.saveAll(
-              List.of(connor, alex, kieran)
+              List.of(connor, alex, kieran, peyton)
       );
     };
   }
 
 
   @Autowired
-  private ProfileRepository profileRepository;
+  private UserRepository userRepository;
 
   @Bean
   CommandLineRunner commandLineRunner1(
           PostRepository drepository) {
     return args -> {
-      Long profileId = 1L;
-      Optional<Profile> profileOptional = profileRepository.findById(profileId);
-      Profile p = profileOptional.orElseThrow(() -> new RuntimeException("Profile not found"));
+      Long userId = 1L;
+      Optional<User> userOptional = userRepository.findById(userId);
+      User p = userOptional.orElseThrow(() -> new RuntimeException("User not found"));
       Post connorsFirst = new Post(
-              profileId,
+              userId,
               "Text",
               "This is my first post.",
               Instant.now(),
               ""
       );
       Post connorsSecond = new Post(
-              profileId,
+              userId,
               "Text",
               "This is my second post.",
               Instant.now(),
@@ -105,7 +116,7 @@ public class ProfileConfig {
               "../imageStore/image3"
       );
       Post connorsThird = new Post(
-              profileId,
+              userId,
               "Text",
               "This is long post to check and see how the information I put down is formatted within the Angular component. I hope" +
                       "that this looks okay! If it doesn't I'll be up all night. figure out how to send pictures next " +
@@ -127,30 +138,36 @@ public class ProfileConfig {
               Instant.now(),
               "../imageStore/image3"
       );
-
+      Post peyton1 = new Post(
+              4L,
+              "Image",
+              "Heres a post from my new user.",
+              Instant.now(),
+              "../imageStore/image3"
+      );
 
       drepository.saveAll(
-              List.of(connorsFirst, connorsSecond, alexFirst, alexSecond, connorsThird, connorsFourth, connorsFifth)
+              List.of(connorsFirst, connorsSecond, peyton1, alexFirst, alexSecond, connorsThird, connorsFourth, connorsFifth)
       );
     };
   }
 
   @Autowired
-  private ProfileRepository friendRepository;
+  private UserRepository friendRepository;
 
   @Bean
   CommandLineRunner commandLineRunner2(
           FriendRepository frepository) {
     return args -> {
-      Long profileId = 1L;
+      Long userId = 1L;
       Long friendId = 2L;
       Long friend2Id = 3L;
-      Optional<Profile> profileOptional = profileRepository.findById(profileId);
-      Optional<Profile> profileOptional2 = profileRepository.findById(friendId);
-      Optional<Profile> profileOptional3 = profileRepository.findById(friend2Id);
-      Profile p = profileOptional.orElseThrow(() -> new RuntimeException("Profile not found"));
-      Profile f = profileOptional2.orElseThrow(() -> new RuntimeException("Profile not found"));
-      Profile f2 = profileOptional3.orElseThrow(() -> new RuntimeException("Profile not found"));
+      Optional<User> userOptional = userRepository.findById(userId);
+      Optional<User> userOptional2 = userRepository.findById(friendId);
+      Optional<User> userOptional3 = userRepository.findById(friend2Id);
+      User p = userOptional.orElseThrow(() -> new RuntimeException("User not found"));
+      User f = userOptional2.orElseThrow(() -> new RuntimeException("User not found"));
+      User f2 = userOptional3.orElseThrow(() -> new RuntimeException("User not found"));
       Friend connorfriend = new Friend(
               1L,
               2L,
@@ -271,6 +288,12 @@ public class ProfileConfig {
               "This is the Fourtheenth comment",
               Instant.now()
       );
+      Comment comment17 = new Comment(
+              4L,
+              1L,
+              "This is the Fifteenth comment",
+              Instant.now()
+      );
 
       crepository.saveAll(
               List.of(comment1,
@@ -288,7 +311,8 @@ public class ProfileConfig {
                       comment13,
                       comment14,
                       comment15,
-                      comment16
+                      comment16,
+                      comment17
               )
       );
     };
@@ -336,6 +360,11 @@ public class ProfileConfig {
               4L,
               Instant.now()
       );
+      Like like8 = new Like(
+              4L,
+              2L,
+              Instant.now()
+      );
 
       lrepository.saveAll(
               List.of(like1,
@@ -344,7 +373,8 @@ public class ProfileConfig {
                       like4,
                       like5,
                       like6,
-                      like7
+                      like7,
+                      like8
               )
       );
     };

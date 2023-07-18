@@ -4,7 +4,7 @@ CREATE DATABASE FRIENDSOCIAL;
 -- Switch to database
 USE FRIENDSOCIAL;
 
--- Create the profile table
+-- Create the user table
 CREATE TABLE profiles (
   profile_id BIGINT PRIMARY KEY AUTO_INCREMENT,
   email VARCHAR(50) NOT NULL UNIQUE,
@@ -19,7 +19,7 @@ CREATE TABLE profiles (
   age INT NOT NULL
 );
 
--- Create the profile table
+-- Create the user table
 CREATE TABLE posts (
   post_id INT PRIMARY KEY AUTO_INCREMENT,
   profile_id INT NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE posts (
   FOREIGN KEY (profile_id) REFERENCES profiles(profile_id)
 );
 
--- Create the profile table
+-- Create the user table
 CREATE TABLE followers (
   follower_id INT NOT NULL,
   following_id INT NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE followers (
   FOREIGN KEY (following_id) REFERENCES profiles(profile_id)
 );
 
--- Create the profile table
+-- Create the user table
 CREATE TABLE post_likes (
   like_id INT PRIMARY KEY AUTO_INCREMENT,
   profile_id INT NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE post_likes (
   FOREIGN KEY (post_id) REFERENCES posts(post_id)
 );
 
--- Create the profile table
+-- Create the user table
 CREATE TABLE comments (
   comment_id INT PRIMARY KEY AUTO_INCREMENT,
   profile_id INT NOT NULL,

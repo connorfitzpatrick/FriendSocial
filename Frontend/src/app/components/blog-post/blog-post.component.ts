@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { CommentsService } from '../../services/CommentsService';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { LikesDialogComponent } from '../likes-dialog/likes-dialog.component';
 
 
 @Component({
@@ -12,16 +14,18 @@ import { DatePipe } from '@angular/common';
 })
 export class BlogPostComponent implements OnInit {
   postId!: number;
+  likeCount: number = 0;
   @Input() post: any;
   @Input() comments: any[] = [];
 
-  constructor(private http: HttpClient, private commentService: CommentsService, private route: ActivatedRoute, private datePipe: DatePipe) {}
+  constructor(private http: HttpClient, private commentService: CommentsService, private route: ActivatedRoute, private datePipe: DatePipe, public dialog: MatDialog) {}
 
   // ngOnInit is called after the component has been initialized and its Input has been bound
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.postId = this.post[0].id; // Get the postId from route params and convert it to a number
       // Fetch the post data based on the postId
+      this.likeCount = this.post[5];
       this.commentService.getComments(this.postId).subscribe(comments => {
         this.comments = comments;
       });
@@ -55,6 +59,27 @@ export class BlogPostComponent implements OnInit {
     } else {
       return this.datePipe.transform(postDate, 'mediumDate') || '';
     }
+  }
+
+  likePost(): void {
+    // Increment the like count
+    this.likeCount++;
+  }
+
+  openLikesDialog(postId: number): void {
+    this.http.get<any[]>(`http://localhost:8080/api/v1/likes/${postId}`).subscribe(likes => {
+      const dialogRef = this.dialog.open(LikesDialogComponent, {
+        data: likes,
+        width: '40%',
+        maxWidth: '800px',
+        autoFocus: false,
+        panelClass: 'likes-dialog-container',
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The likes dialog was closed');
+      });
+    });
   }
   
 }

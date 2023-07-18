@@ -10,11 +10,14 @@ import java.util.List;
 public interface PostRepository
   extends JpaRepository<Post, Long>
   {
-    // Custom function to find profile by email. Transforms to `SELECT * FROM profiles WHERE email = ?`
-    @Query("SELECT p, pr.username, pr.firstName, pr.lastName, pr.profilePic FROM Post p JOIN p.profile pr")
-    List<Object[]> findPostsAndProfileInfo();
+    // Custom function to find user by email. Transforms to `SELECT * FROM users WHERE email = ?`
+    @Query("SELECT p, pr.username, pr.firstName, pr.lastName, pr.userPic FROM Post p JOIN p.user pr")
+    List<Object[]> findPostsAndUserInfo1();
 
-    @Query("SELECT p FROM Post p WHERE p.profileId = ?1")
-    List<Post> findPostsOfProfileId(Long id);
+    @Query("SELECT p, pr.username, pr.firstName, pr.lastName, pr.userPic, (SELECT COUNT(l) FROM Like l WHERE l.postId = p.id) FROM Post p JOIN p.user pr")
+    List<Object[]> findPostsAndUserInfo();
+
+    @Query("SELECT p FROM Post p WHERE p.userId = ?1")
+    List<Post> findPostsOfUserId(Long id);
 
   }

@@ -1,12 +1,10 @@
 package com.friendsocial.Backend.friend;
 
-import com.friendsocial.Backend.profile.Profile;
+import com.friendsocial.Backend.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "friends")
@@ -15,32 +13,32 @@ public class Friend {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  // @ManyToOne defines relationship with Profile Entities for profile and their friend
+  // @ManyToOne defines relationship with User Entities for user and their friend
   // @JoinTable specifies the name of the join table that will be created in the DB to store relationship
   // @JoinColumns specifies the foreign key that references the Friend entity
-  // @InverseJoinColumns specifies the foreign key that references Profile entity
-  @Column(name = "profile_id")
-  private Long profileId;
+  // @InverseJoinColumns specifies the foreign key that references User entity
+  @Column(name = "user_id")
+  private Long userId;
 
   @Column(name = "friend_id")
   private Long friendId;
 
   @ManyToOne
-  @JoinColumn(name = "profile_id", referencedColumnName = "profile_id", insertable = false, updatable = false)
-  private Profile profile;
+  @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
+  private User user;
 
   @ManyToOne
-  @JoinColumn(name = "friend_id", referencedColumnName = "profile_id", insertable = false, updatable = false)
-  private Profile friend;
+  @JoinColumn(name = "friend_id", referencedColumnName = "user_id", insertable = false, updatable = false)
+  private User friend;
 
 //  @ManyToOne
-//  @JoinColumn(name = "profile_id", insertable = false, updatable = false)
-//  private Profile profile;
+//  @JoinColumn(name = "user_id", insertable = false, updatable = false)
+//  private User user;
 //
 //  @ManyToOne
 //  @JoinColumn(name = "friend_id", insertable = false, updatable = false)
-//  private Profile friend;
-  //private Profile friend;
+//  private User friend;
+  //private User friend;
 
   @Column(name = "start_date")
   private LocalDate startDate;
@@ -49,8 +47,8 @@ public class Friend {
 
   }
 
-  public Friend(Long profileId, Long friendId, LocalDate startDate) {
-    this.profileId = profileId;
+  public Friend(Long userId, Long friendId, LocalDate startDate) {
+    this.userId = userId;
     this.friendId = friendId;
     this.startDate = startDate;
   }
@@ -63,12 +61,12 @@ public class Friend {
     this.id = id;
   }
 
-  public Long getProfileId() {
-    return profileId;
+  public Long getUserId() {
+    return userId;
   }
 
-  public void setProfileId(Long profileId) {
-    this.profileId = profileId;
+  public void setUserId(Long userId) {
+    this.userId = userId;
   }
 
   public Long getFriendId() {

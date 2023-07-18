@@ -2,8 +2,8 @@ package com.friendsocial.Backend.comment;
 
 import com.friendsocial.Backend.post.Post;
 import com.friendsocial.Backend.post.PostRepository;
-import com.friendsocial.Backend.profile.Profile;
-import com.friendsocial.Backend.profile.ProfileRepository;
+import com.friendsocial.Backend.user.User;
+import com.friendsocial.Backend.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,20 +14,20 @@ import java.util.Optional;
 public class CommentService {
   private final CommentRepository commentRepository;
   private final PostRepository postRepository;
-  private final ProfileRepository profileRepository;
+  private final UserRepository userRepository;
 
   @Autowired
   public CommentService(CommentRepository commentRepository,
                         PostRepository postRepository,
-                        ProfileRepository profileRepository) {
+                        UserRepository userRepository) {
     this.commentRepository = commentRepository;
     this.postRepository = postRepository;
-    this.profileRepository = profileRepository;
+    this.userRepository = userRepository;
   }
 
   // Business logic of getting all comments. Just get them all.
   public List<Comment> getComments() {
-    return commentRepository.findCommentsAndPostProfileInfo();
+    return commentRepository.findCommentsAndPostUserInfo();
   }
 
   // Business logic of getting all comments that are associated with a post
@@ -40,22 +40,22 @@ public class CommentService {
   }
 
   // Business logic of Posting (adding) new Comment
-  public void addNewComment(Long profileId, Long postId, Comment commentRequest) {
+  public void addNewComment(Long userId, Long postId, Comment commentRequest) {
     Optional<Post> postOptional = postRepository.findById(postId);
-    Optional<Profile> profileOptional = profileRepository.findById(profileId);
+    Optional<User> userOptional = userRepository.findById(userId);
     // Add to comment table
-    if (postOptional.isEmpty() || profileOptional.isEmpty()) {
-      // Handle case when profile is not found
-      throw new IllegalArgumentException("Post or Profile not found");
+    if (postOptional.isEmpty() || userOptional.isEmpty()) {
+      // Handle case when user is not found
+      throw new IllegalArgumentException("Post or User not found");
     }
 
     Post post = postOptional.get();
-    Profile profile = profileOptional.get();;
+    User user = userOptional.get();;
     // Otherwise foreign key will be null
-    commentRequest.setProfileId(profileId);
+    commentRequest.setUserId(userId);
     commentRequest.setPostId(postId);
     post.addComment(commentRequest); // Associate comment with post
-    profile.addComment(commentRequest); // Associate comment with profile
+    user.addComment(commentRequest); // Associate comment with user
     commentRepository.save(commentRequest);
   }
 
@@ -67,7 +67,7 @@ public class CommentService {
               "Comment with id " + commentId + " does not exist"
       );
     }
-    // Check if profile trying to delete is original poster or commenter
+    // Check if user trying to delete is original poster or commenter
     commentRepository.deleteById(commentId);
   }
 

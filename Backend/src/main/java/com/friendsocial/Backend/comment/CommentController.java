@@ -1,7 +1,7 @@
 package com.friendsocial.Backend.comment;
 
 import com.friendsocial.Backend.post.PostRepository;
-import com.friendsocial.Backend.profile.ProfileRepository;
+import com.friendsocial.Backend.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +13,7 @@ public class CommentController {
   private final CommentService commentService;
 
   @Autowired
-  private ProfileRepository profileRepository;
+  private UserRepository userRepository;
 
   @Autowired
   private PostRepository postRepository;
@@ -36,9 +36,9 @@ public class CommentController {
     return commentService.getCommentsOfPostById(id);
   }
 
-  @PostMapping(path = "{profileId}/{postId}")
-  public void createComment(@PathVariable("profileId") Long profileId, @PathVariable("postId") Long postId, @RequestBody Comment commentRequest) {
-    commentService.addNewComment(profileId, postId, commentRequest);
+  @PostMapping(path = "{userId}/{postId}")
+  public void createComment(@PathVariable("userId") Long userId, @PathVariable("postId") Long postId, @RequestBody Comment commentRequest) {
+    commentService.addNewComment(userId, postId, commentRequest);
   }
 
   @DeleteMapping(path = "{commentId}")

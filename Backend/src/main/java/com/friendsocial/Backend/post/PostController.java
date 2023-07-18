@@ -1,7 +1,6 @@
 package com.friendsocial.Backend.post;
 
-import com.friendsocial.Backend.friend.Friend;
-import com.friendsocial.Backend.profile.ProfileRepository;
+import com.friendsocial.Backend.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -16,7 +15,7 @@ public class PostController {
   private final PostService postService;
 
   @Autowired
-  private ProfileRepository profileRepository;
+  private UserRepository userRepository;
 
 
   @Autowired
@@ -25,7 +24,7 @@ public class PostController {
       This here should be avoided in favor of dependency injection.
       this.postService = new PostService();
 
-      @Autowired above instantiates a profileService and injects it into the constructor.
+      @Autowired above instantiates a userService and injects it into the constructor.
      */
     this.postService = postService;
   }
@@ -37,17 +36,17 @@ public class PostController {
     return postService.getPosts();
   }
 
-  @GetMapping(path = "{profileId}")
-  public List<Post> getFriends(@PathVariable("profileId") Long id) {
-    return postService.getPostsOfProfileById(id);
+  @GetMapping(path = "{userId}")
+  public List<Post> getFriends(@PathVariable("userId") Long id) {
+    return postService.getPostsOfUserById(id);
   }
 
   // POST (ADD) A Post
-  // @RequestBody because we are taking the profile that comes from the client. Take request and map to profile
-  @PostMapping(path = "{profileId}")
-  public void createPost(@PathVariable("profileId") Long profileId, @RequestBody Post postRequest) {
+  // @RequestBody because we are taking the user that comes from the client. Take request and map to user
+  @PostMapping(path = "{userId}")
+  public void createPost(@PathVariable("userId") Long userId, @RequestBody Post postRequest) {
     // Save the post entity
-    postService.addNewPost(profileId, postRequest);
+    postService.addNewPost(userId, postRequest);
   }
 
   // DELETE A Post

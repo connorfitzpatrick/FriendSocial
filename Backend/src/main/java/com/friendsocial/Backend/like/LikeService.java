@@ -1,10 +1,9 @@
 package com.friendsocial.Backend.like;
 
-import com.friendsocial.Backend.comment.Comment;
 import com.friendsocial.Backend.post.Post;
 import com.friendsocial.Backend.post.PostRepository;
-import com.friendsocial.Backend.profile.Profile;
-import com.friendsocial.Backend.profile.ProfileRepository;
+import com.friendsocial.Backend.user.User;
+import com.friendsocial.Backend.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,14 +14,14 @@ import java.util.Optional;
 public class LikeService {
   private final LikeRepository likeRepository;
   private final PostRepository postRepository;
-  private final ProfileRepository profileRepository;
+  private final UserRepository userRepository;
 
   @Autowired
   public LikeService(LikeRepository likeRepository,
-                     ProfileRepository profileRepository,
+                     UserRepository userRepository,
                      PostRepository postRepository) {
     this.likeRepository = likeRepository;
-    this.profileRepository = profileRepository;
+    this.userRepository = userRepository;
     this.postRepository = postRepository;
   }
 
@@ -41,22 +40,22 @@ public class LikeService {
   }
 
   // Business logic of Posting (adding) new Like
-  public void addNewLike(Long profileId, Long postId, Like likeRequest) {
+  public void addNewLike(Long userId, Long postId, Like likeRequest) {
     Optional<Post> postOptional = postRepository.findById(postId);
-    Optional<Profile> profileOptional = profileRepository.findById(profileId);
+    Optional<User> userOptional = userRepository.findById(userId);
     // Add to like table
-    if (postOptional.isEmpty() || profileOptional.isEmpty()) {
-      // Handle case when profile is not found
-      throw new IllegalArgumentException("Post or Profile not found");
+    if (postOptional.isEmpty() || userOptional.isEmpty()) {
+      // Handle case when user is not found
+      throw new IllegalArgumentException("Post or User not found");
     }
 
     Post post = postOptional.get();
-    Profile profile = profileOptional.get();;
+    User user = userOptional.get();;
     // Otherwise foreign key will be null
-    likeRequest.setProfileId(profileId);
+    likeRequest.setUserId(userId);
     likeRequest.setPostId(postId);
     post.addLike(likeRequest); // Associate comment with post
-    profile.addLike(likeRequest); // Associate comment with profile
+    user.addLike(likeRequest); // Associate comment with user
     likeRepository.save(likeRequest);
   }
 
@@ -68,7 +67,7 @@ public class LikeService {
               "Like with id " + likeId + " does not exist"
       );
     }
-    // Check if profile trying to delete is original poster or commenter
+    // Check if user trying to delete is original poster or commenter
     likeRepository.deleteById(likeId);
   }
 }

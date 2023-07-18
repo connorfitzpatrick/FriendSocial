@@ -1,0 +1,18 @@
+<div class="overlay" tabindex="-1"></div>
+<div class="likes-dialog-container" tabindex="-1">
+  <h2 mat-dialog-title>Likers</h2>
+  <mat-dialog-content>
+    <div *ngFor="let like of likes">
+      <hr>
+        <div class="comment-container">
+          <div class="user-info">
+            <img [src]=like[2] alt="Profile Picture" class="profile-picture">
+            <p class="comment-text"><strong>@{{ like[1] }}</strong></p>
+          </div>
+        </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">Close</button>
+  </mat-dialog-actions>
+</div>

@@ -1,6 +1,6 @@
 export interface Post {
     id: number;
-    profileId: number;
+    postId: number;
     postType: string;
     content: string;
     timestamp: Date;
