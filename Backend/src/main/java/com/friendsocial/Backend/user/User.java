@@ -5,11 +5,15 @@ import com.friendsocial.Backend.comment.Comment;
 import com.friendsocial.Backend.friend.Friend;
 import com.friendsocial.Backend.like.Like;
 import com.friendsocial.Backend.post.Post;
+import com.friendsocial.Backend.user.Role;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +23,7 @@ import java.util.Set;
 @Entity
 // Specify the table name in the database
 @Table(name="users")
-public class User {
+public class User implements UserDetails {
   // Defines the primary key
   @Id
   @Column(name = "user_id")
@@ -63,6 +67,9 @@ public class User {
   @Column(name = "join_timestamp", nullable = false)
   private LocalDateTime dateJoined;
 
+  @Enumerated(EnumType.STRING)
+  private Role role;
+
   @OneToMany(mappedBy = "user")
   @JsonIgnore
   private Set<Post> posts;
@@ -99,7 +106,10 @@ public class User {
               String lastName,
               String userPic,
               String bio,
-              LocalDateTime dateJoined) {
+              LocalDateTime dateJoined,
+              Role role
+  )
+  {
     this.id = id;
     this.email = email;
     this.username = username;
@@ -110,6 +120,7 @@ public class User {
     this.userPic = userPic;
     this.bio = bio;
     this.dateJoined = dateJoined;
+    this.role = role;
   }
 
   public User(String email,
@@ -120,7 +131,9 @@ public class User {
               String lastName,
               String userPic,
               String bio,
-              LocalDateTime dateJoined) {
+              LocalDateTime dateJoined,
+              Role role
+  ) {
     this.email = email;
     this.username = username;
     this.password = password;
@@ -130,6 +143,7 @@ public class User {
     this.userPic = userPic;
     this.bio = bio;
     this.dateJoined = dateJoined;
+    this.role = role;
   }
 
   ///////////////////////////
@@ -152,13 +166,39 @@ public class User {
   }
 
   public String getUsername() {
-    return username;
+    return email;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
   }
 
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
+
+  public void setUsername(String email) {
+    this.email = email;
+  }
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return List.of(new SimpleGrantedAuthority(role.name()));
+  }
+
+  @Override
   public String getPassword() {
     return password;
   }
@@ -213,6 +253,14 @@ public class User {
 
   public void setDateJoined(LocalDateTime dateJoined) {
     this.dateJoined = dateJoined;
+  }
+
+  public Role getRole() {
+    return role;
+  }
+
+  public void setRole(Role role) {
+    this.role = role;
   }
 
   public Set<Post> getPosts() {

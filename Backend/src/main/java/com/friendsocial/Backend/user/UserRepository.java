@@ -14,9 +14,6 @@ public interface UserRepository
     // Custom function to find user by email. Transforms to `SELECT * FROM users WHERE email = ?`
     @Query("SELECT p FROM User p WHERE p.email = ?1")
     Optional<User> findUserByEmail(String email);
-
-//    @Query("SELECT p FROM User p WHERE p.id = ?1")
-//    Optional<User> findById(Long id);
 }
 
 

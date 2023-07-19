@@ -44,3 +44,5 @@ logs/
 # Maven
 mvnw
 mvnw.cmd
+
+key_config.json

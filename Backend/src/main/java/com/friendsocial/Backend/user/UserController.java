@@ -1,6 +1,7 @@
 package com.friendsocial.Backend.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,8 +32,10 @@ public class UserController {
   // GET ALL USERS
   // Get mapping because we want to get something out from our server
   @GetMapping()
-  public List<User> getUsers() {
-    return userService.getUsers();
+  public ResponseEntity<String> getUsers() {
+//  public List<User> getUsers() {
+//    return userService.getUsers();
+    return ResponseEntity.ok("Hello from secured endpoint");
   }
 
   // GET ONE USER

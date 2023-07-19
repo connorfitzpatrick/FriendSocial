@@ -34,7 +34,8 @@ public class UserConfig {
               "Fitzpatrick",
               "https://i.imgur.com/PCXFcu2.jpg",
               "MY APP",
-              LocalDateTime.now()
+              LocalDateTime.now(),
+              Role.USER
       );
       User alex = new User(
               "alexrodriguez@gmail.com",
@@ -45,7 +46,8 @@ public class UserConfig {
               "Rodriguez",
               "https://i.imgur.com/Vdcn5Yj.jpg",
               "I Alex",
-              LocalDateTime.now()
+              LocalDateTime.now(),
+              Role.USER
       );
       User kieran = new User(
               "kieran@gmail.com",
@@ -56,7 +58,8 @@ public class UserConfig {
               "Thomas",
               "https://i.imgur.com/79OV5FI.png",
               "Dummy data account",
-              LocalDateTime.now()
+              LocalDateTime.now(),
+              Role.USER
       );
       User peyton = new User(
               "peyton@gmail.com",
@@ -67,7 +70,8 @@ public class UserConfig {
               "Manning",
               "https://i.imgur.com/bZaoFOU.jpg",
               "Not affiliated with real Peyton Manning",
-              LocalDateTime.now()
+              LocalDateTime.now(),
+              Role.USER
       );
 
       repository.saveAll(
