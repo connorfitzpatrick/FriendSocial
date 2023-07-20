@@ -3,11 +3,13 @@
   <h2 mat-dialog-title>Comments</h2>
   <mat-dialog-content>
     <div *ngFor="let comment of comments">
-      <hr>
+      <hr />
       <div class="comment-container">
         <div class="user-info">
-          <img [src]=comment[2] alt="Profile Picture" class="profile-picture">
-          <p class="comment-text"><strong>@{{ comment[1] }}:</strong> {{ comment[0].content }}</p>
+          <img [src]="comment[2]" alt="Profile Picture" class="user-picture" />
+          <p class="comment-text">
+            <strong>@{{ comment[1] }}:</strong> {{ comment[0].content }}
+          </p>
         </div>
       </div>
     </div>
