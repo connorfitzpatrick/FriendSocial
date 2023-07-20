@@ -32,10 +32,8 @@ public class UserController {
   // GET ALL USERS
   // Get mapping because we want to get something out from our server
   @GetMapping()
-  public ResponseEntity<String> getUsers() {
-//  public List<User> getUsers() {
-//    return userService.getUsers();
-    return ResponseEntity.ok("Hello from secured endpoint");
+  public List<User> getUsers() {
+    return userService.getUsers();
   }
 
   // GET ONE USER

@@ -1,16 +1,27 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import {
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  UrlTree,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
   constructor(private router: Router) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    state: RouterStateSnapshot
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
     // Check if the user has a token (you'll need to implement your own token checking logic here)
     const hasToken = this.checkForToken();
 
@@ -23,9 +34,8 @@ export class AuthGuard implements CanActivate {
     }
   }
 
-  // Implement your own method to check for the token (e.g., checking in local storage)
   private checkForToken(): boolean {
     const token = localStorage.getItem('token'); // Assuming you store the token in local storage
-    return !!token; // Return true if the token exists, false otherwise
+    return !!token; // Return true if the token is not null, undefined, or an empty string
   }
 }
