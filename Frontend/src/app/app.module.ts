@@ -6,7 +6,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { DatePipe } from '@angular/common';
-
+import { FormsModule } from '@angular/forms';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +19,7 @@ import { FeedComponent } from './components/feed/feed.component';
 import { CommentRowComponent } from './components/comment-row/comment-row.component';
 import { CommentDialogComponent } from './components/comment-dialog/comment-dialog.component';
 import { LikesDialogComponent } from './components/likes-dialog/likes-dialog.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { LikesDialogComponent } from './components/likes-dialog/likes-dialog.com
     FeedComponent,
     CommentRowComponent,
     CommentDialogComponent,
-    LikesDialogComponent
+    LikesDialogComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +40,7 @@ import { LikesDialogComponent } from './components/likes-dialog/likes-dialog.com
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
+    FormsModule,
     RouterModule.forRoot([
       {path:"home", component:HomeComponent},
       // Automatically direct to homepage if path value is empty
