@@ -8,7 +8,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -42,9 +41,6 @@ import { LoginFormComponent } from './components/login-form/login-form.component
     MatIconModule,
     FormsModule,
     RouterModule.forRoot([
-      {path:"home", component:HomeComponent},
-      // Automatically direct to homepage if path value is empty
-      {path:'',redirectTo:'/home', pathMatch:'full'}
     ]),
     HttpClientModule
   ],
