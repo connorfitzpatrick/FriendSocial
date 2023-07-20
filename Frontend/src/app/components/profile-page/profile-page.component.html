@@ -2,10 +2,10 @@
 <main class="main-container">
   <div class="body-container">
     <div class="sidemenu-container">
-      <div class="container mt-4">
-        <div class="row">
+      <div class="sidebar-container">
+        <div class="sidemenu d-flex flex-column flex-shrink-0 p-3 bg-light">
           <!-- Left side menu -->
-          <div class="col-lg-3">
+          <div>
             <div class="text-center mb-4">
               <!-- User profile picture -->
               <img
@@ -24,7 +24,11 @@
             </div>
             <ul class="menu nav nav-pills flex-column mb-auto">
               <li class="nav-item">
-                <a href="#" class="nav-link link-dark" aria-current="page">
+                <a
+                  [routerLink]="['/home']"
+                  class="nav-link link-dark"
+                  aria-current="page"
+                >
                   <svg class="bi me-2" width="16" height="16">
                     <use xlink:href="#home"></use>
                   </svg>
