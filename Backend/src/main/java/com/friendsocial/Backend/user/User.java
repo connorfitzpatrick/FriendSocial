@@ -5,12 +5,12 @@ import com.friendsocial.Backend.comment.Comment;
 import com.friendsocial.Backend.friend.Friend;
 import com.friendsocial.Backend.like.Like;
 import com.friendsocial.Backend.post.Post;
-import com.friendsocial.Backend.user.Role;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -65,7 +65,7 @@ public class User implements UserDetails {
   private String bio;
 
   @Column(name = "join_timestamp", nullable = false)
-  private LocalDateTime dateJoined;
+  private Instant dateJoined;
 
   @Enumerated(EnumType.STRING)
   private Role role;
@@ -106,7 +106,7 @@ public class User implements UserDetails {
               String lastName,
               String userPic,
               String bio,
-              LocalDateTime dateJoined,
+              Instant dateJoined,
               Role role
   )
   {
@@ -131,7 +131,7 @@ public class User implements UserDetails {
               String lastName,
               String userPic,
               String bio,
-              LocalDateTime dateJoined,
+              Instant dateJoined,
               Role role
   ) {
     this.email = email;
@@ -247,11 +247,11 @@ public class User implements UserDetails {
     this.bio = bio;
   }
 
-  public LocalDateTime getDateJoined() {
+  public Instant getDateJoined() {
     return dateJoined;
   }
 
-  public void setDateJoined(LocalDateTime dateJoined) {
+  public void setDateJoined(Instant dateJoined) {
     this.dateJoined = dateJoined;
   }
 

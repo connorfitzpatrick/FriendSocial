@@ -31,7 +31,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
     CommentRowComponent,
     CommentDialogComponent,
     LikesDialogComponent,
-    LoginFormComponent
+    LoginFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,11 +40,10 @@ import { LoginFormComponent } from './components/login-form/login-form.component
     MatButtonModule,
     MatIconModule,
     FormsModule,
-    RouterModule.forRoot([
-    ]),
-    HttpClientModule
+    RouterModule.forRoot([]),
+    HttpClientModule,
   ],
   providers: [DatePipe],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

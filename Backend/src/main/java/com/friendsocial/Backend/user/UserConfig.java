@@ -25,6 +25,7 @@ public class UserConfig {
   CommandLineRunner userConfig(
           UserRepository repository) {
     return args -> {
+      Instant now = Instant.now();
       User connor = new User(
               "c@gmail.com",
               "connorfitz429",
@@ -34,7 +35,7 @@ public class UserConfig {
               "Fitzpatrick",
               "https://i.imgur.com/PCXFcu2.jpg",
               "MY APP",
-              LocalDateTime.now(),
+              now.minusSeconds(30 * 24 * 60 * 60),
               Role.USER
       );
       User alex = new User(
@@ -46,7 +47,7 @@ public class UserConfig {
               "Rodriguez",
               "https://i.imgur.com/Vdcn5Yj.jpg",
               "I Alex",
-              LocalDateTime.now(),
+              now.minusSeconds(30 * 24 * 60 * 60),
               Role.USER
       );
       User kieran = new User(
@@ -58,7 +59,7 @@ public class UserConfig {
               "Thomas",
               "https://i.imgur.com/79OV5FI.png",
               "Dummy data account",
-              LocalDateTime.now(),
+              now.minusSeconds(30 * 24 * 60 * 60),
               Role.USER
       );
       User peyton = new User(
@@ -70,7 +71,7 @@ public class UserConfig {
               "Manning",
               "https://i.imgur.com/bZaoFOU.jpg",
               "Not affiliated with real Peyton Manning",
-              LocalDateTime.now(),
+              now.minusSeconds(30 * 24 * 60 * 60),
               Role.USER
       );
 

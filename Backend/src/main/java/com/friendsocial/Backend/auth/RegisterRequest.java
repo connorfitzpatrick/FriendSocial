@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -22,6 +23,6 @@ public class RegisterRequest {
   private String lastName;
   private String userPic;
   private String bio;
-  private LocalDateTime dateJoined;
+  private Instant dateJoined;
   private Role role;
 }
