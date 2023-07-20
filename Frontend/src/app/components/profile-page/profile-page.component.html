@@ -1,0 +1,67 @@
+<app-header></app-header>
+<main class="main-container">
+  <div class="body-container">
+    <div class="sidemenu-container">
+      <div class="container mt-4">
+        <div class="row">
+          <!-- Left side menu -->
+          <div class="col-lg-3">
+            <div class="text-center mb-4">
+              <!-- User profile picture -->
+              <img
+                src="https://i.imgur.com/79OV5FI.png"
+                alt="User Profile"
+                width="100"
+                height="100"
+                class="rounded-circle"
+              />
+              <strong>mdo</strong>
+              <!-- Replace 'mdo' with the user's username or dynamically get the username from your component -->
+            </div>
+            <div class="text-center mb-4">
+              <!-- User bio -->
+              <p class="lead">User Bio Here</p>
+            </div>
+            <ul class="menu nav nav-pills flex-column mb-auto">
+              <li class="nav-item">
+                <a href="#" class="nav-link link-dark" aria-current="page">
+                  <svg class="bi me-2" width="16" height="16">
+                    <use xlink:href="#home"></use>
+                  </svg>
+                  My Feed
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-dark">
+                  <svg class="bi me-2" width="16" height="16">
+                    <use xlink:href="#speedometer2"></use>
+                  </svg>
+                  Friends
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link active">
+                  <svg class="bi me-2" width="16" height="16">
+                    <use xlink:href="#table"></use>
+                  </svg>
+                  My Profile
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-dark">
+                  <svg class="bi me-2" width="16" height="16">
+                    <use xlink:href="#grid"></use>
+                  </svg>
+                  New Post
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content-container blue-div">
+      <app-feed> </app-feed>
+    </div>
+  </div>
+</main>

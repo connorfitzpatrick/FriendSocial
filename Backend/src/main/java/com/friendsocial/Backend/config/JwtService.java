@@ -1,5 +1,6 @@
 package com.friendsocial.Backend.config;
 
+import com.friendsocial.Backend.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -16,6 +17,11 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
+
+  public Long extractUserId(UserDetails userDetails) {
+    // Assuming the userId is a Long type property of your UserDetails implementation
+    return ((User) userDetails).getId();
+  }
 
   public String extractUsername(String token) {
     return extractClaim(token, Claims::getSubject);
@@ -36,9 +42,11 @@ public class JwtService {
           Map<String, Object> extraClaims,
           UserDetails userDetails
   ) {
-    return Jwts
-            .builder()
+    Long userId = extractUserId(userDetails);
+    System.out.println("USERID is: " + userId);
+    return Jwts.builder()
             .setClaims(extraClaims)
+            .claim("userId", userId) // Add userId to the claims
             .setSubject(userDetails.getUsername())
             .setIssuedAt(new Date(System.currentTimeMillis()))
             .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))

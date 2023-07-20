@@ -11,7 +11,17 @@ export class AuthService {
     const token = localStorage.getItem('token');
     if (token) {
       const decodedToken: any = jwt_decode(token);
-      return decodedToken.sub; // 'sub' is a common JWT claim for the subject (in this case, the user ID)
+      return decodedToken.userId;
+    }
+    return null;
+  }
+
+  getUsername(): string | null {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedToken: any = jwt_decode<any>(token);
+      console.log('USERNAME IS ' + decodedToken.sub);
+      return decodedToken.sub;
     }
     return null;
   }

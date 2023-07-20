@@ -19,6 +19,7 @@ import { CommentRowComponent } from './components/comment-row/comment-row.compon
 import { CommentDialogComponent } from './components/comment-dialog/comment-dialog.component';
 import { LikesDialogComponent } from './components/likes-dialog/likes-dialog.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
+import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
     CommentDialogComponent,
     LikesDialogComponent,
     LoginFormComponent,
+    ProfilePageComponent,
   ],
   imports: [
     BrowserModule,
