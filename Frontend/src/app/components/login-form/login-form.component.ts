@@ -17,7 +17,7 @@ export class LoginFormComponent {
   dateJoined: number = Date.now();
   today: string; // To set the maximum date allowed
   role: String = 'USER';
-  bio: String = '';
+  bio: String = 'c';
   profilePic: String = '././';
 
   constructor(private http: HttpClient, private router: Router) {
@@ -108,6 +108,8 @@ export class LoginFormComponent {
       .subscribe(
         (response) => {
           // Handle the response from the backend, e.g., show a success message or redirect to login page
+          const token = response.token;
+          localStorage.setItem('token', token);
           console.log('Registration successful:', response);
           this.router.navigate(['/home']);
         },

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,6 +20,7 @@ import { CommentDialogComponent } from './components/comment-dialog/comment-dial
 import { LikesDialogComponent } from './components/likes-dialog/likes-dialog.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
+// import { TokenExpirationInterceptor } from './interceptors/token-expiration-interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,14 @@ import { ProfilePageComponent } from './components/profile-page/profile-page.com
     RouterModule.forRoot([]),
     HttpClientModule,
   ],
-  providers: [DatePipe],
+  providers: [
+    DatePipe,
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: TokenExpirationInterceptor,
+    //   multi: true,
+    // },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

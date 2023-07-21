@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,12 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
+  private final TokenBlacklistService tokenBlacklistService;
+
+  @Autowired
+  public JwtService(TokenBlacklistService tokenBlacklistService) {
+    this.tokenBlacklistService = tokenBlacklistService;
+  }
 
   public Long extractUserId(UserDetails userDetails) {
     // Assuming the userId is a Long type property of your UserDetails implementation
@@ -56,7 +63,8 @@ public class JwtService {
 
   public boolean isTokenValid(String token, UserDetails userDetails) {
     final String username = extractUsername(token);
-    return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+    // check if username from token matches the one stored in DB, if token is expired, and if it is blacklisted;
+    return (username.equals(userDetails.getUsername())) && !isTokenExpired(token) && !tokenBlacklistService.isBlacklisted(token);
   }
 
   private boolean isTokenExpired(String token) {

@@ -4,12 +4,11 @@ import com.friendsocial.Backend.config.JwtService;
 import com.friendsocial.Backend.user.User;
 import com.friendsocial.Backend.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.time.Instant;
 
 @Service
 @RequiredArgsConstructor
@@ -17,7 +16,9 @@ public class AuthenticationService {
 
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
+  @Autowired
   private final JwtService jwtService;
+  @Autowired
   private final AuthenticationManager authenticationManager;
 
   public AuthenticationResponse register(RegisterRequest request) {
@@ -35,6 +36,7 @@ public class AuthenticationService {
     );
     userRepository.save(user);
     var jwtToken = jwtService.generateToken(user);
+    System.out.println("TOKEN IS  " + jwtToken);
     return AuthenticationResponse.builder()
             .token(jwtToken)
             .build();

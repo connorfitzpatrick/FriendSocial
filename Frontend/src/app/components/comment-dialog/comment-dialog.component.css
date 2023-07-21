@@ -27,7 +27,6 @@
   height: 100%;
   z-index: 1000; /* Adjust the z-index value as needed */
   background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
-
 }
 
 .comment-container {
@@ -41,7 +40,7 @@
   align-items: center;
 }
 
-.profile-picture {
+.user-picture {
   width: 40px;
   height: 40px;
   border-radius: 50%;
