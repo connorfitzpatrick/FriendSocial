@@ -20,7 +20,7 @@ import { CommentDialogComponent } from './components/comment-dialog/comment-dial
 import { LikesDialogComponent } from './components/likes-dialog/likes-dialog.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
-// import { TokenExpirationInterceptor } from './interceptors/token-expiration-interceptor.interceptor';
+import { TokenExpirationInterceptor } from './interceptors/token-expiration-interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -48,11 +48,11 @@ import { ProfilePageComponent } from './components/profile-page/profile-page.com
   ],
   providers: [
     DatePipe,
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: TokenExpirationInterceptor,
-    //   multi: true,
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenExpirationInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

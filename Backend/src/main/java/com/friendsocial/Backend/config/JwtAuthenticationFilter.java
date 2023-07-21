@@ -17,8 +17,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-/* When a request comes in it is first processed in this class. If token is expired,
-
+/*
+When a request comes in it is first processed in this class.
  */
 
 @Component
