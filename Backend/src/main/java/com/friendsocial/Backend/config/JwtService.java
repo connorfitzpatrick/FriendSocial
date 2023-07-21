@@ -50,13 +50,13 @@ public class JwtService {
           UserDetails userDetails
   ) {
     Long userId = extractUserId(userDetails);
-    System.out.println("USERID is: " + userId);
     return Jwts.builder()
             .setClaims(extraClaims)
             .claim("userId", userId) // Add userId to the claims
             .setSubject(userDetails.getUsername())
             .setIssuedAt(new Date(System.currentTimeMillis()))
-            .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+            //.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24)) // 30 min
+            .setExpiration(new Date(System.currentTimeMillis() + 1000 * 10)) // 10 sec
             .signWith(getSignInKey(), SignatureAlgorithm.HS256)
             .compact();
   }
@@ -67,7 +67,12 @@ public class JwtService {
     return (username.equals(userDetails.getUsername())) && !isTokenExpired(token) && !tokenBlacklistService.isBlacklisted(token);
   }
 
-  private boolean isTokenExpired(String token) {
+  // Public method to check if the token is expired
+  public boolean isTokenExpired(String token) {
+    return isTokenExpiredInternal(token);
+  }
+
+  private boolean isTokenExpiredInternal(String token) {
     return extractExpiration(token).before(new Date());
   }
 

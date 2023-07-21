@@ -37,40 +37,47 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     final String authHeader = request.getHeader("Authorization");
     final String jwtToken;
     final String userEmail;
+
     if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+      // If authorization header is missing or doesn't start with "Bearer <Token>"
       filterChain.doFilter(request, response);
-      System.out.println("doFilterInternal");
       return;
     }
+
     jwtToken = authHeader.substring(7);
-    userEmail = jwtService.extractUsername(jwtToken);
-    System.out.println("User Email: " + userEmail);
-    // If user does not have token yet...
-    if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-      // get user details from DB
-      UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-      // Check if user's token is valid or not
-      try {
+
+    // the try-catch is necessary to get a 401 ERROR if the token is expired. token is no longer
+    // valid, and parsing its claims is not possible, resulting in the exception being thrown.
+    try {
+      // Check if the token is expired
+      if (jwtService.isTokenExpired(jwtToken)) {
+        System.out.println("Token expired");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        return;
+      }
+
+      // Token is not expired, so extract the username from it
+      userEmail = jwtService.extractUsername(jwtToken);
+
+      if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+        // If user does not have an active authentication token yet...
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
         if (jwtService.isTokenValid(jwtToken, userDetails)) {
-          // if so, create UsernamePasswordAuthenticationToken and pass userDetails and authorities
           UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                   userDetails,
                   null,
                   userDetails.getAuthorities()
           );
-          // enforce authentication token with details of request
-          authToken.setDetails(
-                  new WebAuthenticationDetailsSource().buildDetails(request)
-          );
-          // set authentication token
+          authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
           SecurityContextHolder.getContext().setAuthentication(authToken);
         }
-      } catch (ExpiredJwtException ex) {
-        System.out.println("Token expired: " + ex.getMessage());
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        return;
       }
+
+      filterChain.doFilter(request, response);
+
+    } catch (ExpiredJwtException ex) {
+      System.out.println("Token expired: " + ex.getMessage());
+      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     }
-    filterChain.doFilter(request, response);
   }
 }

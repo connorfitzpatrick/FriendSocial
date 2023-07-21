@@ -2,21 +2,21 @@ package com.friendsocial.Backend.exception;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
 
 @ControllerAdvice
-public class GlobalExceptionHandler {
-  @ExceptionHandler(ExpiredJwtException.class)
-  public RedirectView handleExpiredJwtException(ExpiredJwtException ex, RedirectAttributes attributes) {
-    // Perform any additional logging or handling if needed
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    // Redirect to the login page
-    RedirectView redirectView = new RedirectView("/login");
-    redirectView.setStatusCode(HttpStatus.UNAUTHORIZED);
-    System.out.println("FuCK this is weird handleExpiredJwtException no running");
-    return redirectView;
+  @ExceptionHandler(ExpiredJwtException.class)
+  protected ResponseEntity<Object> handleExpiredJwtException(ExpiredJwtException ex) {
+    // Customize the error response when the token is expired
+    String errorMessage = "Token expired: " + ex.getMessage();
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
   }
+
+  // Add other exception handling methods as needed
 }
