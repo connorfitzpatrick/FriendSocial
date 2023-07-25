@@ -55,8 +55,7 @@ public class JwtService {
             .claim("userId", userId) // Add userId to the claims
             .setSubject(userDetails.getUsername())
             .setIssuedAt(new Date(System.currentTimeMillis()))
-            //.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24)) // 30 min
-            .setExpiration(new Date(System.currentTimeMillis() + 1000 * 10)) // 10 sec
+            .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24)) // 30 min
             .signWith(getSignInKey(), SignatureAlgorithm.HS256)
             .compact();
   }
