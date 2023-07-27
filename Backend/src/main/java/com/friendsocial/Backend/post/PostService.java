@@ -29,8 +29,8 @@ public class PostService {
   }
 
   // Business logic of getting all friendships that are associated with an user
-  public List<Post> getPostsOfUserById(Long userId) {
-    List<Post> postList = postRepository.findPostsOfUserId(userId);
+  public List<Object[]> getPostsOfUserById(Long userId) {
+    List<Object[]> postList = postRepository.findPostsOfUserId(userId);
     if (postList.isEmpty()){
       throw new IllegalArgumentException("No friendships found");
     }

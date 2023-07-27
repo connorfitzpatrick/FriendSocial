@@ -1,6 +1,14 @@
-<h1>My Feed</h1>
-
-<div *ngFor="let post of posts">
-    <app-blog-post [post]="post"></app-blog-post>
+<h1>MY FEED</h1>
+<div class="mb-3">
+  <app-profile-tile
+    *ngIf="isProfilePage"
+    [isCurrentUserProfile]="isCurrentUserProfile"
+    [user]="user"
+    [userPic]="userPic"
+  ></app-profile-tile>
 </div>
-  
+<div *ngFor="let post of posts">
+  <div>
+    <app-blog-post [post]="post"></app-blog-post>
+  </div>
+</div>

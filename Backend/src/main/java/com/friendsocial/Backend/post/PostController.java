@@ -37,7 +37,7 @@ public class PostController {
   }
 
   @GetMapping(path = "{userId}")
-  public List<Post> getFriends(@PathVariable("userId") Long id) {
+  public List<Object[]> getFriends(@PathVariable("userId") Long id) {
     return postService.getPostsOfUserById(id);
   }
 

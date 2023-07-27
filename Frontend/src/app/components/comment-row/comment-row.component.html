@@ -18,7 +18,7 @@
     {{ comment[0].content }}
   </p>
   <a
-    *ngIf="!showAllComments && comments.length > threshold"
+    *ngIf="!showAllComments"
     (click)="openCommentDialog($event)"
     class="see-all-comments"
     tabindex="-1"

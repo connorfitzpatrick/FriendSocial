@@ -21,6 +21,7 @@ import { LikesDialogComponent } from './components/likes-dialog/likes-dialog.com
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 import { TokenExpirationInterceptor } from './interceptors/token-expiration-interceptor.interceptor';
+import { ProfileTileComponent } from './components/profile-tile/profile-tile.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { TokenExpirationInterceptor } from './interceptors/token-expiration-inte
     LikesDialogComponent,
     LoginFormComponent,
     ProfilePageComponent,
+    ProfileTileComponent,
   ],
   imports: [
     BrowserModule,

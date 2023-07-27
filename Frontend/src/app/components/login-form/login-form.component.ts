@@ -17,7 +17,7 @@ export class LoginFormComponent {
   dateJoined: number = Date.now();
   today: string; // To set the maximum date allowed
   role: String = 'USER';
-  bio: String = 'c';
+  bio: String = 'ccccccc';
   profilePic: String = '././';
 
   constructor(private http: HttpClient, private router: Router) {

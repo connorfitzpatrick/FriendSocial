@@ -1,0 +1,21 @@
+<!-- profile-tile.component.html -->
+<div class="post-container">
+  <div class="post-content">
+    <div class="profile-info">
+      <img [src]="userPic" alt="Profile Picture" class="profile-picture" />
+      <div>
+        <h3>{{ user?.firstName }} {{ user?.lastName }}</h3>
+        <h3>@{{ user?.username }}</h3>
+        <p>{{ user?.bio }}</p>
+        <!-- Move the bio inside the profile-info div -->
+      </div>
+    </div>
+    <div class="edit-button-container" *ngIf="isCurrentUserProfile">
+      <div class="edit-button-wrapper">
+        <button (click)="onEditProfile()">Edit Profile</button>
+      </div>
+    </div>
+
+    <!-- Remove the bio from here -->
+  </div>
+</div>

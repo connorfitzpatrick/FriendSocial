@@ -17,7 +17,6 @@ public interface PostRepository
     @Query("SELECT p, pr.username, pr.firstName, pr.lastName, pr.userPic, (SELECT COUNT(l) FROM Like l WHERE l.postId = p.id) FROM Post p JOIN p.user pr")
     List<Object[]> findPostsAndUserInfo();
 
-    @Query("SELECT p FROM Post p WHERE p.userId = ?1")
-    List<Post> findPostsOfUserId(Long id);
-
+    @Query("SELECT p, pr.username, pr.firstName, pr.lastName FROM Post p JOIN p.user pr WHERE p.userId = ?1")
+    List<Object[]> findPostsOfUserId(Long id);
   }

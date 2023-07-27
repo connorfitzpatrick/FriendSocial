@@ -42,6 +42,12 @@ public class UserController {
     return userService.getUserById(id);
   }
 
+  // GET USER BY EMAIL/USERNAME
+  @GetMapping(path = "username/{username}")
+  public User getUserByUsername(@PathVariable("username") String username) {
+    return userService.getUserByUsername(username);
+  }
+
 //  // GetUserPicById
 //  @GetMapping(path = "{userId}/user_pic")
 //  public ResponseEntity<Resource> getUserPic(@PathVariable Long id) {

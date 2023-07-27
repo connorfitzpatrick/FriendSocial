@@ -35,6 +35,15 @@ public class UserService {
     return userOptional.get();
   }
 
+  public User getUserByUsername(String username) {
+    Optional<User> userOptional = userRepository.findUserByEmail(username);
+    // If another user has this email, throw error
+    if (!userOptional.isPresent()) {
+      throw new IllegalStateException("User is not in database");
+    }
+    return userOptional.get();
+  }
+
 //  public String getUserPicPathById(Long id) {
 //    Optional<User> userOptional = userRepository.findById(id);
 //    if (!userOptional.isPresent()) {
