@@ -22,6 +22,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 import { TokenExpirationInterceptor } from './interceptors/token-expiration-interceptor.interceptor';
 import { ProfileTileComponent } from './components/profile-tile/profile-tile.component';
+import { EditDialogComponent } from './components/edit-dialog/edit-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ProfileTileComponent } from './components/profile-tile/profile-tile.com
     LoginFormComponent,
     ProfilePageComponent,
     ProfileTileComponent,
+    EditDialogComponent,
   ],
   imports: [
     BrowserModule,

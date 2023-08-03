@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ProfileService } from '../../services/ProfileService';
 import { User } from '../../models/profile.model';
 import { AuthService } from '../../services/AuthService';
@@ -20,6 +20,7 @@ export class ProfilePageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private profileService: ProfileService,
     private authService: AuthService
   ) {}
@@ -33,8 +34,11 @@ export class ProfilePageComponent implements OnInit {
     });
   }
 
-  getUsername(): string | null {
-    return this.authService.getUsername();
+  onMyProfileClick() {
+    console.log(this.username);
+    const myUser = this.authService.getUsername();
+    this.posts = [];
+    this.router.navigateByUrl(`/profile/${myUser}`);
   }
 
   fetchProfileInfo(): void {
@@ -42,7 +46,9 @@ export class ProfilePageComponent implements OnInit {
     this.profileService.getUserProfile(this.username).subscribe(
       (data) => {
         this.userId = data.id;
+        this.username = data.username;
         this.userPic = data.userPic;
+        this.bio = data.bio;
         this.user = data;
       },
       (error) => {

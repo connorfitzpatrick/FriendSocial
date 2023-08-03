@@ -1,0 +1,55 @@
+<div class="profile-edit-container">
+  <!-- Profile Picture Section -->
+  <div class="profile-picture-section">
+    <img [src]="user.userPic" alt="Profile Picture" class="profile-picture" />
+    <button class="change-profile-pic-button">Change Profile Picture</button>
+  </div>
+
+  <!-- Basic Info Section -->
+  <div class="basic-info-section">
+    <h2>Basic Info</h2>
+    <form>
+      <div class="form-group" *ngIf="user">
+        <label for="firstName">First Name</label>
+        <input
+          type="text"
+          id="firstName"
+          name="firstName"
+          [(ngModel)]="user.firstName"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input
+          type="text"
+          id="lastName"
+          name="lastName"
+          [(ngModel)]="user.lastName"
+        />
+      </div>
+      <div class="form-group">
+        <label for="bio">Bio</label>
+        <textarea
+          type="text"
+          id="bio"
+          name="bio"
+          [(ngModel)]="user.bio"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          name="username"
+          type="text"
+          id="username"
+          [(ngModel)]="user.username"
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input name="email" type="email" id="email" [(ngModel)]="user.email" />
+      </div>
+    </form>
+  </div>
+</div>

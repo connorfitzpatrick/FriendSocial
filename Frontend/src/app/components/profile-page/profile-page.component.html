@@ -29,10 +29,7 @@
                 </a>
               </li>
               <li>
-                <a
-                  [routerLink]="['/profile', getUsername()]"
-                  class="nav-link active"
-                >
+                <a (click)="onMyProfileClick()" class="nav-link active">
                   <svg class="bi me-2" width="16" height="16">
                     <use xlink:href="#table"></use>
                   </svg>
