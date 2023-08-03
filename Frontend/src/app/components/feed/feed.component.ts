@@ -10,7 +10,6 @@ import { AuthService } from '../../services/AuthService';
 })
 export class FeedComponent implements OnInit {
   @Input() userId: number | undefined;
-  @Input() userPic: string = '';
   @Input() user: User | undefined;
   posts: any[] = [];
 
@@ -42,7 +41,7 @@ export class FeedComponent implements OnInit {
         (posts) => {
           this.posts = posts.map((post) => ({
             ...post,
-            userPic: this.userPic, // Set the userPic property for each post object
+            userPic: this.user?.userPic, // Set the userPic property for each post object
           }));
         },
         (error) => {

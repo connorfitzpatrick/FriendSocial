@@ -4,19 +4,23 @@
     style="width: 280px"
   >
     <hr />
-    <!-- <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-    </a> -->
     <ul class="menu nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <a [routerLink]="['/home']" class="nav-link active" aria-current="page">
+        <a
+          [routerLink]="['/home']"
+          [class.active]="activeMenuItem === 'feed'"
+          [ngClass]="{
+            'nav-link': true,
+            'link-dark': activeMenuItem !== 'feed'
+          }"
+        >
           <svg class="bi me-2" width="16" height="16">
             <use xlink:href="#home"></use>
           </svg>
           My Feed
         </a>
       </li>
-      <li>
+      <li class="nav-item">
         <a href="#" class="nav-link link-dark">
           <svg class="bi me-2" width="16" height="16">
             <use xlink:href="#speedometer2"></use>
@@ -24,10 +28,15 @@
           Friends
         </a>
       </li>
-      <li>
+      <li class="nav-item">
         <a
           [routerLink]="['/profile', getUsername()]"
+          [class.active]="activeMenuItem === 'profile'"
           class="nav-link link-dark"
+          [ngClass]="{
+            'nav-link': true,
+            'link-dark': activeMenuItem !== 'profile'
+          }"
         >
           <svg class="bi me-2" width="16" height="16">
             <use xlink:href="#table"></use>
@@ -35,7 +44,7 @@
           My Profile
         </a>
       </li>
-      <li>
+      <li class="nav-item">
         <a href="#" class="nav-link link-dark">
           <svg class="bi me-2" width="16" height="16">
             <use xlink:href="#grid"></use>
@@ -62,7 +71,7 @@
           tabindex="-1"
         >
           <img
-            src="https://i.imgur.com/79OV5FI.png"
+            [src]="(authService.currentUser$ | async)?.userPic"
             alt=""
             width="32"
             height="32"

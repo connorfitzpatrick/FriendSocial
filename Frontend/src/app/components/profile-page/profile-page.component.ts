@@ -43,7 +43,7 @@ export class ProfilePageComponent implements OnInit {
 
   fetchProfileInfo(): void {
     // Make an HTTP request to fetch the profile information based on the username
-    this.profileService.getUserProfile(this.username).subscribe(
+    this.profileService.fetchLoggedInUserData(this.username).subscribe(
       (data) => {
         this.userId = data.id;
         this.username = data.username;

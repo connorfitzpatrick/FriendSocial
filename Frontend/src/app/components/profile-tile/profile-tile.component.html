@@ -2,7 +2,11 @@
 <div class="post-container">
   <div class="post-content">
     <div class="profile-info">
-      <img [src]="userPic" alt="Profile Picture" class="profile-picture" />
+      <img
+        [src]="user?.userPic"
+        alt="Profile Picture"
+        class="profile-picture"
+      />
       <div>
         <h3>{{ user?.firstName }} {{ user?.lastName }}</h3>
         <h3>@{{ user?.username }}</h3>

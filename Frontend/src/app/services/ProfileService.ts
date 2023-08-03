@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { User } from '../models/profile.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class ProfileService {
 
   constructor(private http: HttpClient) {}
 
-  getUserProfile(username: string): Observable<any> {
+  fetchLoggedInUserData(username: string): Observable<any> {
     const token = localStorage.getItem('token');
 
     const httpOptions = {
@@ -20,7 +21,7 @@ export class ProfileService {
       }),
     };
 
-    return this.http.get<any>(
+    return this.http.get<User>(
       `${this.apiUrl}/username/${username}`,
       httpOptions
     );
