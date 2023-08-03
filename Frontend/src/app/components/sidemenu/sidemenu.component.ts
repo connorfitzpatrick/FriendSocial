@@ -53,12 +53,14 @@ export class SidemenuComponent implements OnInit {
     }
   }
 
+  // Grabs the username from the AuthService (AuthService will get from token)
   getUsername(): string | null {
     return this.authService.getUsername();
   }
 
   onProfileClick(): void {
-    this.postService.clearPosts(); // Clear the posts before navigating to the profile page
+    console.log('sidemenu runing');
+    this.postService.clearPosts();
     this.router.navigate(['/profile', this.getUsername()]);
   }
 }

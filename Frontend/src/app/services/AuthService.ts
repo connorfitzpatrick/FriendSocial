@@ -110,6 +110,7 @@ export class AuthService {
     return null;
   }
 
+  // Grabs the username from the authentication token
   getUsername(): string {
     const token = localStorage.getItem('token');
     if (token) {
@@ -119,6 +120,7 @@ export class AuthService {
     return '';
   }
 
+  // Confirms whether the profile being routed to is owned by current user
   viewingProfile(userId: number | undefined): boolean {
     const currentUserId = this.getUserIdFromToken();
     console.log('currentUserId: ' + currentUserId);
@@ -127,6 +129,8 @@ export class AuthService {
   }
 
   onProfileClick(): void {
+    console.log('aithService runing');
+
     this.postService.clearPosts(); // Clear the posts before navigating to the profile page
     this.router.navigate(['/profile', this.getUsername()]);
   }

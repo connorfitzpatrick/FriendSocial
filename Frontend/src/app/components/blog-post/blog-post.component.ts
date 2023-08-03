@@ -15,6 +15,7 @@ export class BlogPostComponent implements OnInit {
   postId!: number;
   likeCount: number = 0;
   @Input() post: any;
+  @Input() userPic: any;
   comments: any[] = [];
 
   constructor(
@@ -34,6 +35,7 @@ export class BlogPostComponent implements OnInit {
         this.comments = comments;
       });
     });
+    console.log(this.post);
   }
 
   formatDate(timestamp: string | null): string {
