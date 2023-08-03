@@ -1,6 +1,10 @@
 <h1>MY FEED</h1>
 <div class="mb-3">
-  <app-profile-tile *ngIf="isProfilePage" [user]="user"></app-profile-tile>
+  <app-profile-tile
+    *ngIf="isProfilePage"
+    [user]="user"
+    [userId]="userId"
+  ></app-profile-tile>
 </div>
 <div *ngFor="let post of postService.posts$ | async">
   <div>

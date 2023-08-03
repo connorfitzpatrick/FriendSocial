@@ -34,12 +34,6 @@ export class ProfilePageComponent implements OnInit {
     });
   }
 
-  onMyProfileClick() {
-    const myUsername = this.authService.getUsername();
-    this.posts = [];
-    this.router.navigateByUrl(`/profile/${myUsername}`);
-  }
-
   fetchProfileInfo(): void {
     // Make an HTTP request to fetch the profile information based on the username
     this.profileService.fetchLoggedInUserData(this.username).subscribe(

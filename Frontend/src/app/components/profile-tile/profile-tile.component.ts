@@ -11,20 +11,18 @@ import { EditDialogComponent } from '../../components/edit-dialog/edit-dialog.co
 })
 export class ProfileTileComponent implements OnChanges {
   @Input() user: User | undefined;
+  @Input() userId: number | undefined;
   isCurrentUserProfile: boolean = false;
 
   constructor(public dialog: MatDialog, private authService: AuthService) {} // Inject the AuthService
 
   ngOnChanges(): void {
-    console.log('IT ' + this.user?.userId);
-    this.isCurrentUserProfile = this.authService.viewingProfile(
-      this.user?.userId
-    );
-    console.log('IR ' + this.isCurrentUserProfile);
+    this.isCurrentUserProfile = this.authService.viewingProfile(this.userId);
   }
 
   openCommentDialog(event: Event) {
     event.preventDefault();
+    console.log(this.user);
     const dialogRef = this.dialog.open(EditDialogComponent, {
       width: '60%',
       maxWidth: '800px',
