@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { User } from '../../models/profile.model';
 import { AuthService } from '../../services/AuthService';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,12 +9,19 @@ import { EditDialogComponent } from '../../components/edit-dialog/edit-dialog.co
   templateUrl: './profile-tile.component.html',
   styleUrls: ['./profile-tile.component.css'],
 })
-export class ProfileTileComponent {
-  @Input() userPic: string = '';
+export class ProfileTileComponent implements OnChanges {
   @Input() user: User | undefined;
-  @Input() isCurrentUserProfile: boolean | null = false;
+  isCurrentUserProfile: boolean = false;
 
   constructor(public dialog: MatDialog, private authService: AuthService) {} // Inject the AuthService
+
+  ngOnChanges(): void {
+    console.log('IT ' + this.user?.userId);
+    this.isCurrentUserProfile = this.authService.viewingProfile(
+      this.user?.userId
+    );
+    console.log('IR ' + this.isCurrentUserProfile);
+  }
 
   openCommentDialog(event: Event) {
     event.preventDefault();

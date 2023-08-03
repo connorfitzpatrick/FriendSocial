@@ -120,10 +120,9 @@ export class AuthService {
   }
 
   viewingProfile(userId: number | undefined): boolean {
-    console.log('UserId: ' + userId);
-
     const currentUserId = this.getUserIdFromToken();
     console.log('currentUserId: ' + currentUserId);
+    console.log('number: ' + userId);
     return currentUserId === userId;
   }
 
