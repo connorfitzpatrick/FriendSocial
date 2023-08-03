@@ -17,7 +17,7 @@ export class FeedComponent implements OnInit {
   @Input() isProfilePage: boolean = false;
 
   constructor(
-    private postService: PostService,
+    public postService: PostService,
     private authService: AuthService
   ) {}
 
@@ -37,22 +37,18 @@ export class FeedComponent implements OnInit {
     // If there is a userId, we are on a profile page. Grab only the posts from that userId
     if (this.userId) {
       this.isCurrentUserProfile = this.isMyProfile();
-      this.postService.getPostsByUserId(this.userId).subscribe(
-        (posts) => {
-          this.posts = posts.map((post) => ({
+      this.postService.posts$.subscribe((posts) => {
+        this.posts = posts
+          .filter((post) => post.userId === this.userId)
+          .map((post) => ({
             ...post,
             userPic: this.user?.userPic, // Set the userPic property for each post object
           }));
-        },
-        (error) => {
-          console.error('Error fetching posts information:', error);
-        }
-      );
+      });
+      this.postService.fetchPostsByUserId(this.userId); // Trigger the fetching of posts by userId
     } else {
       // Default behavior, get all posts
-      this.postService.getPosts().subscribe((posts) => {
-        this.posts = posts;
-      });
+      this.postService.fetchPosts(); // Trigger the fetching of all posts
     }
   }
 }

@@ -1,5 +1,6 @@
 import { Component, Input, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AuthService } from '../../services/AuthService';
 import { User } from '../../models/profile.model';
 
 @Component({
@@ -23,6 +24,7 @@ export class EditDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EditDialogComponent>,
+    public authService: AuthService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 

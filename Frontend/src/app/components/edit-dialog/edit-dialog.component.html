@@ -1,7 +1,11 @@
 <div class="profile-edit-container">
   <!-- Profile Picture Section -->
   <div class="profile-picture-section">
-    <img [src]="user.userPic" alt="Profile Picture" class="profile-picture" />
+    <img
+      [src]="(authService.currentUser$ | async)?.userPic"
+      alt="Profile Picture"
+      class="profile-picture"
+    />
     <button class="change-profile-pic-button">Change Profile Picture</button>
   </div>
 

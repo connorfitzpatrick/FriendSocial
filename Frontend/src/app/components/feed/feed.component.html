@@ -6,7 +6,7 @@
     [user]="user"
   ></app-profile-tile>
 </div>
-<div *ngFor="let post of posts">
+<div *ngFor="let post of postService.posts$ | async">
   <div>
     <app-blog-post [post]="post"></app-blog-post>
   </div>

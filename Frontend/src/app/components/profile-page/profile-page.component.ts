@@ -35,10 +35,9 @@ export class ProfilePageComponent implements OnInit {
   }
 
   onMyProfileClick() {
-    console.log(this.username);
-    const myUser = this.authService.getUsername();
+    const myUsername = this.authService.getUsername();
     this.posts = [];
-    this.router.navigateByUrl(`/profile/${myUser}`);
+    this.router.navigateByUrl(`/profile/${myUsername}`);
   }
 
   fetchProfileInfo(): void {

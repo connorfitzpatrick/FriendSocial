@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { User } from '../models/profile.model';
 import { tap } from 'rxjs/operators';
 import { ProfileService } from './ProfileService';
+import { PostService } from './PostService';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private postService: PostService
   ) {}
 
   login(credentials: any): Observable<User> {
@@ -123,5 +125,10 @@ export class AuthService {
     const currentUserId = this.getUserIdFromToken();
     console.log('currentUserId: ' + currentUserId);
     return currentUserId === userId;
+  }
+
+  onProfileClick(): void {
+    this.postService.clearPosts(); // Clear the posts before navigating to the profile page
+    this.router.navigate(['/profile', this.getUsername()]);
   }
 }

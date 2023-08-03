@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { AuthService } from '../../services/AuthService';
 import { ProfileService } from '../../services/ProfileService';
+import { PostService } from '../../services/PostService';
 
 /*
     - ActivatedRoute respresents the current activated route in the app, provided to a component. It allows us to extract username from URL (route parameter)
@@ -19,6 +20,7 @@ export class SidemenuComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
+    private postService: PostService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -53,5 +55,10 @@ export class SidemenuComponent implements OnInit {
 
   getUsername(): string | null {
     return this.authService.getUsername();
+  }
+
+  onProfileClick(): void {
+    this.postService.clearPosts(); // Clear the posts before navigating to the profile page
+    this.router.navigate(['/profile', this.getUsername()]);
   }
 }
