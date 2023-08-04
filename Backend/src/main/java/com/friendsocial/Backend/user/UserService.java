@@ -35,8 +35,8 @@ public class UserService {
     return userOptional.get();
   }
 
-  public User getUserByUsername(String username) {
-    Optional<User> userOptional = userRepository.findUserByEmail(username);
+  public User getUserByHandle(String handle) {
+    Optional<User> userOptional = userRepository.findUserByHandle(handle);
     // If another user has this email, throw error
     if (!userOptional.isPresent()) {
       throw new IllegalStateException("User is not in database");
@@ -66,7 +66,7 @@ public class UserService {
   // Business logic of Posting (adding) new user. Do not add if email already in use.
   public void addNewUser(User user) {
     Optional<User> userOptional = userRepository
-            .findUserByEmail(user.getEmail());
+            .findUserByUsername(user.getUsername());
     // If another user has this email, throw error
     if (userOptional.isPresent()) {
       throw new IllegalStateException("Another User is Already Using This Email");
@@ -89,7 +89,7 @@ public class UserService {
   // Business logic of modifying a user.
   // @Transactional's usage means we don't have to use query's. Entity goes into a managed state.
   @Transactional
-  public void updateUser(Long userId, String email, String firstName) {
+  public void updateUser(Long userId, String username, String firstName) {
     // Check if user with that ID exists, otherwise throw exception
     User user = userRepository.findById(userId)
             .orElseThrow(() -> new IllegalStateException(
@@ -99,16 +99,16 @@ public class UserService {
     // Business logic for changing email
     // if email provided is not null, email length is greater than 0, and different from the current email,
     // set the email as the new provided one.
-    if (email != null &&
-            email.length() > 0 &&
-            !Objects.equals(user.getEmail(), email)) {
+    if (username != null &&
+            username.length() > 0 &&
+            !Objects.equals(user.getUsername(), username)) {
       // Check that the email hasn't been taken
       Optional<User> userOptional = userRepository
-              .findUserByEmail(email);
+              .findUserByUsername(username);
       if (userOptional.isPresent()) {
         throw new IllegalStateException("email taken");
       }
-      user.setEmail(email);
+      user.setUsername(username);
     }
 
     // Business logic for changing email

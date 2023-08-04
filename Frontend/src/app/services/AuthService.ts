@@ -59,7 +59,7 @@ export class AuthService {
         }
       );
 
-    return this.profileService.fetchLoggedInUserData(credentials.username).pipe(
+    return this.profileService.fetchLoggedInUserData(credentials.handle).pipe(
       tap((user: User) => {
         this.currentUserSubject.next(user);
       })
@@ -93,7 +93,7 @@ export class AuthService {
         }
       );
 
-    return this.profileService.fetchLoggedInUserData(user.username).pipe(
+    return this.profileService.fetchLoggedInUserData(user.handle).pipe(
       tap((user: User) => {
         this.currentUserSubject.next(user);
       })
@@ -110,12 +110,12 @@ export class AuthService {
     return null;
   }
 
-  // Grabs the username from the authentication token
-  getUsername(): string {
+  // Grabs the username/email from the authentication token
+  getHandle(): string {
     const token = localStorage.getItem('token');
     if (token) {
       const decodedToken: any = jwt_decode<any>(token);
-      return decodedToken.sub;
+      return decodedToken.handle;
     }
     return '';
   }
@@ -129,9 +129,7 @@ export class AuthService {
   }
 
   onProfileClick(): void {
-    console.log('aithService runing');
-
     this.postService.clearPosts(); // Clear the posts before navigating to the profile page
-    this.router.navigate(['/profile', this.getUsername()]);
+    this.router.navigate(['/profile', this.getHandle()]);
   }
 }

@@ -14,6 +14,7 @@ export class LoginFormComponent {
   lastName: string = '';
   dob: string = '';
   login: string = '';
+  handle: string = '';
   password: string = '';
   dateJoined: number = Date.now();
   today: string; // To set the maximum date allowed
@@ -44,7 +45,7 @@ export class LoginFormComponent {
   // Submit login event handler
   onSubmitLogin(): void {
     const credentials = {
-      email: this.login,
+      username: this.login,
       password: this.password,
     };
 
@@ -64,8 +65,8 @@ export class LoginFormComponent {
     const date = new Date();
 
     const user = {
-      email: this.login,
       username: this.login,
+      handle: this.handle,
       password: this.password,
       dob: this.dob,
       firstName: this.firstName,

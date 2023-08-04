@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'login', component: LoginFormComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   {
-    path: 'profile/:username',
+    path: 'profile/:handle',
     component: ProfilePageComponent,
     canActivate: [AuthGuard],
   },

@@ -41,10 +41,10 @@ public class User implements UserDetails {
   private Long id;
 
   @Column(length=50, nullable=false, unique=true)
-  private String email;
+  private String username;
 
   @Column(length=50, nullable=false, unique=true)
-  private String username;
+  private String handle;
 
   @Column(nullable=false)
   private String password;
@@ -98,8 +98,8 @@ public class User implements UserDetails {
   }
 
   public User(Long id,
-              String email,
               String username,
+              String handle,
               String password,
               LocalDate dob,
               String firstName,
@@ -111,8 +111,8 @@ public class User implements UserDetails {
   )
   {
     this.id = id;
-    this.email = email;
     this.username = username;
+    this.handle = handle;
     this.password = password;
     this.dob = dob;
     this.firstName = firstName;
@@ -123,8 +123,8 @@ public class User implements UserDetails {
     this.role = role;
   }
 
-  public User(String email,
-              String username,
+  public User(String username,
+              String handle,
               String password,
               LocalDate dob,
               String firstName,
@@ -134,8 +134,8 @@ public class User implements UserDetails {
               Instant dateJoined,
               Role role
   ) {
-    this.email = email;
     this.username = username;
+    this.handle = handle;
     this.password = password;
     this.dob = dob;
     this.firstName = firstName;
@@ -157,16 +157,16 @@ public class User implements UserDetails {
     this.id = id;
   }
 
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
   public String getUsername() {
-    return email;
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getHandle() {
+    return handle;
   }
 
   @Override
@@ -189,8 +189,8 @@ public class User implements UserDetails {
     return true;
   }
 
-  public void setUsername(String email) {
-    this.email = email;
+  public void setHandle(String handle) {
+    this.handle = handle;
   }
 
   @Override
@@ -322,8 +322,8 @@ public class User implements UserDetails {
   public String toString() {
     return "UserUser{" +
             "id=" + id +
-            ", email='" + email + '\'' +
             ", username='" + username + '\'' +
+            ", handle='" + handle + '\'' +
             ", password='" + password + '\'' +
             ", dob='" + dob + '\'' +
             ", firstName='" + firstName + '\'' +

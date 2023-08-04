@@ -12,7 +12,7 @@ export class ProfileService {
 
   constructor(private http: HttpClient, private postService: PostService) {}
 
-  fetchLoggedInUserData(username: string): Observable<any> {
+  fetchLoggedInUserData(handle: string): Observable<any> {
     const token = localStorage.getItem('token');
 
     const httpOptions = {
@@ -23,9 +23,9 @@ export class ProfileService {
     };
 
     this.postService.clearPosts();
-
+    console.log(handle);
     return this.http.get<User>(
-      `${this.apiUrl}/username/${username}`,
+      `${this.apiUrl}/username/${handle}`,
       httpOptions
     );
   }

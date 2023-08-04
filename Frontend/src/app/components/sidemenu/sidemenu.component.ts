@@ -27,9 +27,6 @@ export class SidemenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateActiveMenuItem();
-
-    console.log(this.authService.currentUser$);
-
     // Subscribe to route changes
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -42,7 +39,7 @@ export class SidemenuComponent implements OnInit {
   private updateActiveMenuItem(): void {
     const currentUrl = this.router.routerState.snapshot.url;
     const isOwnProfile =
-      this.route.snapshot.paramMap.get('username') === this.getUsername();
+      this.route.snapshot.paramMap.get('handle') === this.getHandle();
     console.log(isOwnProfile);
     if (currentUrl.includes('/home')) {
       this.activeMenuItem = 'feed';
@@ -54,13 +51,13 @@ export class SidemenuComponent implements OnInit {
   }
 
   // Grabs the username from the AuthService (AuthService will get from token)
-  getUsername(): string | null {
-    return this.authService.getUsername();
+  getHandle(): string | null {
+    return this.authService.getHandle();
   }
 
   onProfileClick(): void {
     console.log('sidemenu runing');
     this.postService.clearPosts();
-    this.router.navigate(['/profile', this.getUsername()]);
+    this.router.navigate(['/profile', this.getHandle()]);
   }
 }

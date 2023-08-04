@@ -35,6 +35,7 @@ export class FeedComponent implements OnInit {
 
   fetchPosts(): void {
     // If there is a userId, we are on a profile page. Grab only the posts from that userId
+    console.log('attempt');
     if (this.userId) {
       this.isCurrentUserProfile = this.isMyProfile();
       this.postService.posts$.subscribe((posts) => {

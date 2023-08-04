@@ -28,10 +28,16 @@ export class ProfilePageComponent implements OnInit {
   ngOnInit(): void {
     // Get the username from the route parameters
     this.route.params.subscribe((params) => {
-      this.username = params['username'];
+      this.username = params['handle'];
       // Fetch profile information from the backend
       this.fetchProfileInfo();
     });
+  }
+
+  onMyProfileClick() {
+    const myHandle = this.authService.getHandle();
+    this.posts = [];
+    this.router.navigateByUrl(`/profile/${myHandle}`);
   }
 
   fetchProfileInfo(): void {

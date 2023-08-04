@@ -17,9 +17,9 @@ export class AppComponent implements OnInit {
   title = 'Friends150';
 
   ngOnInit(): void {
-    const username = this.authService.getUsername();
+    const handle = this.authService.getHandle();
     // Fetch the user data and update the currentUserSubject
-    this.profileService.fetchLoggedInUserData(username).subscribe(
+    this.profileService.fetchLoggedInUserData(handle).subscribe(
       (user: User) => {
         this.authService.currentUserSubject.next(user);
       },

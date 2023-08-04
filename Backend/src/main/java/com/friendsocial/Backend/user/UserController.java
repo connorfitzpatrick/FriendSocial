@@ -42,10 +42,10 @@ public class UserController {
     return userService.getUserById(id);
   }
 
-  // GET USER BY EMAIL/USERNAME
-  @GetMapping(path = "username/{username}")
-  public User getUserByUsername(@PathVariable("username") String username) {
-    return userService.getUserByUsername(username);
+  // GET USER BY Handle
+  @GetMapping(path = "username/{handle}")
+  public User getUserByHandle(@PathVariable("handle") String handle) {
+    return userService.getUserByHandle(handle);
   }
 
 //  // GetUserPicById
@@ -88,9 +88,9 @@ public class UserController {
   @PutMapping(path = "{userId}")
   public void updateUser(
           @PathVariable("userId") Long id,
-          @RequestParam(required = false) String email,
+          @RequestParam(required = false) String username,
           @RequestParam(required = false) String firstName) {
-    userService.updateUser(id, email, firstName);
+    userService.updateUser(id, username, firstName);
   }
 
 

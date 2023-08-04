@@ -12,8 +12,11 @@ import java.util.Optional;
 public interface UserRepository
   extends JpaRepository<User, Long> {
     // Custom function to find user by email. Transforms to `SELECT * FROM users WHERE email = ?`
-    @Query("SELECT p FROM User p WHERE p.email = ?1")
-    Optional<User> findUserByEmail(String email);
+    @Query("SELECT p FROM User p WHERE p.username = ?1")
+    Optional<User> findUserByUsername(String username);
+
+    @Query("SELECT p FROM User p WHERE p.handle = ?1")
+    Optional<User> findUserByHandle(String handle);
 }
 
 

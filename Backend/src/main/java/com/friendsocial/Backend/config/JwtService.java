@@ -30,6 +30,11 @@ public class JwtService {
     return ((User) userDetails).getId();
   }
 
+  public String extractHandle(UserDetails userDetails) {
+    // Assuming the userId is a Long type property of your UserDetails implementation
+    return ((User) userDetails).getHandle();
+  }
+
   public String extractUsername(String token) {
     return extractClaim(token, Claims::getSubject);
   }
@@ -50,9 +55,11 @@ public class JwtService {
           UserDetails userDetails
   ) {
     Long userId = extractUserId(userDetails);
+    String handle = extractHandle(userDetails);
     return Jwts.builder()
             .setClaims(extraClaims)
             .claim("userId", userId) // Add userId to the claims
+            .claim("handle", handle) // Add userId to the claims
             .setSubject(userDetails.getUsername())
             .setIssuedAt(new Date(System.currentTimeMillis()))
             .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24)) // 30 min

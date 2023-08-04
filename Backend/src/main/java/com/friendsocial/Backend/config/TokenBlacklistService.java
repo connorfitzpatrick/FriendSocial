@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.Set;
 
+// In charge of keeping track of bad tokens, so deleted accounts cant get back in.
 @Service
 public class TokenBlacklistService {
   private final Set<String> blacklist = new HashSet<>();
