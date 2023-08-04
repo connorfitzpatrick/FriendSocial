@@ -3,7 +3,7 @@ package com.friendsocial.Backend.user;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.beans.BeanUtils;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -89,33 +89,20 @@ public class UserService {
   // Business logic of modifying a user.
   // @Transactional's usage means we don't have to use query's. Entity goes into a managed state.
   @Transactional
-  public void updateUser(Long userId, String username, String firstName) {
+  public void updateUser(Long userId, User updatedUser) {
     // Check if user with that ID exists, otherwise throw exception
     User user = userRepository.findById(userId)
             .orElseThrow(() -> new IllegalStateException(
                     "User with id " + userId + " does not exist"
             ));
 
-    // Business logic for changing email
+    // Copy non-null properties from updatedUser to existingUser
+    BeanUtils.copyProperties(updatedUser, user);
+    // Save the updated user back to the database
+    userRepository.save(user);
+
     // if email provided is not null, email length is greater than 0, and different from the current email,
     // set the email as the new provided one.
-    if (username != null &&
-            username.length() > 0 &&
-            !Objects.equals(user.getUsername(), username)) {
-      // Check that the email hasn't been taken
-      Optional<User> userOptional = userRepository
-              .findUserByUsername(username);
-      if (userOptional.isPresent()) {
-        throw new IllegalStateException("email taken");
-      }
-      user.setUsername(username);
-    }
 
-    // Business logic for changing email
-    if (firstName != null &&
-        firstName.length() > 0 &&
-        !Objects.equals(user.getFirstName(), firstName)) {
-      user.setFirstName(firstName);
-    }
   }
 }

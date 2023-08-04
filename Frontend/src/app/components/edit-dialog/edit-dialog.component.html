@@ -2,11 +2,20 @@
   <!-- Profile Picture Section -->
   <div class="profile-picture-section">
     <img
-      [src]="(authService.currentUser$ | async)?.userPic"
+      [src]="profilePictureUrl"
       alt="Profile Picture"
       class="profile-picture"
     />
-    <button class="change-profile-pic-button">Change Profile Picture</button>
+    <input
+      type="file"
+      style="display: none"
+      #fileInput
+      accept="image/*"
+      (change)="onFileSelected($event)"
+    />
+    <button class="change-profile-pic-button" (click)="fileInput.click()">
+      Change Profile Picture
+    </button>
   </div>
 
   <!-- Basic Info Section -->

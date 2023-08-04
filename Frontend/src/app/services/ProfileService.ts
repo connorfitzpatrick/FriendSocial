@@ -29,4 +29,18 @@ export class ProfileService {
       httpOptions
     );
   }
+
+  updateUserData(updatedUser: User): Observable<any> {
+    const token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+    return this.http.put<User>(
+      `${this.apiUrl}/username/${updatedUser.userId}`,
+      httpOptions
+    );
+  }
 }

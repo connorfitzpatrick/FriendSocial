@@ -15,7 +15,7 @@ export class CommentsService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`, // Include the token in the 'Authorization' header
+        Authorization: `Bearer ${token}`,
       }),
     };
     return this.http.get<any[]>(apiUrl, httpOptions);

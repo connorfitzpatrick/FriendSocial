@@ -132,4 +132,9 @@ export class AuthService {
     this.postService.clearPosts(); // Clear the posts before navigating to the profile page
     this.router.navigate(['/profile', this.getHandle()]);
   }
+
+  updateCurrentUser(user: User): void {
+    this.currentUserSubject.next(user);
+    console.log(this.currentUserSubject);
+  }
 }
