@@ -17,7 +17,6 @@ import { BlogPostComponent } from './components/blog-post/blog-post.component';
 import { FeedComponent } from './components/feed/feed.component';
 import { CommentRowComponent } from './components/comment-row/comment-row.component';
 import { CommentDialogComponent } from './components/comment-dialog/comment-dialog.component';
-import { LikesDialogComponent } from './components/likes-dialog/likes-dialog.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 import { TokenExpirationInterceptor } from './interceptors/token-expiration-interceptor.interceptor';
@@ -34,7 +33,6 @@ import { EditDialogComponent } from './components/edit-dialog/edit-dialog.compon
     FeedComponent,
     CommentRowComponent,
     CommentDialogComponent,
-    LikesDialogComponent,
     LoginFormComponent,
     ProfilePageComponent,
     ProfileTileComponent,

@@ -4,7 +4,6 @@ import { CommentsService } from '../../services/CommentsService';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-import { LikesDialogComponent } from '../likes-dialog/likes-dialog.component';
 
 @Component({
   selector: 'app-blog-post',
@@ -70,23 +69,5 @@ export class BlogPostComponent implements OnInit {
   likePost(): void {
     // Increment the like count
     this.likeCount++;
-  }
-
-  openLikesDialog(postId: number): void {
-    this.http
-      .get<any[]>(`http://localhost:8080/api/v1/likes/${postId}`)
-      .subscribe((likes) => {
-        const dialogRef = this.dialog.open(LikesDialogComponent, {
-          data: likes,
-          width: '40%',
-          maxWidth: '800px',
-          autoFocus: false,
-          panelClass: 'likes-dialog-container',
-        });
-
-        dialogRef.afterClosed().subscribe((result) => {
-          console.log('The dialog was closed');
-        });
-      });
   }
 }
