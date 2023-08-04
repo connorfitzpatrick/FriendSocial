@@ -59,6 +59,18 @@
           [(ngModel)]="user.username"
         />
       </div>
+      <div class="form-buttons">
+        <button
+          type="button"
+          class="apply-changes-button"
+          (click)="applyChanges()"
+        >
+          Apply Changes
+        </button>
+        <button type="button" class="cancel-button" (click)="cancel()">
+          Cancel
+        </button>
+      </div>
     </form>
   </div>
 </div>

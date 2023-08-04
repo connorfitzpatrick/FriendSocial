@@ -34,6 +34,14 @@ export class EditDialogComponent implements OnInit {
     console.log(this.user);
   }
 
+  changeProfilePicture(): void {}
+
+  applyChanges() {}
+
+  cancel() {
+    this.closeDialog();
+  }
+
   closeDialog(): void {
     this.dialogRef.close();
   }
