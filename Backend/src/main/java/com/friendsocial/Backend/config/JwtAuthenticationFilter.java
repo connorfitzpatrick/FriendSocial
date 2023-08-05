@@ -15,6 +15,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 
 /*
@@ -51,14 +52,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     try {
       // Check if the token is expired
       if (jwtService.isTokenExpired(jwtToken)) {
-        System.out.println("Token expired");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         return;
       }
 
       // Token is not expired, so extract the username from it
       userEmail = jwtService.extractUsername(jwtToken);
-
+      System.out.println("Java searching this email in userDetailsService.loadByUsername: " + userEmail);
       if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
         // If user does not have an active authentication token yet...
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
@@ -72,8 +72,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
           SecurityContextHolder.getContext().setAuthentication(authToken);
         }
       }
-
+      System.out.println("Token: " + jwtToken);
       filterChain.doFilter(request, response);
+      System.out.println("Token: " + jwtToken);
 
     } catch (ExpiredJwtException ex) {
       System.out.println("Token expired: " + ex.getMessage());

@@ -95,10 +95,12 @@ public class UserService {
             .orElseThrow(() -> new IllegalStateException(
                     "User with id " + userId + " does not exist"
             ));
-
+    System.out.println("GETS TO SERVICE");
     // Copy non-null properties from updatedUser to existingUser
     BeanUtils.copyProperties(updatedUser, user);
     // Save the updated user back to the database
+    System.out.println(updatedUser);
+    System.out.println(user);
     userRepository.save(user);
 
     // if email provided is not null, email length is greater than 0, and different from the current email,

@@ -1,6 +1,7 @@
 package com.friendsocial.Backend.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -85,11 +86,24 @@ public class UserController {
     userService.deleteUser(id);
   }
 
+//  @PutMapping(path = "{userId}")
+//  public User updateUser(
+//          @PathVariable("userId") Long id,
+//          @RequestBody User user) {
+//    System.out.println("GETS TO CONTROLLER");
+//    System.out.println(user);
+//    userService.updateUser(id, user);
+//    return userService.getUserById(id);
+//  }
+
   @PutMapping(path = "{userId}")
-  public void updateUser(
-          @PathVariable("userId") Long id,
-          @RequestBody User user) {
+  public void updateUser(@PathVariable("userId") Long id, @RequestBody User user) {
+    System.out.println("GETS TO CONTROLLER");
+    System.out.println(user);
     userService.updateUser(id, user);
+
+    // Optionally, you can return the updated user as part of the response
+    User updatedUser = userService.getUserById(id);
   }
 
 

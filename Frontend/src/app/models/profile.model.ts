@@ -1,5 +1,5 @@
 export interface User {
-  userId: number;
+  id: number;
   username: string;
   handle: string;
   password: string;
@@ -9,4 +9,5 @@ export interface User {
   userPic: string;
   bio: string;
   dateJoined: string;
+  role: string;
 }

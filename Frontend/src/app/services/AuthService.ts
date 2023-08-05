@@ -67,6 +67,7 @@ export class AuthService {
   }
 
   register(user: any): Observable<User> {
+    console.log(user);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -124,7 +125,6 @@ export class AuthService {
   viewingProfile(userId: number | undefined): boolean {
     const currentUserId = this.getUserIdFromToken();
     console.log('currentUserId: ' + currentUserId);
-    console.log('number: ' + userId);
     return currentUserId === userId;
   }
 
@@ -135,6 +135,6 @@ export class AuthService {
 
   updateCurrentUser(user: User): void {
     this.currentUserSubject.next(user);
-    console.log(this.currentUserSubject);
+    // console.log(this.currentUserSubject);
   }
 }
