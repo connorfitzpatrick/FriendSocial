@@ -72,42 +72,56 @@ export class EditDialogComponent implements OnInit {
   }
 
   // Send updated user info to backend
-  applyChanges() {
-    if (this.selectedUserPic) {
-      console.log('Okay so it gets the pic...');
-      this.imageService.uploadImage(this.selectedUserPic).subscribe(
-        (response) => {
-          console.log(response.userPic);
-          this.user.userPic = response.userPic;
+  async applyChanges() {
+    console.log('applying changes');
+    try {
+      if (this.selectedUserPic) {
+        const response = await this.imageService
+          .uploadImage(this.selectedUserPic)
+          .toPromise();
+        this.user.userPic = response.userPic;
+      }
+
+      const dateJoined = new Date(Number(this.user.dateJoined) * 1000); // Convert Unix timestamp to milliseconds
+      console.log(this.user.userPic);
+      const updatedUser = {
+        id: this.user.id,
+        username: this.user.username,
+        handle: this.user.handle,
+        password: this.user.password,
+        dob: this.datePipe.transform(this.user.dob, 'yyyy-MM-dd'),
+        firstName: this.user.firstName,
+        lastName: this.user.lastName,
+        userPic: this.user.userPic,
+        bio: this.user.bio,
+        dateJoined: '2023-08-05T01:11:59.753Z',
+        role: this.user.role,
+      };
+
+      console.log(updatedUser);
+      this.imageService.getImage(this.user.userPic).subscribe(
+        (imageUrl: string) => {
+          // This callback will be executed when the image URL is available
+          updatedUser.userPic = imageUrl;
+          console.log(imageUrl);
+          // Now you can proceed with saving the updated user data and making other API calls
         },
         (error) => {
-          // Handle error if the backend update fails
-          console.error('Error updating profile picture:', error);
+          // Handle error if there is any issue getting the image URL
+          console.error('Error getting profile picture:', error);
         }
       );
+
+      this.profileService.updateUserData(updatedUser);
+
+      console.log(updatedUser.userPic);
+
+      //
+      this.authService.updateCurrentUser(updatedUser);
+    } catch (error) {
+      // Handle error if the backend update fails
+      console.error('Error updating profile picture:', error);
     }
-
-    const dateJoined = new Date(Number(this.user.dateJoined) * 1000); // Convert Unix timestamp to milliseconds
-
-    const updatedUser = {
-      id: this.user.id,
-      username: this.user.username,
-      handle: this.user.handle,
-      password: this.user.password,
-      dob: this.datePipe.transform(this.user.dob, 'yyyy-MM-dd'),
-      firstName: this.user.firstName,
-      lastName: this.user.lastName,
-      userPic: this.user.userPic,
-      bio: this.user.bio,
-      dateJoined: '2023-08-05T01:11:59.753Z',
-      role: this.user.role,
-    };
-
-    console.log(updatedUser);
-    this.profileService.updateUserData(updatedUser);
-
-    //
-    this.authService.updateCurrentUser(this.user);
   }
 
   cancel() {

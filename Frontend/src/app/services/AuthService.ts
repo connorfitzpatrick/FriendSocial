@@ -43,14 +43,10 @@ export class AuthService {
           // Handle the response from the backend
           // If the credentials are correct, you should receive a token in the response
           const token = response.token;
-          // Save the token in your frontend, as a cookie in local storage
+          // Save the token in frontend, as a cookie in local storage
           localStorage.setItem('token', token);
           // Redirect the user to the desired page after successful login
-          // You can use Angular Router to navigate to a different page
-          // For example, navigate to the home page:
-          // import { Router } from '@angular/router';
-          // constructor(private router: Router) {}
-          // this.router.navigate(['/home']);
+          // Use Angular Router to navigate to a different page
           this.router.navigate(['/home']);
         },
         (error) => {
@@ -133,8 +129,8 @@ export class AuthService {
     this.router.navigate(['/profile', this.getHandle()]);
   }
 
-  updateCurrentUser(user: User): void {
+  updateCurrentUser(user: any): void {
     this.currentUserSubject.next(user);
-    // console.log(this.currentUserSubject);
+    console.log(this.currentUserSubject);
   }
 }

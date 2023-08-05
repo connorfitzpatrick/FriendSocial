@@ -11,6 +11,7 @@ import { tap } from 'rxjs/operators';
 })
 export class ProfileService {
   private apiUrl = 'http://localhost:8080/api/v1/users';
+  profilePictureUrl = '';
 
   constructor(private http: HttpClient, private postService: PostService) {}
 
@@ -40,9 +41,6 @@ export class ProfileService {
         Authorization: `Bearer ${token}`,
       }),
     };
-
-    console.log(updatedUser.id);
-    console.log(`${this.apiUrl}/${updatedUser.id}`);
 
     this.http
       .put<any>(`${this.apiUrl}/${updatedUser.id}`, updatedUser, httpOptions)
