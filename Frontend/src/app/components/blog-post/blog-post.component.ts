@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommentsService } from '../../services/CommentsService';
+import { LikeService } from '../../services/LikeService';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,6 +21,7 @@ export class BlogPostComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private commentService: CommentsService,
+    private likeService: LikeService,
     private route: ActivatedRoute,
     private datePipe: DatePipe,
     public dialog: MatDialog
@@ -69,5 +71,8 @@ export class BlogPostComponent implements OnInit {
   likePost(): void {
     // Increment the like count
     this.likeCount++;
+    const postId = this.post[0].id;
+
+    this.likeService.postLike(postId);
   }
 }
