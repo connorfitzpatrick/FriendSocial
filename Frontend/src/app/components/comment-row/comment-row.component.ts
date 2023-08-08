@@ -10,8 +10,8 @@ import { LikeService } from '../../services/LikeService';
 })
 export class CommentRowComponent {
   @Input() comments: any[] = [];
-  @Input() likes: any[] = [];
   @Input() postId!: number;
+  likes: any[] = [];
 
   showAllComments: boolean = false;
   threshold: number = 2; // Number of comments to display initially
@@ -24,7 +24,7 @@ export class CommentRowComponent {
 
   ngOnInit() {
     // Fetch likes data before opening the dialog
-    this.likeService.getLikes(this.postId).subscribe((likes) => {
+    this.likeService.likes$().subscribe((likes) => {
       this.likes = likes;
     });
   }
@@ -36,7 +36,7 @@ export class CommentRowComponent {
       maxWidth: '800px',
       autoFocus: false, // Ensure the option is set correctly
       panelClass: 'comment-dialog-container',
-      data: [this.comments, this.likes],
+      data: [this.comments, this.postId],
     });
 
     dialogRef.afterClosed().subscribe((result) => {

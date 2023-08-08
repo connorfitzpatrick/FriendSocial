@@ -3,6 +3,8 @@ package com.friendsocial.Backend.like;
 import com.friendsocial.Backend.post.PostRepository;
 import com.friendsocial.Backend.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,8 +38,9 @@ public class LikeController {
   }
 
   @PostMapping(path = "{userId}/{postId}")
-  public void createLike(@PathVariable("userId") Long userId, @PathVariable("postId") Long postId, @RequestBody Like likeRequest) {
+  public ResponseEntity<Void> createLike(@PathVariable("userId") Long userId, @PathVariable("postId") Long postId, @RequestBody Like likeRequest) {
     likeService.addNewLike(userId, postId, likeRequest);
+    return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
   @DeleteMapping(path = "{likeId}")

@@ -10,10 +10,18 @@
       <h3 class="username">{{ post[2] }} {{ post[3] }}</h3>
       <p class="username">@{{ post[1] }}</p>
       <br />
+      <div *ngIf="post[0].postType == 'Image'" class="image-container">
+        <img [src]="postImageURL" alt="Post Image" class="post-image" />
+      </div>
       <h4 class="bio">{{ post[0].content }}</h4>
       <br />
       <div class="like-section">
-        <button class="like-button" (click)="likePost()" tabindex="-1">
+        <button
+          class="like-button"
+          (click)="likePost()"
+          tabindex="-1"
+          [ngClass]="{ liked: isLiked }"
+        >
           <span class="like-count">{{ likeCount }}</span>
           <span class="like-icon">&nbsp;Likes</span>
         </button>

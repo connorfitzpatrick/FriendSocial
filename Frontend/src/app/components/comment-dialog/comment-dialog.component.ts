@@ -1,5 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { LikeService } from '../../services/LikeService';
+import { CommentsService } from '../../services/CommentsService';
 
 @Component({
   selector: 'app-comment-dialog',
@@ -13,6 +15,8 @@ export class CommentDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CommentDialogComponent>,
+    public likeService: LikeService,
+    public commentService: CommentsService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
@@ -25,8 +29,20 @@ export class CommentDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.likes = this.data[1];
-    this.comments = this.data[0]; // Assign the comments received from the parent component
+    this.likeService.fetchLikes(this.data[1]);
+    this.commentService.fetchComments(this.data[1]);
+
+    this.likeService.likes$().subscribe((likes) => {
+      this.likes = likes;
+    });
+    this.commentService.comments$().subscribe((comments) => {
+      this.comments = comments;
+    });
+
+    console.log(this.likes);
+    console.log(this.comments);
+
+    // this.comments = this.data[0];
   }
 
   closeDialog(): void {

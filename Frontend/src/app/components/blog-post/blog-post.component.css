@@ -60,6 +60,15 @@
   color: white; /* Set the text color to white */
 }
 
+.like-button.liked {
+  background-color: white; /* Change background color when liked */
+  color: blue; /* Change text color when liked */
+}
+
+.like-button.liked:hover {
+  background-color: lightgray; /* Change background color on hover when liked */
+}
+
 .like-button:hover {
   background-color: darkblue; /* Change the background color on hover */
 }
@@ -85,4 +94,22 @@
   color: blue; /* Set the color of the link */
   cursor: pointer;
   text-decoration: underline;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%; /* Ensure the image doesn't exceed its container's width */
+  margin-top: 16px; /* Add spacing between image and other content */
+}
+
+/* Add this style to limit the image dimensions */
+.post-image {
+  max-width: 100%; /* Set a maximum width */
+  max-height: 100%; /* Set a maximum height */
+  object-fit: contain; /* Maintain aspect ratio and fit within the container */
+  height: auto;
+  width: auto;
+  margin: 16px 0;
 }

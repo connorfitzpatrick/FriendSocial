@@ -59,17 +59,5 @@ export class ProfileService {
           console.error('Update failed:', error);
         }
       );
-
-    // // Include the 'updatedUser' as the request body in the HTTP PUT request
-    // return this.http
-    //   .put<User>(`${this.apiUrl}/${updatedUser.id}`, updatedUser, httpOptions)
-    //   .pipe(
-    //     catchError((error) => {
-    //       // Handle the error here
-    //       console.error('Error updating user:', error);
-    //       // Rethrow the error to propagate it to the calling component
-    //       throw error;
-    //     })
-    //   );
   }
 }

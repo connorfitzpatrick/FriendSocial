@@ -86,16 +86,6 @@ public class UserController {
     userService.deleteUser(id);
   }
 
-//  @PutMapping(path = "{userId}")
-//  public User updateUser(
-//          @PathVariable("userId") Long id,
-//          @RequestBody User user) {
-//    System.out.println("GETS TO CONTROLLER");
-//    System.out.println(user);
-//    userService.updateUser(id, user);
-//    return userService.getUserById(id);
-//  }
-
   @PutMapping(path = "{userId}")
   public void updateUser(@PathVariable("userId") Long id, @RequestBody User user) {
     System.out.println("GETS TO CONTROLLER");

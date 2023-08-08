@@ -28,16 +28,21 @@
         <hr />
         <div class="comment-container">
           <div class="user-info">
-            <img [src]="like[2]" alt="Profile Picture" class="user-picture" />
+            <img
+              [src]="like.userPic"
+              alt="Profile Picture"
+              class="user-picture"
+            />
             <p class="comment-text">
-              <strong
-                ><a
+              <strong>
+                <a
                   class="comment-link"
-                  href="http://localhost:4200/profile/{{ like[1] }}"
-                  >{{ like[1] }}</a
-                ></strong
-              >
-              {{ like[0].content }}
+                  [href]="'http://localhost:4200/profile/' + like.userId"
+                >
+                  {{ like[1] }}
+                </a>
+              </strong>
+              {{ like.timestamp | date }}
             </p>
           </div>
         </div>

@@ -20,7 +20,7 @@ export class LoginFormComponent {
   today: string; // To set the maximum date allowed
   role: String = 'USER';
   bio: String = 'ccccccc';
-  userPic: String = 'https://i.imgur.com/PCXFcu2.jpg';
+  userPic: String = 'cf.png';
 
   constructor(
     private http: HttpClient,

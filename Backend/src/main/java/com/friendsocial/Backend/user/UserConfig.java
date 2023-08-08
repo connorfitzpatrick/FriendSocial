@@ -73,9 +73,21 @@ public class UserConfig {
               now.minusSeconds(30 * 24 * 60 * 60),
               Role.USER
       );
+      User bob = new User(
+              "bobross@gmail.com",
+              "therealbobross",
+              "svsb",
+              LocalDate.of(1954, 9, 22),
+              "Bob",
+              "Ross",
+              "https://www.bobross.com/content/bob_ross_img.png",
+              "Mistakes are Happy Accidents",
+              now.minusSeconds(30 * 24 * 60 * 60),
+              Role.USER
+      );
 
       repository.saveAll(
-              List.of(connor, alex, kieran, peyton)
+              List.of(connor, alex, kieran, peyton, bob)
       );
     };
   }
@@ -88,18 +100,17 @@ public class UserConfig {
   CommandLineRunner commandLineRunner1(
           PostRepository drepository) {
     return args -> {
-      Long userId = 1L;
-      Optional<User> userOptional = userRepository.findById(userId);
+      Optional<User> userOptional = userRepository.findById(1L);
       User p = userOptional.orElseThrow(() -> new RuntimeException("User not found"));
       Post connorsFirst = new Post(
-              userId,
+              1L,
               "Text",
               "This is my first post.",
               Instant.now(),
               ""
       );
       Post connorsSecond = new Post(
-              userId,
+              1L,
               "Text",
               "This is my second post.",
               Instant.now(),
@@ -114,13 +125,13 @@ public class UserConfig {
       );
       Post alexSecond = new Post(
               3L,
-              "Image",
+              "Text",
               "This is a selfie of me, Connor.",
               Instant.now(),
-              "../imageStore/image3"
+              ""
       );
       Post connorsThird = new Post(
-              userId,
+              1L,
               "Text",
               "This is long post to check and see how the information I put down is formatted within the Angular component. I hope" +
                       "that this looks okay! If it doesn't I'll be up all night. figure out how to send pictures next " +
@@ -137,21 +148,36 @@ public class UserConfig {
       );
       Post connorsFifth = new Post(
               2L,
-              "Image",
+              "Text",
               "Just more test data.",
               Instant.now(),
-              "../imageStore/image3"
+              ""
       );
       Post peyton1 = new Post(
               4L,
-              "Image",
+              "Text",
               "Heres a post from my new user.",
               Instant.now(),
-              "../imageStore/image3"
+              ""
+      );
+      Post bob1 = new Post(
+              5L,
+              "Image",
+              "This is a nice one",
+              Instant.now(),
+              "painting.png"
+      );
+      Post bob2 = new Post(
+              5L,
+              "Image",
+              "This post took 30 minutes. You can do it too!",
+              Instant.now(),
+              "painting2.jpeg"
       );
 
+
       drepository.saveAll(
-              List.of(connorsFirst, connorsSecond, peyton1, alexFirst, alexSecond, connorsThird, connorsFourth, connorsFifth)
+              List.of(connorsFirst, bob1, connorsSecond, peyton1, alexFirst, alexSecond, bob2, connorsThird, connorsFourth, connorsFifth)
       );
     };
   }
@@ -182,9 +208,24 @@ public class UserConfig {
               3L,
               LocalDate.now()
       );
+      Friend connorfriend3 = new Friend(
+              1L,
+              5L,
+              LocalDate.now()
+      );
+      Friend bobfriend1 = new Friend(
+              5L,
+              1L,
+              LocalDate.now()
+      );
+      Friend bobfriend2 = new Friend(
+              5L,
+              4L,
+              LocalDate.now()
+      );
 
       frepository.saveAll(
-              List.of(connorfriend, connorfriend2)
+              List.of(connorfriend, connorfriend2, bobfriend1, bobfriend2)
       );
     };
   }
@@ -298,6 +339,18 @@ public class UserConfig {
               "This is the Fifteenth comment",
               Instant.now()
       );
+      Comment comment18 = new Comment(
+              4L,
+              9L,
+              "Nice one Bob",
+              Instant.now()
+      );
+      Comment comment19 = new Comment(
+              4L,
+              10L,
+              "Fire",
+              Instant.now()
+      );
 
       crepository.saveAll(
               List.of(comment1,
@@ -316,7 +369,9 @@ public class UserConfig {
                       comment14,
                       comment15,
                       comment16,
-                      comment17
+                      comment17,
+                      comment18,
+                      comment19
               )
       );
     };
@@ -369,6 +424,11 @@ public class UserConfig {
               2L,
               Instant.now()
       );
+      Like like9 = new Like(
+              4L,
+              9L,
+              Instant.now()
+      );
 
       lrepository.saveAll(
               List.of(like1,
@@ -378,7 +438,8 @@ public class UserConfig {
                       like5,
                       like6,
                       like7,
-                      like8
+                      like8,
+                      like9
               )
       );
     };
