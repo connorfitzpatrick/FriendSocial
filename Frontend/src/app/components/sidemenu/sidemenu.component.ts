@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { AuthService } from '../../services/AuthService';
 import { ProfileService } from '../../services/ProfileService';
+import { ImageService } from '../../services/ImageService';
+
 import { PostService } from '../../services/PostService';
 
 /*
@@ -21,12 +23,21 @@ export class SidemenuComponent implements OnInit {
   constructor(
     public authService: AuthService,
     private postService: PostService,
+    public imageService: ImageService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.updateActiveMenuItem();
+
+    this.authService.currentUser$.subscribe(async (user) => {
+      if (user) {
+        const userPicLocation = user.userPic; // Extract the userPic URL
+        const userPicUrl = await this.imageService.getImage(userPicLocation);
+        this.imageService.setProfilePicUrl(userPicUrl);
+      }
+    });
     // Subscribe to route changes
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

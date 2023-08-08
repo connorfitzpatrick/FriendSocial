@@ -42,13 +42,15 @@ export class ProfileService {
       }),
     };
 
+    console.log(updatedUser);
+
     this.http
       .put<any>(`${this.apiUrl}/${updatedUser.id}`, updatedUser, httpOptions)
       .subscribe(
         (response) => {
           // Handle the response from the backend, e.g., show a success message or redirect to login page
-          const token = response.token;
-          localStorage.setItem('token', token);
+          // const token = response.token;
+          // localStorage.setItem('token', token);
           console.log('Update successful:', response);
           // this.router.navigate(['/home']);
         },

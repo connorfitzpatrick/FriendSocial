@@ -17,6 +17,7 @@ export class BlogPostComponent implements OnInit {
   @Input() post: any;
   @Input() userPic: any;
   comments: any[] = [];
+  isLiked = false;
 
   constructor(
     private http: HttpClient,
@@ -69,10 +70,15 @@ export class BlogPostComponent implements OnInit {
   }
 
   likePost(): void {
-    // Increment the like count
-    this.likeCount++;
     const postId = this.post[0].id;
 
-    this.likeService.postLike(postId);
+    if (!this.isLiked) {
+      this.likeService.postLike(postId);
+      this.likeCount++;
+      this.isLiked = true;
+    } else {
+      this.likeService.deleteLike(postId);
+      this.likeCount--;
+    }
   }
 }

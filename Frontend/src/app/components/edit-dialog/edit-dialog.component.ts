@@ -32,7 +32,7 @@ export class EditDialogComponent implements OnInit {
     password: '',
     role: '',
   };
-  profilePictureUrl!: string;
+  profilePictureUrl = this.imageService.getProfilePicUrl();
   selectedUserPic: File | null = null;
 
   @ViewChild('fileInput', { static: false }) fileInput?: ElementRef;
@@ -53,6 +53,7 @@ export class EditDialogComponent implements OnInit {
   ngOnInit(): void {
     // If data contains the user object, assign it to the component's user property
     this.user = this.data.user;
+    this.profilePictureUrl = this.imageService.getProfilePicUrl();
   }
 
   changeProfilePicture(): void {}
@@ -73,7 +74,6 @@ export class EditDialogComponent implements OnInit {
 
   // Send updated user info to backend
   async applyChanges() {
-    console.log('applying changes');
     try {
       if (this.selectedUserPic) {
         const response = await this.imageService
@@ -83,7 +83,6 @@ export class EditDialogComponent implements OnInit {
       }
 
       const dateJoined = new Date(Number(this.user.dateJoined) * 1000); // Convert Unix timestamp to milliseconds
-      console.log(this.user.userPic);
       const updatedUser = {
         id: this.user.id,
         username: this.user.username,
@@ -99,19 +98,28 @@ export class EditDialogComponent implements OnInit {
       };
 
       console.log(updatedUser);
-      this.imageService.getImage(this.user.userPic).subscribe(
-        (imageUrl: string) => {
-          // This callback will be executed when the image URL is available
-          updatedUser.userPic = imageUrl;
-          console.log(imageUrl);
-          // Now you can proceed with saving the updated user data and making other API calls
-        },
-        (error) => {
-          // Handle error if there is any issue getting the image URL
-          console.error('Error getting profile picture:', error);
-        }
-      );
+      // this.imageService.getImage(this.user.userPic).subscribe(
+      //   (imageUrl: string) => {
+      //     // This callback will be executed when the image URL is available
+      //     updatedUser.userPic = imageUrl;
+      //     console.log(imageUrl);
+      //     // Now you can proceed with saving the updated user data and making other API calls
+      //   },
+      //   (error) => {
+      //     // Handle error if there is any issue getting the image URL
+      //     console.error('Error getting profile picture:', error);
+      //   }
+      // );
 
+      this.authService.currentUser$.subscribe(async (user) => {
+        if (user) {
+          const userPicLocation = this.user.userPic; // Extract the userPic URL
+          const userPicUrl = await this.imageService.getImage(userPicLocation);
+          this.imageService.setProfilePicUrl(userPicUrl);
+        }
+      });
+
+      console.log(updatedUser);
       this.profileService.updateUserData(updatedUser);
 
       console.log(updatedUser.userPic);

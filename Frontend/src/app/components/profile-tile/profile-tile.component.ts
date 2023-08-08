@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { User } from '../../models/profile.model';
 import { AuthService } from '../../services/AuthService';
+import { ImageService } from '../../services/ImageService';
 import { MatDialog } from '@angular/material/dialog';
 import { EditDialogComponent } from '../../components/edit-dialog/edit-dialog.component';
 
@@ -14,7 +15,11 @@ export class ProfileTileComponent implements OnChanges {
   @Input() userId: number | undefined;
   isCurrentUserProfile: boolean = false;
 
-  constructor(public dialog: MatDialog, private authService: AuthService) {} // Inject the AuthService
+  constructor(
+    public dialog: MatDialog,
+    private authService: AuthService,
+    public imageService: ImageService
+  ) {} // Inject the AuthService
 
   ngOnChanges(): void {
     this.isCurrentUserProfile = this.authService.viewingProfile(this.userId);

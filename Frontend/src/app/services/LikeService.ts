@@ -51,4 +51,22 @@ export class LikeService {
       console.error('Error making POST request:', error);
     }
   }
+
+  deleteLike(postId: number) {
+    // we will need to get the ID of the like itself!!!!!!
+    const token = localStorage.getItem('token');
+    const myId = this.authService.getUserIdFromToken();
+
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'application/json',
+    //     Authorization: `Bearer ${token}`, // Include the token in the 'Authorization' header
+    //   }),
+    // };
+
+    // return this.http.delete<void>(
+    //   `http://localhost:8080/api/v1/likes/${myId}/${postId}`,
+    //   httpOptions
+    // );
+  }
 }

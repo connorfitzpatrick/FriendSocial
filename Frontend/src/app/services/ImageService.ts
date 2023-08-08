@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ImageService {
-  profilePictureUrl = '';
+  private profilePicSubject: BehaviorSubject<string | null> =
+    new BehaviorSubject<string | null>(null);
 
   constructor(private http: HttpClient) {}
 
@@ -28,51 +29,35 @@ export class ImageService {
     return this.http.post<any>(`${apiUrl}`, formData, httpOptions);
   }
 
-  // getImage(fileName: any): string {
-  //   // Replace 'fileName.jpg' with the actual name of the profile picture file.
-  //   // You can get this information from the user data or any other source.
-  //   console.log('Hello from getImage()');
-  //   console.log(fileName);
-
-  //   const token = localStorage.getItem('token');
-
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       Authorization: `Bearer ${token}`,
-  //     }),
-  //     responseType: 'blob',
-  //   };
-
-  //   this.http
-  //     .get(`http://localhost:8080/api/v1/image/'${fileName}`, httpOptions)
-  //     .subscribe((response: Blob) => {
-  //       // Convert the Blob data to a URL that can be used as the image source.
-  //       const imageUrl = URL.createObjectURL(response);
-  //       this.profilePictureUrl = imageUrl;
-  //     });
-  //   console.log(this.profilePictureUrl);
-  //   return this.profilePictureUrl;
-  // }
-
-  getImage(fileName: string): Observable<string> {
+  async getImage(fileName: string): Promise<string> {
     const token = localStorage.getItem('token');
-
     const httpOptions = {
       headers: new HttpHeaders({
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       }),
-      responseType: 'blob' as 'json', // Specify the responseType as 'blob' as 'json'
+      responseType: 'blob' as 'json', // Set the responseType to 'blob'
     };
 
-    return this.http
-      .get(`http://localhost:8080/api/v1/image/${fileName}`, httpOptions)
-      .pipe(
-        map((response: any) => response as Blob), // Type assertion to Blob
-        map((blobResponse: Blob) => {
-          // Convert the Blob data to a URL that can be used as the image source.
-          const imageUrl = URL.createObjectURL(blobResponse);
-          return imageUrl;
-        })
-      );
+    try {
+      const response = await this.http
+        .get(`http://localhost:8080/api/v1/image/${fileName}`, httpOptions)
+        .toPromise();
+
+      // Convert the Blob data to a URL that can be used as the image source.
+      const imageUrl = URL.createObjectURL(response as Blob);
+      return imageUrl; // Return the imageUrl directly as a string
+    } catch (error) {
+      console.error('Error getting image:', error);
+      throw error; // Rethrow the error if needed
+    }
+  }
+
+  setProfilePicUrl(url: string): void {
+    this.profilePicSubject.next(url);
+  }
+
+  getProfilePicUrl(): string | null {
+    return this.profilePicSubject.getValue();
   }
 }
