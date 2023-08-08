@@ -43,25 +43,20 @@ export class LoginFormComponent {
   }
 
   // Submit login event handler
-  onSubmitLogin(): void {
+  async onSubmitLogin() {
     const credentials = {
       username: this.login,
       password: this.password,
     };
 
-    // Call the login method from AuthService
-    this.authService.login(credentials).subscribe(
-      () => {
-        // Redirect the user to the desired page after successful login
-        this.router.navigate(['/home']);
-      },
-      (error) => {
-        console.error('Login failed:', error);
-      }
-    );
+    try {
+      await this.authService.login(credentials);
+    } catch (error) {
+      console.error('Registration failed:', error);
+    }
   }
 
-  onSubmitRegister(): void {
+  async onSubmitRegister() {
     const date = new Date();
 
     const user = {
@@ -77,15 +72,10 @@ export class LoginFormComponent {
       role: this.role,
     };
 
-    // Call the login method from AuthService
-    this.authService.register(user).subscribe(
-      () => {
-        // Redirect the user to the desired page after successful login
-        this.router.navigate(['/home']);
-      },
-      (error) => {
-        console.error('Registration failed:', error);
-      }
-    );
+    try {
+      await this.authService.register(user);
+    } catch (error) {
+      console.error('Registration failed:', error);
+    }
   }
 }

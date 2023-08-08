@@ -25,44 +25,39 @@ export class AuthService {
     private postService: PostService
   ) {}
 
-  login(credentials: any): Observable<User> {
+  async login(credentials: any): Promise<User> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
     };
 
-    this.http
-      .post<any>(
-        'http://localhost:8080/api/v1/auth/authenticate',
-        credentials,
-        httpOptions
-      )
-      .subscribe(
-        (response) => {
-          // Handle the response from the backend
-          // If the credentials are correct, you should receive a token in the response
-          const token = response.token;
-          // Save the token in frontend, as a cookie in local storage
-          localStorage.setItem('token', token);
-          // Redirect the user to the desired page after successful login
-          // Use Angular Router to navigate to a different page
-          this.router.navigate(['/home']);
-        },
-        (error) => {
-          // Handle the error, e.g., display an error message to the user
-          console.error('Login failed:', error);
-        }
-      );
+    try {
+      const response = await this.http
+        .post<any>(
+          'http://localhost:8080/api/v1/auth/authenticate',
+          credentials,
+          httpOptions
+        )
+        .toPromise();
 
-    return this.profileService.fetchLoggedInUserData(credentials.handle).pipe(
-      tap((user: User) => {
-        this.currentUserSubject.next(user);
-      })
-    );
+      const token = response.token;
+      localStorage.setItem('token', token);
+      this.router.navigate(['/home']);
+
+      const fetchedUser = await this.profileService
+        .fetchLoggedInUserData(credentials.handle)
+        .toPromise();
+      this.currentUserSubject.next(fetchedUser);
+
+      return fetchedUser;
+    } catch (error) {
+      console.error('Registration failed:', error);
+      throw error; // Re-throw the error to be handled by the caller
+    }
   }
 
-  register(user: any): Observable<User> {
+  async register(user: any): Promise<User> {
     console.log(user);
     const httpOptions = {
       headers: new HttpHeaders({
@@ -70,31 +65,63 @@ export class AuthService {
       }),
     };
 
-    this.http
-      .post<any>(
-        'http://localhost:8080/api/v1/auth/register',
-        user,
-        httpOptions
-      )
-      .subscribe(
-        (response) => {
-          // Handle the response from the backend, e.g., show a success message or redirect to login page
-          const token = response.token;
-          localStorage.setItem('token', token);
-          console.log('Registration successful:', response);
-          this.router.navigate(['/home']);
-        },
-        (error) => {
-          // Handle the error, e.g., display an error message to the user
-          console.error('Registration failed:', error);
-        }
-      );
+    try {
+      const response = await this.http
+        .post<any>(
+          'http://localhost:8080/api/v1/auth/register',
+          user,
+          httpOptions
+        )
+        .toPromise();
 
-    return this.profileService.fetchLoggedInUserData(user.handle).pipe(
-      tap((user: User) => {
-        this.currentUserSubject.next(user);
-      })
-    );
+      const token = response.token;
+      localStorage.setItem('token', token);
+      console.log('Registration successful:', response);
+      this.router.navigate(['/home']);
+
+      const fetchedUser = await this.profileService
+        .fetchLoggedInUserData(user.handle)
+        .toPromise();
+      console.log('THIS RUNS AFTER REGISTRATION');
+      this.currentUserSubject.next(fetchedUser);
+      console.log(this.currentUserSubject);
+
+      return fetchedUser;
+    } catch (error) {
+      console.error('Registration failed:', error);
+      throw error; // Re-throw the error to be handled by the caller
+    }
+
+    // this.http
+    //   .post<any>(
+    //     'http://localhost:8080/api/v1/auth/register',
+    //     user,
+    //     httpOptions
+    //   )
+    //   .subscribe(
+    //     (response) => {
+    //       // Handle the response from the backend, e.g., show a success message or redirect to login page
+    //       const token = response.token;
+    //       localStorage.setItem('token', token);
+    //       console.log('Registration successful:', response);
+    //       this.router.navigate(['/home']);
+    //     },
+    //     (error) => {
+    //       // Handle the error, e.g., display an error message to the user
+    //       console.error('Registration failed:', error);
+    //     }
+    //   );
+
+    // console.log('THIS RUNS AFTER REGISTRATION');
+    // const vari = this.profileService.fetchLoggedInUserData(user.handle).pipe(
+    //   tap((user: User) => {
+    //     console.log('THIS DOESNT AFTER REGISTRATION');
+
+    //     this.currentUserSubject.next(user);
+    //     console.log(this.currentUserSubject);
+    //   })
+    // );
+    // return vari;
   }
 
   getUserIdFromToken(): number | null {
