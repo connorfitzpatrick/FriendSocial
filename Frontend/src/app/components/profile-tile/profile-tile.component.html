@@ -3,7 +3,9 @@
   <div class="post-content">
     <div class="profile-info">
       <img
-        [src]="imageService.getProfilePicUrl()"
+        [src]="
+          isCurrentUserProfile ? imageService.getProfilePicUrl() : user?.userPic
+        "
         alt="Profile Picture"
         class="profile-picture"
       />
