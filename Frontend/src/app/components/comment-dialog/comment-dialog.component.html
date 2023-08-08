@@ -24,55 +24,64 @@
   <mat-dialog-content>
     <!-- Display likes content if this.active is 'likes' -->
     <div *ngIf="active === 'likes'">
-      <div *ngFor="let like of likes">
-        <hr />
-        <div class="comment-container">
-          <div class="user-info">
-            <img
-              [src]="like.userPic"
-              alt="Profile Picture"
-              class="user-picture"
-            />
-            <p class="comment-text">
-              <strong>
-                <a
-                  class="comment-link"
-                  [href]="'http://localhost:4200/profile/' + like.userId"
-                >
-                  {{ like[1] }}
-                </a>
-              </strong>
-              {{ like.timestamp | date }}
-            </p>
+      <div *ngIf="likes.length > 0">
+        <div *ngFor="let like of likes">
+          <hr />
+          <div class="comment-container">
+            <div class="user-info">
+              <img
+                [src]="like.userPic"
+                alt="Profile Picture"
+                class="user-picture"
+              />
+              <p class="comment-text">
+                <strong>
+                  <a
+                    class="comment-link"
+                    [href]="'http://localhost:4200/profile/' + like.userId"
+                  >
+                    {{ like[1] }}
+                  </a>
+                </strong>
+                {{ like.timestamp | date }}
+              </p>
+            </div>
           </div>
         </div>
+      </div>
+      <div *ngIf="likes.length === 0">
+        <h1>No Likes Yet</h1>
       </div>
     </div>
 
     <!-- Display comments content if this.active is 'comments' -->
     <div *ngIf="active === 'comments'">
-      <div *ngFor="let comment of comments">
-        <hr />
-        <div class="comment-container">
-          <div class="user-info">
-            <img
-              [src]="comment[2]"
-              alt="Profile Picture"
-              class="user-picture"
-            />
-            <p class="comment-text">
-              <strong
-                ><a
-                  class="comment-link"
-                  href="http://localhost:4200/profile/{{ comment[1] }}"
-                  >{{ comment[1] }}</a
-                >:</strong
-              >
-              {{ comment[0].content }}
-            </p>
+      <div *ngIf="comments.length > 0">
+        <div *ngFor="let comment of comments">
+          <hr />
+          <div class="comment-container">
+            <div class="user-info">
+              <img
+                [src]="comment[2]"
+                alt="Profile Picture"
+                class="user-picture"
+              />
+              <p class="comment-text">
+                <strong
+                  ><a
+                    class="comment-link"
+                    href="http://localhost:4200/profile/{{ comment[1] }}"
+                    >{{ comment[1] }}</a
+                  >:</strong
+                >
+                {{ comment[0].content }}
+              </p>
+            </div>
           </div>
         </div>
-        <!-- Display comment data here -->
+      </div>
+      <div *ngIf="comments.length === 0">
+        <h1>No Comments Yet</h1>
       </div>
     </div>
   </mat-dialog-content>

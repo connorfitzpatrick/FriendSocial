@@ -1,22 +1,17 @@
 <div class="comment-row">
-  <p
-    *ngFor="
-      let comment of comments.slice(
-        0,
-        showAllComments ? comments.length : threshold
-      )
-    "
-    class="comment-text"
-  >
-    <strong
-      ><a
-        class="comment-link"
-        href="http://localhost:4200/profile/{{ comment[1] }}"
-        >{{ comment[1] }}</a
-      >:</strong
-    >
-    {{ comment[0].content }}
-  </p>
+  <div *ngFor="let comment of recentComments">
+    <p>
+      <strong
+        ><a
+          class="comment-link"
+          href="http://localhost:4200/profile/{{ comment[1] }}"
+          >{{ comment[1] }}</a
+        >:</strong
+      >
+      {{ comment[0].content }}
+    </p>
+    <!-- Display other comment properties as needed -->
+  </div>
   <a
     *ngIf="!showAllComments"
     (click)="openCommentDialog($event)"

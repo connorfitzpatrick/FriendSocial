@@ -29,17 +29,17 @@ export class CommentDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.likeService.fetchLikes(this.data[1]);
-    this.commentService.fetchComments(this.data[1]);
+    this.likeService.fetchLikes(this.data[0]);
+    this.commentService.fetchComments(this.data[0]);
 
-    this.likeService.likes$().subscribe((likes) => {
+    this.likeService.likes$(this.data[0]).subscribe((likes) => {
       this.likes = likes;
     });
-    this.commentService.comments$().subscribe((comments) => {
+
+    this.commentService.comments$(this.data[0]).subscribe((comments) => {
       this.comments = comments;
     });
 
-    console.log(this.likes);
     console.log(this.comments);
 
     // this.comments = this.data[0];

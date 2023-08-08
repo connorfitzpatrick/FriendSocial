@@ -3,6 +3,7 @@ package com.friendsocial.Backend.comment;
 import com.friendsocial.Backend.post.PostRepository;
 import com.friendsocial.Backend.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,6 +36,15 @@ public class CommentController {
   public List<Object[]> getCommentsByPost(@PathVariable("postId") Long id) {
     return commentService.getCommentsOfPostById(id);
   }
+
+  // GET TWO MOST RECENT COMMENTS
+  @GetMapping("{postId}/recent-comments")
+  public ResponseEntity<List<Object[]>> getRecentComments(@PathVariable Long postId) {
+    System.out.println("GRABBING MOST RECEBT CINNEBTS");
+    List<Object[]> recentComments = commentService.getRecentComments(postId);
+    return ResponseEntity.ok(recentComments);
+  }
+
 
   @PostMapping(path = "{userId}/{postId}")
   public void createComment(@PathVariable("userId") Long userId, @PathVariable("postId") Long postId, @RequestBody Comment commentRequest) {

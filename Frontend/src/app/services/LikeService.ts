@@ -1,14 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
 import { AuthService } from './AuthService';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, EMPTY } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LikeService {
-  public likesSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  private likesSubjectsMap: Map<number, BehaviorSubject<any[]>> = new Map();
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -25,7 +24,7 @@ export class LikeService {
 
     this.http.get<any[]>(apiUrl, httpOptions).subscribe(
       (likes) => {
-        this.likesSubject.next(likes);
+        this.likesSubjectsMap.get(postId)?.next(likes);
       },
       (error) => {
         console.error('Error fetching likes information:', error);
@@ -33,8 +32,12 @@ export class LikeService {
     );
   }
 
-  likes$(): Observable<any[]> {
-    return this.likesSubject.asObservable();
+  likes$(postId: number): Observable<any[]> {
+    if (!this.likesSubjectsMap.has(postId)) {
+      this.likesSubjectsMap.set(postId, new BehaviorSubject<any[]>([]));
+      this.fetchLikes(postId);
+    }
+    return this.likesSubjectsMap.get(postId)?.asObservable() ?? EMPTY;
   }
 
   async postLike(postId: number) {
@@ -69,8 +72,9 @@ export class LikeService {
         timestamp: timestamp,
       };
 
-      const newLikes = [...this.likesSubject.value, newLikeData];
-      this.likesSubject.next(newLikes);
+      const currentLikes = this.likesSubjectsMap.get(postId)?.value || [];
+      const newLikes = [...currentLikes, newLikeData];
+      this.likesSubjectsMap.get(postId)?.next(newLikes);
     } catch (error) {
       console.error('Error making POST request for new like:', error);
     }

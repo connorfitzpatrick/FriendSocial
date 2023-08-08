@@ -39,6 +39,10 @@ public class CommentService {
     return commentList;
   }
 
+  public List<Object[]> getRecentComments(Long postId) {
+    return commentRepository.findTop2ByPostIdOrderByTimestampDesc(postId);
+  }
+
   // Business logic of Posting (adding) new Comment
   public void addNewComment(Long userId, Long postId, Comment commentRequest) {
     Optional<Post> postOptional = postRepository.findById(postId);

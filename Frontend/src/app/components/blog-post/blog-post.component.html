@@ -27,10 +27,7 @@
         </button>
       </div>
       <div class="comments-section">
-        <app-comment-row
-          [comments]="comments"
-          [postId]="postId"
-        ></app-comment-row>
+        <app-comment-row [postId]="postId"></app-comment-row>
       </div>
 
       <p class="timestamp">Posted {{ formatDate(post[0].timestamp) }}</p>

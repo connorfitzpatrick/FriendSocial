@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommentDialogComponent } from '../comment-dialog/comment-dialog.component';
 import { LikeService } from '../../services/LikeService';
+import { CommentsService } from '../../services/CommentsService';
 
 @Component({
   selector: 'app-comment-row',
@@ -9,14 +10,17 @@ import { LikeService } from '../../services/LikeService';
   styleUrls: ['./comment-row.component.css'],
 })
 export class CommentRowComponent {
-  @Input() comments: any[] = [];
   @Input() postId!: number;
-  likes: any[] = [];
+  recentComments: any[] = [];
 
   showAllComments: boolean = false;
   threshold: number = 2; // Number of comments to display initially
 
-  constructor(public dialog: MatDialog, private likeService: LikeService) {}
+  constructor(
+    public dialog: MatDialog,
+    private likeService: LikeService,
+    private commentService: CommentsService
+  ) {}
 
   toggleComments(): void {
     this.showAllComments = !this.showAllComments;
@@ -24,9 +28,13 @@ export class CommentRowComponent {
 
   ngOnInit() {
     // Fetch likes data before opening the dialog
-    this.likeService.likes$().subscribe((likes) => {
-      this.likes = likes;
+    // this.likeService.likes$().subscribe((likes) => {
+    //   this.likes = likes;
+    // });
+    this.commentService.getRecentComments(this.postId).subscribe((comments) => {
+      this.recentComments = comments;
     });
+    console.log(this.recentComments);
   }
 
   openCommentDialog(event: Event) {
@@ -36,7 +44,7 @@ export class CommentRowComponent {
       maxWidth: '800px',
       autoFocus: false, // Ensure the option is set correctly
       panelClass: 'comment-dialog-container',
-      data: [this.comments, this.postId],
+      data: [this.postId],
     });
 
     dialogRef.afterClosed().subscribe((result) => {

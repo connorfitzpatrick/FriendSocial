@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CommentsService } from '../../services/CommentsService';
 import { ImageService } from '../../services/ImageService';
 import { LikeService } from '../../services/LikeService';
 import { ActivatedRoute } from '@angular/router';
@@ -13,17 +12,15 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./blog-post.component.css'],
 })
 export class BlogPostComponent implements OnInit {
-  postId!: number;
-  likeCount: number = 0;
   @Input() post: any;
   @Input() userPic: any;
-  comments: any[] = [];
+  postId!: number;
+  likeCount: number = 0;
   isLiked = false;
   postImageURL = '';
 
   constructor(
     private http: HttpClient,
-    private commentService: CommentsService,
     private likeService: LikeService,
     public imageService: ImageService,
     private route: ActivatedRoute,
@@ -36,13 +33,9 @@ export class BlogPostComponent implements OnInit {
       // get the postId from route params and convert it to a number
       this.postId = this.post[0].id;
       this.likeCount = this.post[5];
-      // this.commentService.getComments(this.postId).subscribe((comments) => {
-      //   this.comments = comments;
-      // });
     });
     if (this.post[0].postType == 'Image') {
       this.getPostImage();
-      console.log(this.post);
     }
   }
 
@@ -90,7 +83,6 @@ export class BlogPostComponent implements OnInit {
   }
 
   async getPostImage(): Promise<void> {
-    console.log('imageService being called again...' + this.postId);
     this.postImageURL = await this.imageService.getImage(this.post[0].imageUrl);
   }
 }
