@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommentDialogComponent } from '../comment-dialog/comment-dialog.component';
-import { LikeService } from '../../services/LikeService';
 import { CommentsService } from '../../services/CommentsService';
 
 @Component({
@@ -18,7 +17,6 @@ export class CommentRowComponent {
 
   constructor(
     public dialog: MatDialog,
-    private likeService: LikeService,
     private commentService: CommentsService
   ) {}
 
@@ -28,13 +26,9 @@ export class CommentRowComponent {
 
   ngOnInit() {
     // Fetch likes data before opening the dialog
-    // this.likeService.likes$().subscribe((likes) => {
-    //   this.likes = likes;
-    // });
     this.commentService.getRecentComments(this.postId).subscribe((comments) => {
       this.recentComments = comments;
     });
-    console.log(this.recentComments);
   }
 
   openCommentDialog(event: Event) {

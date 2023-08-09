@@ -5,7 +5,9 @@
       alt="Profile Picture"
       class="profile-picture"
     />
-
+    <div *ngIf="isLiked > -1">
+      <h1>GOOD FUCKING NEWS!</h1>
+    </div>
     <div class="post-details">
       <h3 class="username">{{ post[2] }} {{ post[3] }}</h3>
       <p class="username">@{{ post[1] }}</p>
@@ -20,7 +22,7 @@
           class="like-button"
           (click)="likePost()"
           tabindex="-1"
-          [ngClass]="{ liked: isLiked }"
+          [ngClass]="{ liked: isLiked > -1 }"
         >
           <span class="like-count">{{ likeCount }}</span>
           <span class="like-icon">&nbsp;Likes</span>

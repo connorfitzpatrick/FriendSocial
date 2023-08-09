@@ -10,6 +10,7 @@ export class PostService {
   private apiUrl = 'http://localhost:8080/api/v1/posts';
   public postsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   public posts$: Observable<any[]> = this.postsSubject.asObservable();
+  postIsLikedByUser = false;
 
   constructor(private http: HttpClient) {}
 
@@ -25,7 +26,8 @@ export class PostService {
 
     this.http.get<any[]>(this.apiUrl, httpOptions).subscribe(
       (posts) => {
-        this.postsSubject.next(posts); // Update the BehaviorSubject with new posts
+        // Update the BehaviorSubject with new posts
+        this.postsSubject.next(posts);
       },
       (error) => {
         console.error('Error fetching posts information:', error);
@@ -43,7 +45,8 @@ export class PostService {
     };
     this.http.get<any[]>(`${this.apiUrl}/${id}`, httpOptions).subscribe(
       (posts) => {
-        this.postsSubject.next(posts); // Update the BehaviorSubject with new posts
+        // Update the BehaviorSubject with new posts
+        this.postsSubject.next(posts);
       },
       (error) => {
         console.error('Error fetching posts information:', error);
@@ -52,6 +55,7 @@ export class PostService {
   }
 
   clearPosts(): void {
-    this.postsSubject.next([]); // Clear the posts by emitting an empty array
+    // Clear the posts by emitting an empty array
+    this.postsSubject.next([]);
   }
 }

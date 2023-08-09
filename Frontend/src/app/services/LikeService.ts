@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './AuthService';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, EMPTY } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +39,33 @@ export class LikeService {
       this.fetchLikes(postId);
     }
     return this.likesSubjectsMap.get(postId)?.asObservable() ?? EMPTY;
+  }
+
+  async postIsLiked(postId: number): Promise<number> {
+    const token = localStorage.getItem('token');
+    const myId = this.authService.getUserIdFromToken();
+    var isLiked = -1;
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`, // Include the token in the 'Authorization' header
+      }),
+    };
+
+    try {
+      const response = await this.http
+        .get<any>(
+          `http://localhost:8080/api/v1/likes/isLiked/${postId}/${myId}`,
+          httpOptions
+        )
+        .toPromise();
+      console.log(response);
+      isLiked = response;
+    } catch (error) {
+      console.error('Error making request for if post isLiked:', error);
+    }
+    return isLiked;
   }
 
   async postLike(postId: number) {

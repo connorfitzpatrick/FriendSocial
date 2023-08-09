@@ -37,6 +37,12 @@ public class LikeController {
     return likeService.getLikesOfPostById(id);
   }
 
+  @GetMapping(path = "isLiked/{postId}/{userId}")
+  public Long getLikeOfProfile(@PathVariable("postId") Long postId, @PathVariable("userId") Long userId) {
+    System.out.println("IN getLikeOfProfile() SERVICE");
+    return likeService.getLikeOfUserOnPost(postId, userId);
+  }
+
   @PostMapping(path = "{userId}/{postId}")
   public ResponseEntity<Void> createLike(@PathVariable("userId") Long userId, @PathVariable("postId") Long postId, @RequestBody Like likeRequest) {
     likeService.addNewLike(userId, postId, likeRequest);

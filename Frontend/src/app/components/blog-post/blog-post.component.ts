@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ImageService } from '../../services/ImageService';
 import { LikeService } from '../../services/LikeService';
+import { AuthService } from '../../services/AuthService';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,24 +17,28 @@ export class BlogPostComponent implements OnInit {
   @Input() userPic: any;
   postId!: number;
   likeCount: number = 0;
-  isLiked = false;
+  isLiked: number = -1;
   postImageURL = '';
 
   constructor(
     private http: HttpClient,
     private likeService: LikeService,
+    private authService: AuthService,
     public imageService: ImageService,
     private route: ActivatedRoute,
     private datePipe: DatePipe,
     public dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.route.params.subscribe((params) => {
       // get the postId from route params and convert it to a number
       this.postId = this.post[0].id;
       this.likeCount = this.post[5];
     });
+    this.getPostIsLiked();
+    console.log(this.isLiked);
+    console.log(this.postId + ' is Liked:', this.isLiked);
     if (this.post[0].postType == 'Image') {
       this.getPostImage();
     }
@@ -68,21 +73,26 @@ export class BlogPostComponent implements OnInit {
     }
   }
 
-  likePost(): void {
-    const postId = this.post[0].id;
-
-    if (!this.isLiked) {
-      this.likeService.postLike(postId);
-      this.isLiked = true;
-      this.likeCount++;
-    } else {
-      this.likeService.deleteLike(postId);
-      this.isLiked = false;
-      this.likeCount--;
-    }
+  async getPostIsLiked(): Promise<void> {
+    this.isLiked = await this.likeService.postIsLiked(this.postId);
   }
 
   async getPostImage(): Promise<void> {
     this.postImageURL = await this.imageService.getImage(this.post[0].imageUrl);
+  }
+
+  likePost(): void {
+    const postId = this.post[0].id;
+
+    if (this.isLiked == -1) {
+      this.likeService.postLike(postId);
+      // you should have this.isLiked = id in post response
+      this.isLiked = 0;
+      this.likeCount++;
+    } else {
+      this.likeService.deleteLike(postId);
+      this.isLiked = -1;
+      this.likeCount--;
+    }
   }
 }

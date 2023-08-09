@@ -6,6 +6,9 @@ import com.friendsocial.Backend.user.User;
 import com.friendsocial.Backend.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -34,9 +37,19 @@ public class LikeService {
   public List<Object[]> getLikesOfPostById(Long postId) {
     List<Object[]> likeList = likeRepository.findLikesOfPostId(postId);
     if (likeList.isEmpty()){
-      throw new IllegalArgumentException("No comments found");
+      Logger.getLogger(LikeService.class.getName()).log(Level.WARNING, "No likes found on post with postId: " + postId);
     }
     return likeList;
+  }
+
+  public Long getLikeOfUserOnPost(Long postId, Long userId) {
+    Long like = likeRepository.findLikeOfUserOnPost(postId, userId);
+    System.out.println("WE MADE IT");
+    if (like == null) {
+      Logger.getLogger(LikeService.class.getName()).log(Level.WARNING, "No like found for userId: " + userId + " and postId: " + postId);
+      return -1L;
+    }
+    return like;
   }
 
   // Business logic of Posting (adding) new Like

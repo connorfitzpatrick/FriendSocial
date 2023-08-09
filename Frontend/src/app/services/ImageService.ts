@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -46,7 +45,6 @@ export class ImageService {
 
       // Convert the Blob data to a URL that can be used as the image source.
       const imageUrl = URL.createObjectURL(response as Blob);
-      console.log(imageUrl);
       return imageUrl; // Return the imageUrl directly as a string
     } catch (error) {
       console.error('Error getting image:', error);
