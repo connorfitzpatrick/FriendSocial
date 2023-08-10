@@ -12,6 +12,7 @@ export class CommentDialogComponent implements OnInit {
   active: string = 'likes';
   likes: any[] = [];
   comments: any[] = [];
+  newComment: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<CommentDialogComponent>,
@@ -43,6 +44,21 @@ export class CommentDialogComponent implements OnInit {
     console.log(this.comments);
 
     // this.comments = this.data[0];
+  }
+
+  postComment() {
+    if (this.newComment) {
+      // Assuming you have a service to post the comment, update the comments array, etc.
+      // For demonstration purposes, let's assume you're adding the new comment directly to the comments array.
+      this.comments.push({
+        content: this.newComment,
+        userId: 'user123', // Replace with the actual user ID
+        userPic: 'path_to_user_pic.jpg', // Replace with the actual user picture URL
+      });
+
+      // Clear the new comment input field
+      this.newComment = '';
+    }
   }
 
   closeDialog(): void {

@@ -85,6 +85,21 @@
       </div>
     </div>
   </mat-dialog-content>
+  <div *ngIf="active === 'comments'" class="add-comment-section">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Write a comment..."
+      [(ngModel)]="newComment"
+    />
+    <button
+      class="btn btn-primary post-button"
+      (click)="postComment()"
+      [disabled]="!newComment"
+    >
+      Post
+    </button>
+  </div>
   <mat-dialog-actions>
     <button mat-button (click)="closeDialog()" tabindex="-1">Close</button>
   </mat-dialog-actions>
