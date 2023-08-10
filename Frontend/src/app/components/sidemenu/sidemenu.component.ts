@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../services/AuthService';
-import { ProfileService } from '../../services/ProfileService';
+import { NewPostComponent } from '../new-post/new-post.component';
 import { ImageService } from '../../services/ImageService';
 
 import { PostService } from '../../services/PostService';
@@ -24,6 +25,7 @@ export class SidemenuComponent implements OnInit {
     public authService: AuthService,
     private postService: PostService,
     public imageService: ImageService,
+    private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -51,7 +53,6 @@ export class SidemenuComponent implements OnInit {
     const currentUrl = this.router.routerState.snapshot.url;
     const isOwnProfile =
       this.route.snapshot.paramMap.get('handle') === this.getHandle();
-    console.log(isOwnProfile);
     if (currentUrl.includes('/home')) {
       this.activeMenuItem = 'feed';
     } else if (currentUrl.includes('/profile') && isOwnProfile) {
@@ -70,5 +71,20 @@ export class SidemenuComponent implements OnInit {
     console.log('sidemenu runing');
     this.postService.clearPosts();
     this.router.navigate(['/profile', this.getHandle()]);
+  }
+
+  openNewPostDialog(): void {
+    this.activeMenuItem = 'new-post';
+    const dialogRef = this.dialog.open(NewPostComponent, {
+      width: '60%',
+      maxWidth: '800px',
+      autoFocus: false,
+      panelClass: 'comment-dialog-container',
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      // we want to revert active menu item to what it was
+      this.updateActiveMenuItem();
+    });
   }
 }

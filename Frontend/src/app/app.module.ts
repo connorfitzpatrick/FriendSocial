@@ -22,6 +22,7 @@ import { ProfilePageComponent } from './components/profile-page/profile-page.com
 import { TokenExpirationInterceptor } from './interceptors/token-expiration-interceptor.interceptor';
 import { ProfileTileComponent } from './components/profile-tile/profile-tile.component';
 import { EditDialogComponent } from './components/edit-dialog/edit-dialog.component';
+import { NewPostComponent } from './components/new-post/new-post.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { EditDialogComponent } from './components/edit-dialog/edit-dialog.compon
     ProfilePageComponent,
     ProfileTileComponent,
     EditDialogComponent,
+    NewPostComponent,
   ],
   imports: [
     BrowserModule,
