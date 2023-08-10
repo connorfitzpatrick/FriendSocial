@@ -43,7 +43,7 @@ export class LikeService {
 
   async postIsLiked(postId: number): Promise<number> {
     const token = localStorage.getItem('token');
-    const myId = this.authService.getUserIdFromToken();
+    const myId = await this.authService.getUserIdFromToken();
     var isLiked = -1;
 
     const httpOptions = {
@@ -108,11 +108,13 @@ export class LikeService {
     }
   }
 
-  deleteLike(postId: number) {
+  async deleteLike(postId: number) {
     // we will need to get the ID of the like itself!!!!!!
     const token = localStorage.getItem('token');
-    const myId = this.authService.getUserIdFromToken();
+    const likeIdPromise = await this.postIsLiked(postId);
+    const likeId = likeIdPromise;
 
+    console.log(likeId);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -120,14 +122,8 @@ export class LikeService {
       }),
     };
 
-    // const newLikes = this.likesSubject.value.filter(
-    //   (like) => like.id !== deletedLikeId
-    // );
-    // this.likesSubject.next(newLikes);
-
-    return this.http.delete<void>(
-      `http://localhost:8080/api/v1/likes/${myId}/${postId}`,
-      httpOptions
-    );
+    const response = await this.http
+      .delete<any>(`http://localhost:8080/api/v1/likes/${likeId}`, httpOptions)
+      .toPromise();
   }
 }

@@ -44,7 +44,6 @@ public class LikeService {
 
   public Long getLikeOfUserOnPost(Long postId, Long userId) {
     Long like = likeRepository.findLikeOfUserOnPost(postId, userId);
-    System.out.println("WE MADE IT");
     if (like == null) {
       Logger.getLogger(LikeService.class.getName()).log(Level.WARNING, "No like found for userId: " + userId + " and postId: " + postId);
       return -1L;
@@ -59,7 +58,7 @@ public class LikeService {
     // Add to like table
     if (postOptional.isEmpty() || userOptional.isEmpty()) {
       // Handle case when user is not found
-      throw new IllegalArgumentException("Post or User not found");
+      Logger.getLogger(LikeService.class.getName()).log(Level.WARNING, "No user found for userId: " + userId + " or post found for postId: " + postId);
     }
 
     Post post = postOptional.get();
@@ -75,10 +74,9 @@ public class LikeService {
   // Business logic of deleting a like. Check if it exists first.
   public void deleteLike(Long likeId) {
     boolean exists = likeRepository.existsById(likeId);
+    System.out.println("DELETING");
     if (!exists) {
-      throw new IllegalStateException(
-              "Like with id " + likeId + " does not exist"
-      );
+      Logger.getLogger(LikeService.class.getName()).log(Level.WARNING, "No like found for likeId: " + likeId);
     }
     // Check if user trying to delete is original poster or commenter
     likeRepository.deleteById(likeId);
