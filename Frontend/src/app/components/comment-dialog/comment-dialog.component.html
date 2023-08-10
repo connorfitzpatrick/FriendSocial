@@ -77,7 +77,11 @@
                 {{ comment[0].content }}
               </p>
             </div>
-            <div class="delete-button" (click)="deleteComment(comment[0].id)">
+            <div
+              *ngIf="myId === comment[0].userId"
+              class="delete-button"
+              (click)="deleteComment(comment[0].id)"
+            >
               <span class="delete-icon">x</span>
             </div>
           </div>

@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LikeService } from '../../services/LikeService';
 import { CommentsService } from '../../services/CommentsService';
+import { AuthService } from '../../services/AuthService';
 
 @Component({
   selector: 'app-comment-dialog',
@@ -13,11 +14,15 @@ export class CommentDialogComponent implements OnInit {
   likes: any[] = [];
   comments: any[] = [];
   commentContent: string = '';
+  myId: number | null = this.authService.getUserIdFromToken();
+  // Grab Id of post owner and use it to allow them to delete comments
+  posterId: number | null = 0;
 
   constructor(
     public dialogRef: MatDialogRef<CommentDialogComponent>,
     public likeService: LikeService,
     public commentService: CommentsService,
+    public authService: AuthService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
