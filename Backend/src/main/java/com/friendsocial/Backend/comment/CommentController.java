@@ -45,10 +45,10 @@ public class CommentController {
     return ResponseEntity.ok(recentComments);
   }
 
-
   @PostMapping(path = "{userId}/{postId}")
-  public void createComment(@PathVariable("userId") Long userId, @PathVariable("postId") Long postId, @RequestBody Comment commentRequest) {
-    commentService.addNewComment(userId, postId, commentRequest);
+  public ResponseEntity<Comment> createComment(@PathVariable("userId") Long userId, @PathVariable("postId") Long postId, @RequestBody Comment commentRequest) {
+    Comment newComment = commentService.addNewComment(userId, postId, commentRequest);
+    return ResponseEntity.ok(newComment);
   }
 
   @DeleteMapping(path = "{commentId}")

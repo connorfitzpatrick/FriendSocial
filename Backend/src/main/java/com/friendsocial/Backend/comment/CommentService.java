@@ -5,6 +5,7 @@ import com.friendsocial.Backend.post.PostRepository;
 import com.friendsocial.Backend.user.User;
 import com.friendsocial.Backend.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class CommentService {
   }
 
   // Business logic of Posting (adding) new Comment
-  public void addNewComment(Long userId, Long postId, Comment commentRequest) {
+  public Comment addNewComment(Long userId, Long postId, Comment commentRequest) {
     Optional<Post> postOptional = postRepository.findById(postId);
     Optional<User> userOptional = userRepository.findById(userId);
     // Add to comment table
@@ -60,7 +61,8 @@ public class CommentService {
     commentRequest.setPostId(postId);
     post.addComment(commentRequest); // Associate comment with post
     user.addComment(commentRequest); // Associate comment with user
-    commentRepository.save(commentRequest);
+    return commentRepository.save(commentRequest);
+
   }
 
   // Business logic of deleting a comment. Check if it exists first.

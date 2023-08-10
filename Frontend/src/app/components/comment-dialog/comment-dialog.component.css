@@ -33,6 +33,7 @@
   display: flex;
   align-items: flex-start;
   margin-bottom: 10px;
+  position: relative;
 }
 
 .user-info {
@@ -82,4 +83,23 @@
 
 .post-button {
   flex-shrink: 0;
+}
+
+.delete-button {
+  position: absolute;
+  top: 50%;
+  right: 0; /* Align the button to the right */
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.delete-icon {
+  color: #888;
+  font-size: 16px;
 }

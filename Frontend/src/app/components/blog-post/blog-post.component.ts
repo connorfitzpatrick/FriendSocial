@@ -37,8 +37,6 @@ export class BlogPostComponent implements OnInit {
       this.likeCount = this.post[5];
     });
     this.getPostIsLiked();
-    console.log(this.isLiked);
-    console.log(this.postId + ' is Liked:', this.isLiked);
     if (this.post[0].postType == 'Image') {
       this.getPostImage();
     }

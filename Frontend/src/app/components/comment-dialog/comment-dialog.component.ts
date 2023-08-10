@@ -12,7 +12,7 @@ export class CommentDialogComponent implements OnInit {
   active: string = 'likes';
   likes: any[] = [];
   comments: any[] = [];
-  newComment: string = '';
+  commentContent: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<CommentDialogComponent>,
@@ -42,23 +42,25 @@ export class CommentDialogComponent implements OnInit {
     });
 
     console.log(this.comments);
-
-    // this.comments = this.data[0];
+    console.log(this.commentService.comments$(this.data[0]));
   }
 
   postComment() {
-    if (this.newComment) {
-      // Assuming you have a service to post the comment, update the comments array, etc.
-      // For demonstration purposes, let's assume you're adding the new comment directly to the comments array.
-      this.comments.push({
-        content: this.newComment,
-        userId: 'user123', // Replace with the actual user ID
-        userPic: 'path_to_user_pic.jpg', // Replace with the actual user picture URL
-      });
+    if (this.commentContent) {
+      this.commentService.postComment(this.data[0], this.commentContent);
+      console.log(this.comments);
 
       // Clear the new comment input field
-      this.newComment = '';
+      // this.commentContent = '';
     }
+  }
+
+  async deleteComment(commentId: number) {
+    await this.commentService.deleteComment(commentId, this.data[0]);
+    console.log(this.comments);
+    this.comments = this.comments.filter(
+      (comment) => comment[0].id !== commentId
+    );
   }
 
   closeDialog(): void {

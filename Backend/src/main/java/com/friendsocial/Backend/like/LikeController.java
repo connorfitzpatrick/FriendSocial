@@ -39,7 +39,6 @@ public class LikeController {
 
   @GetMapping(path = "isLiked/{postId}/{userId}")
   public Long getLikeOfProfile(@PathVariable("postId") Long postId, @PathVariable("userId") Long userId) {
-    System.out.println("IN getLikeOfProfile() SERVICE");
     return likeService.getLikeOfUserOnPost(postId, userId);
   }
 

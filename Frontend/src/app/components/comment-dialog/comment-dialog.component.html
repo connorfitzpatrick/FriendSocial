@@ -77,6 +77,9 @@
                 {{ comment[0].content }}
               </p>
             </div>
+            <div class="delete-button" (click)="deleteComment(comment[0].id)">
+              <span class="delete-icon">x</span>
+            </div>
           </div>
         </div>
       </div>
@@ -90,12 +93,12 @@
       type="text"
       class="form-control"
       placeholder="Write a comment..."
-      [(ngModel)]="newComment"
+      [(ngModel)]="commentContent"
     />
     <button
       class="btn btn-primary post-button"
       (click)="postComment()"
-      [disabled]="!newComment"
+      [disabled]="!commentContent"
     >
       Post
     </button>

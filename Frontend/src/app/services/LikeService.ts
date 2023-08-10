@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './AuthService';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, EMPTY } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -93,6 +92,7 @@ export class LikeService {
         )
         .toPromise();
 
+      // new like object for the BehaviorSubject
       const newLikeData = {
         id: response,
         userId: myId,
@@ -100,6 +100,7 @@ export class LikeService {
         timestamp: timestamp,
       };
 
+      // get this post's likes behaviorsubject
       const currentLikes = this.likesSubjectsMap.get(postId)?.value || [];
       const newLikes = [...currentLikes, newLikeData];
       this.likesSubjectsMap.get(postId)?.next(newLikes);
@@ -114,7 +115,6 @@ export class LikeService {
     const likeIdPromise = await this.postIsLiked(postId);
     const likeId = likeIdPromise;
 
-    console.log(likeId);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
