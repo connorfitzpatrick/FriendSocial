@@ -32,7 +32,7 @@ public class PostService {
   public List<Object[]> getPostsOfUserById(Long userId) {
     List<Object[]> postList = postRepository.findPostsOfUserId(userId);
     if (postList.isEmpty()){
-      throw new IllegalArgumentException("No friendships found");
+      throw new IllegalArgumentException("No posts found");
     }
     return postList;
   }

@@ -3,8 +3,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { PostService } from './PostService';
 import { Injectable, ValueProvider } from '@angular/core';
 import { User } from '../models/profile.model';
-import { catchError } from 'rxjs/operators';
-import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',

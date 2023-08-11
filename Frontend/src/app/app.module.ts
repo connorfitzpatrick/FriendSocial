@@ -23,6 +23,7 @@ import { TokenExpirationInterceptor } from './interceptors/token-expiration-inte
 import { ProfileTileComponent } from './components/profile-tile/profile-tile.component';
 import { EditDialogComponent } from './components/edit-dialog/edit-dialog.component';
 import { NewPostComponent } from './components/new-post/new-post.component';
+import { FriendsListComponent } from './components/friends-list/friends-list.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { NewPostComponent } from './components/new-post/new-post.component';
     ProfileTileComponent,
     EditDialogComponent,
     NewPostComponent,
+    FriendsListComponent,
   ],
   imports: [
     BrowserModule,

@@ -11,12 +11,19 @@ public interface PostRepository
   extends JpaRepository<Post, Long>
   {
     // Custom function to find user by email. Transforms to `SELECT * FROM users WHERE email = ?`
-    @Query("SELECT p, pr.handle, pr.firstName, pr.lastName, pr.userPic FROM Post p JOIN p.user pr")
+    @Query("SELECT p, pr.handle, pr.firstName, pr.lastName, pr.userPic " +
+            "FROM Post p JOIN p.user pr")
     List<Object[]> findPostsAndUserInfo1();
 
-    @Query("SELECT p, pr.userPic, pr.handle, pr.firstName, pr.lastName, (SELECT COUNT(l) FROM Like l WHERE l.postId = p.id) FROM Post p JOIN p.user pr")
+    @Query("SELECT p, pr.userPic, pr.handle, pr.firstName, pr.lastName, " +
+            "(SELECT COUNT(l) FROM Like l WHERE l.postId = p.id) " +
+            "FROM Post p JOIN p.user pr " +
+            "ORDER BY p.timestamp DESC")
     List<Object[]> findPostsAndUserInfo();
 
-    @Query("SELECT p, pr.userPic, pr.handle, pr.firstName, pr.lastName FROM Post p JOIN p.user pr WHERE p.userId = ?1")
+    @Query("SELECT p, pr.userPic, pr.handle, pr.firstName, pr.lastName " +
+            "FROM Post p JOIN p.user pr " +
+            "WHERE p.userId = ?1 " +
+            "ORDER BY p.timestamp DESC")
     List<Object[]> findPostsOfUserId(Long id);
   }

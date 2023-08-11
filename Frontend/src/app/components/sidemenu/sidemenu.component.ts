@@ -55,6 +55,8 @@ export class SidemenuComponent implements OnInit {
       this.route.snapshot.paramMap.get('handle') === this.getHandle();
     if (currentUrl.includes('/home')) {
       this.activeMenuItem = 'feed';
+    } else if (currentUrl.includes('/profile/friends') && isOwnProfile) {
+      this.activeMenuItem = 'friends';
     } else if (currentUrl.includes('/profile') && isOwnProfile) {
       this.activeMenuItem = 'profile';
     } else {

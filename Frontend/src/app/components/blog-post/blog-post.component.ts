@@ -48,12 +48,13 @@ export class BlogPostComponent implements OnInit {
   }
 
   formatDate(timestamp: string | null): string {
+    console.log(timestamp);
     if (!timestamp) {
       return ''; // or any default value you prefer for null timestamps
     }
 
     const currentDate = new Date();
-    const postDate = new Date(timestamp);
+    const postDate = new Date(parseInt(timestamp) * 1000); // Convert seconds to milliseconds
     const difference = currentDate.getTime() - postDate.getTime();
 
     // Define the time intervals in milliseconds

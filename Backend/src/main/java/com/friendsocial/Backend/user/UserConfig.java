@@ -106,28 +106,28 @@ public class UserConfig {
               1L,
               "Text",
               "This is my first post.",
-              Instant.now(),
+              Instant.parse("2023-08-01T10:15:30Z"),
               ""
       );
       Post connorsSecond = new Post(
               1L,
               "Text",
               "This is my second post.",
-              Instant.now(),
+              Instant.parse("2023-08-02T14:30:45Z"),
               ""
       );
       Post alexFirst = new Post(
               2L,
               "Text",
               "Ayo I am Alex.",
-              Instant.now(),
+              Instant.parse("2023-08-03T08:20:15Z"),
               ""
       );
       Post alexSecond = new Post(
               3L,
               "Text",
               "This is a selfie of me, Connor.",
-              Instant.now(),
+              Instant.parse("2023-08-04T16:45:00Z"),
               ""
       );
       Post connorsThird = new Post(
@@ -136,42 +136,42 @@ public class UserConfig {
               "This is long post to check and see how the information I put down is formatted within the Angular component. I hope" +
                       "that this looks okay! If it doesn't I'll be up all night. figure out how to send pictures next " +
                       "as well as figure out image-post-components.",
-              Instant.now(),
+              Instant.parse("2023-08-05T12:10:30Z"),
               ""
       );
       Post connorsFourth = new Post(
               3L,
               "Text",
               "I'm hungry.",
-              Instant.now(),
+              Instant.parse("2023-08-06T18:25:15Z"),
               ""
       );
       Post connorsFifth = new Post(
               2L,
               "Text",
               "Just more test data.",
-              Instant.now(),
+              Instant.parse("2023-08-07T09:55:45Z"),
               ""
       );
       Post peyton1 = new Post(
               4L,
               "Text",
               "Heres a post from my new user.",
-              Instant.now(),
+              Instant.parse("2023-08-08T15:40:00Z"),
               ""
       );
       Post bob1 = new Post(
               5L,
               "Image",
               "This is a nice one",
-              Instant.now(),
+              Instant.parse("2023-08-09T13:05:30Z"),
               "painting.png"
       );
       Post bob2 = new Post(
               5L,
               "Image",
               "This post took 30 minutes. You can do it too!",
-              Instant.now(),
+              Instant.parse("2023-08-10T11:30:15Z"),
               "painting2.jpeg"
       );
 
