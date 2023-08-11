@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { PostService } from './PostService';
-import { Injectable, ValueProvider } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { User } from '../models/profile.model';
 
 @Injectable({

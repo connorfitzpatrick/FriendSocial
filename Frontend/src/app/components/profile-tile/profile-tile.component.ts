@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { User } from '../../models/profile.model';
 import { AuthService } from '../../services/AuthService';
+import { FriendService } from '../../services/FriendService';
 import { ImageService } from '../../services/ImageService';
 import { MatDialog } from '@angular/material/dialog';
 import { EditDialogComponent } from '../../components/edit-dialog/edit-dialog.component';
@@ -14,15 +15,42 @@ export class ProfileTileComponent implements OnChanges {
   @Input() user: User | undefined;
   @Input() userId: number | undefined;
   isCurrentUserProfile: boolean = false;
+  isFriend: boolean = false;
 
   constructor(
     public dialog: MatDialog,
     private authService: AuthService,
+    private friendService: FriendService,
     public imageService: ImageService
   ) {} // Inject the AuthService
 
   ngOnChanges(): void {
     this.isCurrentUserProfile = this.authService.viewingProfile(this.userId);
+    this.updateFriendStatus();
+  }
+
+  async updateFriendStatus() {
+    // Use a service method to check friend status based on userId
+    this.isFriend = await this.friendService.checkFriendStatus(this.userId);
+  }
+
+  async toggleFriendship() {
+    try {
+      if (this.isFriend) {
+        // Unfriend logic
+        await this.friendService.deleteFriend(this.userId);
+        this.isFriend = false;
+      } else {
+        // Friend logic
+        await this.friendService.postFriend(
+          this.authService.getUserIdFromToken(),
+          this.userId
+        );
+        this.isFriend = true;
+      }
+    } catch (error) {
+      console.error('Error toggling friendship:', error);
+    }
   }
 
   openCommentDialog(event: Event) {

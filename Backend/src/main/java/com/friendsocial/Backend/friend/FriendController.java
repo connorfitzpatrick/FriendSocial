@@ -23,21 +23,23 @@ public class FriendController {
 
   @GetMapping(path = "{userId}")
   public List<Friend> getFriends(@PathVariable("userId") Long id) {
+    System.out.println("GETTING LIST OF FRIENDS");
     return friendService.getFriendsOfUserById(id);
   }
 
-  // POST (ADD) A Post
-  // @RequestBody because we are taking the user that comes from the client. Take request and map to user
+  // POST (ADD) A FRIEND
   @PostMapping(path = "{userId}/{friendId}")
   public void createFriend(@PathVariable("userId") Long userId, @PathVariable("friendId") Long friendId, @RequestBody Friend friendRequest) {
+    System.out.println("ADDING FRIEND");
     // Save the post entity
     friendService.addNewFriend(userId, friendId, friendRequest);
   }
 
-  // DELETE A Post
-  // pass the postId within the path. Grab the post ID with @PathVariable
+  // DELETE A FRIEND
+  // pass the friendshipId within the path. Grab the post ID with @PathVariable
   @DeleteMapping(path = "{friendshipId}")
   public void deletePost(@PathVariable("friendshipId") Long id) {
+    System.out.println("DELETING FRIEND");
     friendService.deleteFriend(id);
   }
 }

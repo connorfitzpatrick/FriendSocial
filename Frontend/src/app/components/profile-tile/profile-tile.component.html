@@ -21,6 +21,11 @@
         <button (click)="openCommentDialog($event)">Edit Profile</button>
       </div>
     </div>
+    <div class="friend-button-container">
+      <button (click)="toggleFriendship()">
+        {{ isFriend ? "Unfriend" : "Friend" }}
+      </button>
+    </div>
 
     <!-- Remove the bio from here -->
   </div>
