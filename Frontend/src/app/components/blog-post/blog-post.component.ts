@@ -19,27 +19,32 @@ export class BlogPostComponent implements OnInit {
   likeCount: number = 0;
   isLiked: number = -1;
   postImageURL = '';
+  userPicUrl = '';
 
   constructor(
-    private http: HttpClient,
     private likeService: LikeService,
-    private authService: AuthService,
     public imageService: ImageService,
     private route: ActivatedRoute,
     private datePipe: DatePipe,
     public dialog: MatDialog
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    console.log(this.post);
     this.route.params.subscribe((params) => {
       // get the postId from route params and convert it to a number
       this.postId = this.post[0].id;
       this.likeCount = this.post[5];
     });
-    this.getPostIsLiked();
+    const userPicLocation = this.post[1];
+    this.userPicUrl = await this.imageService.getImage(userPicLocation);
     if (this.post[0].postType == 'Image') {
       this.getPostImage();
     }
+    console.log(this.userPic);
+    // this.post[4] = await this.imageService.getImage(this.post[4]);
+    console.log(this.post);
+    this.getPostIsLiked();
   }
 
   formatDate(timestamp: string | null): string {

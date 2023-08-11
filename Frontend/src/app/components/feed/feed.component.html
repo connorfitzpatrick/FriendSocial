@@ -8,6 +8,6 @@
 </div>
 <div *ngFor="let post of postService.posts$ | async">
   <div>
-    <app-blog-post [post]="post" [userPic]="user?.userPic"></app-blog-post>
+    <app-blog-post [post]="post" [userPic]="userPic"></app-blog-post>
   </div>
 </div>

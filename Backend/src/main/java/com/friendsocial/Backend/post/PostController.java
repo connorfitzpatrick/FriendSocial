@@ -44,9 +44,10 @@ public class PostController {
   // POST (ADD) A Post
   // @RequestBody because we are taking the user that comes from the client. Take request and map to user
   @PostMapping(path = "{userId}")
-  public void createPost(@PathVariable("userId") Long userId, @RequestBody Post postRequest) {
+  public Post createPost(@PathVariable("userId") Long userId, @RequestBody Post postRequest) {
     // Save the post entity
-    postService.addNewPost(userId, postRequest);
+    System.out.println(postRequest);
+    return postService.addNewPost(userId, postRequest);
   }
 
   // DELETE A Post

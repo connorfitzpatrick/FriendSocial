@@ -5,7 +5,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { User } from '../models/profile.model';
 import { ProfileService } from './ProfileService';
-import { PostService } from './PostService';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +19,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private profileService: ProfileService,
-    private postService: PostService
+    private profileService: ProfileService
   ) {}
 
   async login(credentials: any): Promise<User> {
@@ -115,7 +113,7 @@ export class AuthService {
   }
 
   onProfileClick(): void {
-    this.postService.clearPosts(); // Clear the posts before navigating to the profile page
+    // this.postService.clearPosts(); // Clear the posts before navigating to the profile page
     this.router.navigate(['/profile', this.getHandle()]);
   }
 

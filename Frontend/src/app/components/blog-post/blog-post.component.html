@@ -1,16 +1,9 @@
 <div class="post-container">
   <div class="post-content">
-    <img
-      [src]="userPic || post[4]"
-      alt="Profile Picture"
-      class="profile-picture"
-    />
-    <!-- <div *ngIf="isLiked > -1">
-      <h1>GOOD FUCKING NEWS!</h1>
-    </div> -->
+    <img [src]="userPicUrl" alt="Profile Picture" class="profile-picture" />
     <div class="post-details">
-      <h3 class="username">{{ post[2] }} {{ post[3] }}</h3>
-      <p class="username">@{{ post[1] }}</p>
+      <h3 class="username">{{ post[3] }} {{ post[4] }}</h3>
+      <p class="username">@{{ post[2] }}</p>
       <br />
       <div *ngIf="post[0].postType == 'Image'" class="image-container">
         <img [src]="postImageURL" alt="Post Image" class="post-image" />

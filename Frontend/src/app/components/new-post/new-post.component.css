@@ -1,0 +1,84 @@
+.new-post-dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.user-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.user-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.select-image {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.select-image label {
+  margin-right: 10px;
+}
+
+.select-image input[type="file"] {
+  display: none;
+}
+
+.select-image button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.caption {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.caption label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.caption textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.cancel-button,
+.submit-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-button {
+  background-color: #ccc;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: white;
+}

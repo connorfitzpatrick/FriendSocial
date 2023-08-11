@@ -97,20 +97,6 @@ export class EditDialogComponent implements OnInit {
         role: this.user.role,
       };
 
-      console.log(updatedUser);
-      // this.imageService.getImage(this.user.userPic).subscribe(
-      //   (imageUrl: string) => {
-      //     // This callback will be executed when the image URL is available
-      //     updatedUser.userPic = imageUrl;
-      //     console.log(imageUrl);
-      //     // Now you can proceed with saving the updated user data and making other API calls
-      //   },
-      //   (error) => {
-      //     // Handle error if there is any issue getting the image URL
-      //     console.error('Error getting profile picture:', error);
-      //   }
-      // );
-
       this.authService.currentUser$.subscribe(async (user) => {
         if (user) {
           const userPicLocation = this.user.userPic; // Extract the userPic URL

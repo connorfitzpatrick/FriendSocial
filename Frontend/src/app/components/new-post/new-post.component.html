@@ -1,1 +1,28 @@
-<p>new-post works!</p>
+<div class="new-post-dialog">
+  <div class="user-image">
+    <img [src]="pictureUrl" alt="User Image" />
+  </div>
+  <div class="select-image">
+    <label for="fileInput">Select Image:</label>
+    <input
+      type="file"
+      #fileInput
+      accept="image/*"
+      (change)="onFileSelected($event)"
+    />
+    <button (click)="fileInput.click()">Browse</button>
+  </div>
+  <div class="caption">
+    <label for="captionInput">Caption:</label>
+    <textarea
+      id="captionInput"
+      rows="4"
+      [(ngModel)]="caption"
+      placeholder="Write a caption..."
+    ></textarea>
+  </div>
+  <div class="buttons">
+    <button class="cancel-button" (click)="onCancel()">Cancel</button>
+    <button class="submit-button" (click)="onSubmit()">Submit</button>
+  </div>
+</div>

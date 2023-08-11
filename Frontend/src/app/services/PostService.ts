@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, from } from 'rxjs';
 
 /* This service handles API requests for viewing posts*/
 @Injectable({
@@ -33,6 +33,7 @@ export class PostService {
         console.error('Error fetching posts information:', error);
       }
     );
+    console.log(this.postsSubject);
   }
 
   fetchPostsByUserId(id: number): void {
@@ -52,6 +53,43 @@ export class PostService {
         console.error('Error fetching posts information:', error);
       }
     );
+  }
+
+  async postPost(
+    userId: number | null,
+    postType: string,
+    caption: string,
+    imageUrl: string
+  ) {
+    const token = localStorage.getItem('token');
+    const timestamp = new Date();
+    console.log(imageUrl);
+
+    const requestBody = {
+      postType: postType,
+      content: caption,
+      imageUrl: imageUrl,
+      timestamp: timestamp.toISOString(),
+    };
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`, // Include the token in the 'Authorization' header
+      }),
+    };
+
+    try {
+      return await this.http
+        .post<any>(
+          `http://localhost:8080/api/v1/posts/${userId}`,
+          requestBody,
+          httpOptions
+        )
+        .toPromise();
+    } catch (error) {
+      console.error('Error making POST request for new post:', error);
+    }
   }
 
   clearPosts(): void {

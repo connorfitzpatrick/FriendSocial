@@ -38,7 +38,10 @@ public class PostService {
   }
 
   // Business logic of Posting (adding) new user
-  public void addNewPost(Long userId, Post postRequest) {
+  public Post addNewPost(Long userId, Post postRequest) {
+    System.out.println(postRequest);
+    System.out.println("SERVICE");
+
     Optional<User> userOptional = userRepository.findById(userId);
     // Add to User table
     if (userOptional.isEmpty()) {
@@ -50,7 +53,7 @@ public class PostService {
     // Otherwise foreign key will be null
     postRequest.setUserId(userId);
     user.addPost(postRequest); // Associate post with user
-    postRepository.save(postRequest);
+    return postRepository.save(postRequest);
   }
 
   // Business logic of deleting a user. Check if it exists first.

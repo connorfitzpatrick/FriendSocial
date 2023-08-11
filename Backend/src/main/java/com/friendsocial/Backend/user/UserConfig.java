@@ -32,7 +32,7 @@ public class UserConfig {
               LocalDate.of(1999, 4, 29),
               "Connor",
               "Fitzpatrick",
-              "https://i.imgur.com/PCXFcu2.jpg",
+              "cf.png",
               "MY APP",
               now.minusSeconds(30 * 24 * 60 * 60),
               Role.USER
@@ -44,7 +44,7 @@ public class UserConfig {
               LocalDate.of(2000, 12, 25),
               "Alex",
               "Rodriguez",
-              "https://i.imgur.com/Vdcn5Yj.jpg",
+              "arod_PP.png",
               "I Alex",
               now.minusSeconds(30 * 24 * 60 * 60),
               Role.USER
@@ -56,7 +56,7 @@ public class UserConfig {
               LocalDate.of(1995, 06, 20),
               "Kieran",
               "Thomas",
-              "https://i.imgur.com/79OV5FI.png",
+              "yankees.png",
               "Dummy data account",
               now.minusSeconds(30 * 24 * 60 * 60),
               Role.USER
@@ -68,7 +68,7 @@ public class UserConfig {
               LocalDate.of(1979, 03, 12),
               "Peyton",
               "Manning",
-              "https://i.imgur.com/bZaoFOU.jpg",
+              "PeytonManning.png",
               "Not affiliated with real Peyton Manning",
               now.minusSeconds(30 * 24 * 60 * 60),
               Role.USER
@@ -80,7 +80,7 @@ public class UserConfig {
               LocalDate.of(1954, 9, 22),
               "Bob",
               "Ross",
-              "https://www.bobross.com/content/bob_ross_img.png",
+              "bob_ross_pp.png",
               "Mistakes are Happy Accidents",
               now.minusSeconds(30 * 24 * 60 * 60),
               Role.USER

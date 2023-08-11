@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { PostService } from '../../services/PostService';
 import { User } from '../../models/profile.model';
 import { AuthService } from '../../services/AuthService';
+import { ImageService } from '../../services/ImageService';
 
 @Component({
   selector: 'app-feed',
@@ -12,17 +13,24 @@ export class FeedComponent implements OnInit {
   @Input() userId: number | undefined;
   @Input() user: User | undefined;
   posts: any[] = [];
+  userPic: string | null = null;
 
   isCurrentUserProfile: boolean = false;
   @Input() isProfilePage: boolean = false;
 
   constructor(
     public postService: PostService,
-    private authService: AuthService
+    private authService: AuthService,
+    private imageService: ImageService
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    // this.fetchPosts();
+    if (this.isProfilePage) {
+      this.userPic = await this.imageService.getProfilePicUrl();
+    }
     this.fetchPosts();
+    console.log(this.userPic);
   }
 
   isMyProfile(): boolean {
