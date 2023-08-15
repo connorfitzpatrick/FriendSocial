@@ -24,6 +24,7 @@ import { ProfileTileComponent } from './components/profile-tile/profile-tile.com
 import { EditDialogComponent } from './components/edit-dialog/edit-dialog.component';
 import { NewPostComponent } from './components/new-post/new-post.component';
 import { FriendsListComponent } from './components/friends-list/friends-list.component';
+import { FriendItemComponent } from './components/friend-item/friend-item.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { FriendsListComponent } from './components/friends-list/friends-list.com
     EditDialogComponent,
     NewPostComponent,
     FriendsListComponent,
+    FriendItemComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,58 @@
+.post-content {
+  display: flex;
+  align-items: flex-start; /* Align items at the top */
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f1f1f1;
+  width: 75%; /* Adjust the width as per your preference */
+  margin-bottom: 16px; /* Add vertical spacing between posts */
+}
+
+.friend-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+.profile-picture img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.friend-details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.handle {
+  margin-top: auto;
+  color: #666;
+}
+
+.remove-button button {
+  background-color: #ff6b6b;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.user-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 12px;
+  flex-shrink: 0;
+}

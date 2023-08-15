@@ -16,6 +16,7 @@ export class ProfileTileComponent implements OnChanges {
   @Input() userId: number | undefined;
   isCurrentUserProfile: boolean = false;
   isFriend: number = -1;
+  postImageURL = '';
 
   constructor(
     public dialog: MatDialog,
@@ -24,8 +25,11 @@ export class ProfileTileComponent implements OnChanges {
     public imageService: ImageService
   ) {} // Inject the AuthService
 
-  ngOnChanges(): void {
+  async ngOnChanges() {
     this.isCurrentUserProfile = this.authService.viewingProfile(this.userId);
+    if (!this.isCurrentUserProfile && this.user) {
+      this.postImageURL = await this.imageService.getImage(this.user.userPic);
+    }
     this.updateFriendStatus();
   }
 
