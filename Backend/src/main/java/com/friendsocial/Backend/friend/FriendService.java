@@ -34,10 +34,7 @@ public class FriendService {
   }
 
   public Friend getIsFriendByIds(Long userId, Long friendId) {
-    System.out.println("Getting getIsFriendByIds. userId: " + userId + " friendId: "+ friendId);
-    Friend f = friendRepository.findIsFriendByIds(userId, friendId);
-    System.out.println(f);
-    return f;
+    return friendRepository.findIsFriendByIds(userId, friendId);
   }
 
   // Business logic of Posting (adding) new user. Do not add if email already in use.

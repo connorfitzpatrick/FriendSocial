@@ -115,15 +115,12 @@ export class FriendService {
   }
 
   async deleteFriend(friendId?: number) {
-    console.log('delete friend');
     const id = await this.checkFriendStatus(
       this.authService.getUserIdFromToken(),
       friendId
     );
-    var friendshipId = -1;
     if (id !== -1) {
       const token = localStorage.getItem('token');
-      console.log(id);
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
@@ -131,15 +128,12 @@ export class FriendService {
         }),
       };
       try {
-        console.log(id);
         const response = await this.http
           .delete<any>(
             `http://localhost:8080/api/v1/friends/${id}`,
             httpOptions
           )
           .toPromise();
-
-        console.log(response);
 
         // new like object for the BehaviorSubject
         const newFriendData = {

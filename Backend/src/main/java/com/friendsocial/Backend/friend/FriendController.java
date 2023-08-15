@@ -30,20 +30,16 @@ public class FriendController {
 
   @GetMapping(path = "{userId}/{friendId}")
   public ResponseEntity<Friend> getIsFriend(@PathVariable("userId") Long userId, @PathVariable("friendId") Long friendId) {
-    System.out.println("Getting isFriend. userId: " + userId + " friendId: "+ friendId);
     Friend f = friendService.getIsFriendByIds(userId, friendId);
     if (f == null) {
       return ResponseEntity.notFound().build(); // Return 404 Not Found
     }
-    System.out.println("ANSWER BELOW?");
-    System.out.println(f);
     return ResponseEntity.ok(f);
   }
 
   // POST (ADD) A FRIEND
   @PostMapping(path = "{userId}/{friendId}")
   public void createFriend(@PathVariable("userId") Long userId, @PathVariable("friendId") Long friendId, @RequestBody Friend friendRequest) {
-    System.out.println("ADDING FRIEND");
     // Save the post entity
     friendService.addNewFriend(userId, friendId, friendRequest);
   }
@@ -52,7 +48,6 @@ public class FriendController {
   // pass the friendshipId within the path. Grab the post ID with @PathVariable
   @DeleteMapping(path = "{friendshipId}")
   public void deleteFriend(@PathVariable("friendshipId") Long id) {
-    System.out.println("DELETING FRIEND");
     friendService.deleteFriend(id);
   }
 }

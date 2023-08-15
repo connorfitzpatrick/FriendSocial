@@ -74,7 +74,6 @@ public class LikeService {
   // Business logic of deleting a like. Check if it exists first.
   public void deleteLike(Long likeId) {
     boolean exists = likeRepository.existsById(likeId);
-    System.out.println("DELETING");
     if (!exists) {
       Logger.getLogger(LikeService.class.getName()).log(Level.WARNING, "No like found for likeId: " + likeId);
     }

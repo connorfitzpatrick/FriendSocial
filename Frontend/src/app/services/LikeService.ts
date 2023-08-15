@@ -59,7 +59,6 @@ export class LikeService {
           httpOptions
         )
         .toPromise();
-      console.log(response);
       isLiked = response;
     } catch (error) {
       console.error('Error making request for if post isLiked:', error);

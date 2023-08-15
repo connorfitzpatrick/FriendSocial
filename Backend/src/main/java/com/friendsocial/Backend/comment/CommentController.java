@@ -40,7 +40,6 @@ public class CommentController {
   // GET TWO MOST RECENT COMMENTS
   @GetMapping("{postId}/recent-comments")
   public ResponseEntity<List<Object[]>> getRecentComments(@PathVariable Long postId) {
-    System.out.println("GRABBING MOST RECEBT CINNEBTS");
     List<Object[]> recentComments = commentService.getRecentComments(postId);
     return ResponseEntity.ok(recentComments);
   }

@@ -30,7 +30,6 @@ export class BlogPostComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    console.log(this.post);
     this.route.params.subscribe((params) => {
       // get the postId from route params and convert it to a number
       this.postId = this.post[0].id;
@@ -41,9 +40,6 @@ export class BlogPostComponent implements OnInit {
     if (this.post[0].postType == 'Image') {
       this.getPostImage();
     }
-    console.log(this.userPic);
-    // this.post[4] = await this.imageService.getImage(this.post[4]);
-    console.log(this.post);
     this.getPostIsLiked();
   }
 
