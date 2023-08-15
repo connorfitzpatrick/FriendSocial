@@ -182,53 +182,57 @@ public class UserConfig {
     };
   }
 
-  @Autowired
-  private UserRepository friendRepository;
-
   @Bean
   CommandLineRunner commandLineRunner2(
           FriendRepository frepository) {
     return args -> {
+      Instant now = Instant.now();
+
       Long userId = 1L;
       Long friendId = 2L;
       Long friend2Id = 3L;
+      Long friend4Id = 4L;
       Optional<User> userOptional = userRepository.findById(userId);
       Optional<User> userOptional2 = userRepository.findById(friendId);
       Optional<User> userOptional3 = userRepository.findById(friend2Id);
-      User p = userOptional.orElseThrow(() -> new RuntimeException("User not found"));
-      User f = userOptional2.orElseThrow(() -> new RuntimeException("User not found"));
-      User f2 = userOptional3.orElseThrow(() -> new RuntimeException("User not found"));
+      Optional<User> userOptional4 = userRepository.findById(friend4Id);
+      User connor = userOptional.orElseThrow(() -> new RuntimeException("User not found"));
+      User alex = userOptional2.orElseThrow(() -> new RuntimeException("User not found"));
+      User kieran = userOptional3.orElseThrow(() -> new RuntimeException("User not found"));
+      User peyton = userOptional4.orElseThrow(() -> new RuntimeException("User not found"));
+
       Friend connorfriend = new Friend(
-              1L,
-              2L,
+              connor,
+              alex,
               LocalDate.now()
       );
       Friend connorfriend2 = new Friend(
-              1L,
-              3L,
+              connor,
+              kieran,
               LocalDate.now()
       );
       Friend connorfriend3 = new Friend(
-              1L,
-              5L,
+              connor,
+              peyton,
               LocalDate.now()
       );
       Friend bobfriend1 = new Friend(
-              5L,
-              1L,
+              peyton,
+              connor,
               LocalDate.now()
       );
       Friend bobfriend2 = new Friend(
-              5L,
-              4L,
+              peyton,
+              alex,
               LocalDate.now()
       );
 
       frepository.saveAll(
-              List.of(connorfriend, connorfriend2, bobfriend1, bobfriend2)
+              List.of(connorfriend, connorfriend2, connorfriend3, bobfriend1, bobfriend2)
       );
     };
   }
+
 
   @Autowired
   private CommentRepository cRepository;

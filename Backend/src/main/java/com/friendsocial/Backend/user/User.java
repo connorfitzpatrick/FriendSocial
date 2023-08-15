@@ -12,8 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -78,12 +78,17 @@ public class User implements UserDetails {
   @JsonIgnore
   private Set<Comment> comments;
 
-  @ManyToMany
-  @JoinTable(name = "user_friends",
-          joinColumns = @JoinColumn(name = "user_id"),
-          inverseJoinColumns = @JoinColumn(name = "friend_id"))
+//  @ManyToMany(cascade = CascadeType.ALL)
+//  @JoinTable(name = "user_friends",
+//          joinColumns = @JoinColumn(name = "user_id"),
+//          inverseJoinColumns = @JoinColumn(name = "friend_id"))
+//  @JsonIgnore
+//  private Set<Friend> friends;
+
+  @OneToMany(mappedBy = "user")
   @JsonIgnore
   private Set<Friend> friends;
+
 
   @OneToMany(mappedBy = "user")
   @JsonIgnore
@@ -284,8 +289,17 @@ public class User implements UserDetails {
 //  }
 //
   public void addFriend(Friend friend) {
+    if (friends == null) {
+      friends = new HashSet<>();
+    }
     friends.add(friend);
   }
+
+  public void removeFriend(Friend friend) {
+    friends.remove(friend);
+  }
+
+
 
   public Set<Comment> getComments() {
     return this.comments;

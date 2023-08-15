@@ -48,7 +48,6 @@ export class BlogPostComponent implements OnInit {
   }
 
   formatDate(timestamp: string | null): string {
-    console.log(timestamp);
     if (!timestamp) {
       return ''; // or any default value you prefer for null timestamps
     }

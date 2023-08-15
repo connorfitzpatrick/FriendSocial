@@ -15,7 +15,7 @@ export class ProfileTileComponent implements OnChanges {
   @Input() user: User | undefined;
   @Input() userId: number | undefined;
   isCurrentUserProfile: boolean = false;
-  isFriend: boolean = false;
+  isFriend: number = -1;
 
   constructor(
     public dialog: MatDialog,
@@ -31,22 +31,29 @@ export class ProfileTileComponent implements OnChanges {
 
   async updateFriendStatus() {
     // Use a service method to check friend status based on userId
-    this.isFriend = await this.friendService.checkFriendStatus(this.userId);
+    console.log(
+      'Checking friendStatus from updateFriendStatus() in ProfileTileComponent'
+    );
+    this.isFriend = await this.friendService.checkFriendStatus(
+      this.authService.getUserIdFromToken(),
+      this.userId
+    );
+    console.log(this.isFriend);
   }
 
   async toggleFriendship() {
     try {
-      if (this.isFriend) {
+      if (this.isFriend != -1) {
         // Unfriend logic
         await this.friendService.deleteFriend(this.userId);
-        this.isFriend = false;
+        this.isFriend = -1;
       } else {
         // Friend logic
         await this.friendService.postFriend(
           this.authService.getUserIdFromToken(),
           this.userId
         );
-        this.isFriend = true;
+        this.isFriend = 0;
       }
     } catch (error) {
       console.error('Error toggling friendship:', error);

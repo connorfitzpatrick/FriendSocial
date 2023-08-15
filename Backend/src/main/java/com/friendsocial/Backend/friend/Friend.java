@@ -13,43 +13,30 @@ public class Friend {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  // @ManyToOne defines relationship with User Entities for user and their friend
-  // @JoinTable specifies the name of the join table that will be created in the DB to store relationship
-  // @JoinColumns specifies the foreign key that references the Friend entity
-  // @InverseJoinColumns specifies the foreign key that references User entity
-  @Column(name = "user_id")
-  private Long userId;
-
-  @Column(name = "friend_id")
-  private Long friendId;
-
   @ManyToOne
-  @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
+  @JoinColumn(name = "user_id")
   private User user;
 
   @ManyToOne
-  @JoinColumn(name = "friend_id", referencedColumnName = "user_id", insertable = false, updatable = false)
+  @JoinColumn(name = "friend_id")
   private User friend;
 
-//  @ManyToOne
-//  @JoinColumn(name = "user_id", insertable = false, updatable = false)
+//  @JoinColumn(name = "user_id")
 //  private User user;
 //
 //  @ManyToOne
-//  @JoinColumn(name = "friend_id", insertable = false, updatable = false)
+//  @JoinColumn(name = "friend_id")
 //  private User friend;
-  //private User friend;
 
   @Column(name = "start_date")
   private LocalDate startDate;
 
   public Friend() {
-
   }
 
-  public Friend(Long userId, Long friendId, LocalDate startDate) {
-    this.userId = userId;
-    this.friendId = friendId;
+  public Friend(User user, User friend, LocalDate startDate) {
+    this.user = user;
+    this.friend = friend;
     this.startDate = startDate;
   }
 
@@ -57,24 +44,24 @@ public class Friend {
     return id;
   }
 
-  public void setId() {
+  public void setId(Long id) {
     this.id = id;
   }
 
-  public Long getUserId() {
-    return userId;
+  public User getUser() {
+    return user;
   }
 
-  public void setUserId(Long userId) {
-    this.userId = userId;
+  public void setUser(User user) {
+    this.user = user;
   }
 
-  public Long getFriendId() {
-    return friendId;
+  public User getFriend() {
+    return friend;
   }
 
-  public void setFriendId(Long friendId) {
-    this.friendId = friendId;
+  public void setFriend(User friend) {
+    this.friend = friend;
   }
 
   public LocalDate getStartDate() {

@@ -1,6 +1,7 @@
 package com.friendsocial.Backend.friend;
 
 import com.friendsocial.Backend.user.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,18 @@ public class FriendController {
     return friendService.getFriendsOfUserById(id);
   }
 
+  @GetMapping(path = "{userId}/{friendId}")
+  public ResponseEntity<Friend> getIsFriend(@PathVariable("userId") Long userId, @PathVariable("friendId") Long friendId) {
+    System.out.println("Getting isFriend. userId: " + userId + " friendId: "+ friendId);
+    Friend f = friendService.getIsFriendByIds(userId, friendId);
+    if (f == null) {
+      return ResponseEntity.notFound().build(); // Return 404 Not Found
+    }
+    System.out.println("ANSWER BELOW?");
+    System.out.println(f);
+    return ResponseEntity.ok(f);
+  }
+
   // POST (ADD) A FRIEND
   @PostMapping(path = "{userId}/{friendId}")
   public void createFriend(@PathVariable("userId") Long userId, @PathVariable("friendId") Long friendId, @RequestBody Friend friendRequest) {
@@ -38,7 +51,7 @@ public class FriendController {
   // DELETE A FRIEND
   // pass the friendshipId within the path. Grab the post ID with @PathVariable
   @DeleteMapping(path = "{friendshipId}")
-  public void deletePost(@PathVariable("friendshipId") Long id) {
+  public void deleteFriend(@PathVariable("friendshipId") Long id) {
     System.out.println("DELETING FRIEND");
     friendService.deleteFriend(id);
   }

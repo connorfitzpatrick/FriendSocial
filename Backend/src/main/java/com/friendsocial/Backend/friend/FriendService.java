@@ -33,6 +33,13 @@ public class FriendService {
     return friendList;
   }
 
+  public Friend getIsFriendByIds(Long userId, Long friendId) {
+    System.out.println("Getting getIsFriendByIds. userId: " + userId + " friendId: "+ friendId);
+    Friend f = friendRepository.findIsFriendByIds(userId, friendId);
+    System.out.println(f);
+    return f;
+  }
+
   // Business logic of Posting (adding) new user. Do not add if email already in use.
   public void addNewFriend(Long userId, Long friendId, Friend friendRequest) {
     Optional<User> userOptional = userRepository.findById(userId);
@@ -44,10 +51,11 @@ public class FriendService {
     }
 
     // Will be needed to associate this friendship with the user
+    User user = userOptional.get();
     User friend = friendOptional.get();
     // add foreign keys, otherwise they will return null
-    friendRequest.setUserId(userId);
-    friendRequest.setFriendId(friendId);
+    friendRequest.setUser(user);
+    friendRequest.setFriend(friend);
     // Associate friendship with user
     friend.addFriend(friendRequest);
     friendRepository.save(friendRequest);
@@ -61,6 +69,13 @@ public class FriendService {
               "User with id " + friendshipId + " does not exist"
       );
     }
+
+    Optional<Friend> user = friendRepository.findById(friendshipId);
+    long userId = user.get().getUser().getId();
+    long friendId = user.get().getFriend().getId();
+
+
+//    friendRepository.deleteReferencesInUserFriendsTable(userId, friendId);
     friendRepository.deleteById(friendshipId);
   }
 

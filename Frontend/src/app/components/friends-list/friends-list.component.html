@@ -35,7 +35,7 @@
         </div>
         <!-- <div *ngFor="let post of postService.posts$ | async"> -->
         <div class="friendsListTileContainer">
-          <div *ngFor="let friend of friends | async">
+          <div *ngFor="let friend of friends$ | async">
             <h1>Friend: {{ friend.dateStarted }}</h1>
             <!-- <app-blog-post [post]="post" [userPic]="userPic"></app-blog-post> -->
           </div>

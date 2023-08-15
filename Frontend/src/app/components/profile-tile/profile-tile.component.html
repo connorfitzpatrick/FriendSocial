@@ -23,7 +23,7 @@
     </div>
     <div class="friend-button-container">
       <button (click)="toggleFriendship()">
-        {{ isFriend ? "Unfriend" : "Friend" }}
+        {{ isFriend === -1 ? "Friend" : "UnFriend" }}
       </button>
     </div>
 

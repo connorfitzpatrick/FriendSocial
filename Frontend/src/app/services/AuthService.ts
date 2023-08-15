@@ -86,13 +86,13 @@ export class AuthService {
     }
   }
 
-  getUserIdFromToken(): number | null {
+  getUserIdFromToken(): number {
     const token = localStorage.getItem('token');
     if (token) {
       const decodedToken: any = jwt_decode(token);
       return decodedToken.userId;
     }
-    return null;
+    return -1;
   }
 
   // Grabs the username/email from the authentication token

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/AuthService';
 import { FriendService } from '../../services/FriendService';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-friends-list',
@@ -10,7 +11,7 @@ import { FriendService } from '../../services/FriendService';
 export class FriendsListComponent implements OnInit {
   searchTerm: string = '';
   suggestions: any = [];
-  friends: any = [];
+  friends$: Observable<any[]> | undefined;
 
   constructor(
     private authService: AuthService,
@@ -19,10 +20,6 @@ export class FriendsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.listFriends();
-
-    this.friendService.friendsSubject.subscribe((friends) => {
-      this.friends = friends;
-    });
   }
 
   search() {
@@ -35,16 +32,8 @@ export class FriendsListComponent implements OnInit {
 
   async listFriends() {
     const userId = this.authService.getUserIdFromToken();
-    const response = this.friendService.fetchFriends(userId);
-
-    this.friendService.fetchFriends(userId).subscribe(
-      (friends) => {
-        // Update the friendsSubject with fetched friends
-        this.friends = friends;
-      },
-      (error) => {
-        console.error('Error fetching friends information:', error);
-      }
-    );
+    if (userId) {
+      this.friends$ = this.friendService.friends$(userId);
+    }
   }
 }
