@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, from } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 /* This service handles API requests for viewing posts*/
 @Injectable({
@@ -63,7 +63,7 @@ export class PostService {
   ) {
     const token = localStorage.getItem('token');
     const timestamp = new Date();
-    console.log(imageUrl);
+    // console.log(imageUrl);
 
     const requestBody = {
       postType: postType,

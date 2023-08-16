@@ -36,7 +36,7 @@
         <!-- <div *ngFor="let post of postService.posts$ | async"> -->
         <br />
         <div class="friendsListTileContainer">
-          <div *ngFor="let friend of friends$ | async">
+          <div *ngFor="let friend of friendService.friends$ | async">
             <div class="post-container">
               <app-friend-item [friend]="friend"></app-friend-item>
             </div>

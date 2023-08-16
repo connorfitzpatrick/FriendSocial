@@ -39,9 +39,13 @@ public class FriendController {
 
   // POST (ADD) A FRIEND
   @PostMapping(path = "{userId}/{friendId}")
-  public void createFriend(@PathVariable("userId") Long userId, @PathVariable("friendId") Long friendId, @RequestBody Friend friendRequest) {
+  public ResponseEntity<Friend> createFriend(@PathVariable("userId") Long userId, @PathVariable("friendId") Long friendId, @RequestBody Friend friendRequest) {
     // Save the post entity
-    friendService.addNewFriend(userId, friendId, friendRequest);
+    Friend f = friendService.addNewFriend(userId, friendId, friendRequest);
+    if (f == null) {
+      return ResponseEntity.notFound().build(); // Return 404 Not Found
+    }
+    return ResponseEntity.ok(f);
   }
 
   // DELETE A FRIEND

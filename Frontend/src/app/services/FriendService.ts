@@ -2,23 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { AuthService } from './AuthService';
-import { Observable, BehaviorSubject, EMPTY } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FriendService {
-  public friendsSubject: BehaviorSubject<any | null> = new BehaviorSubject<
-    any | null
-  >(null);
+  public friendsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(
+    []
+  );
+  public friends$: Observable<any[]> = this.friendsSubject.asObservable();
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  friends$(userId: number) {
-    return this.fetchFriends(userId);
-  }
-
-  fetchFriends(userId: number): Observable<any[]> {
+  fetchFriends(userId: number) {
     const apiUrl = `http://localhost:8080/api/v1/friends/${userId}`;
     const token = localStorage.getItem('token');
     const httpOptions = {
@@ -27,11 +24,92 @@ export class FriendService {
         Authorization: `Bearer ${token}`,
       }),
     };
-    const response = this.http.get<any[]>(apiUrl, httpOptions);
-    console.log(response);
-    return response;
+    this.http.get<any[]>(apiUrl, httpOptions).subscribe(
+      (friends) => {
+        console.log(friends);
+        this.friendsSubject.next(friends);
+      },
+      (error) => {
+        console.error('Error fetching friends information:', error);
+      }
+    );
+    console.log(this.friendsSubject);
   }
 
+  // create friendship with account
+  async postFriend(userId: number | null, friendId?: number) {
+    console.log('add friend');
+    const token = localStorage.getItem('token');
+    const timestamp = new Date();
+
+    const requestBody = {
+      startDate: timestamp.toISOString(),
+    };
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+
+    try {
+      const response = await this.http
+        .post<any>(
+          `http://localhost:8080/api/v1/friends/${userId}/${friendId}`,
+          requestBody,
+          httpOptions
+        )
+        .toPromise();
+
+      // new like object for the BehaviorSubject
+      const newFriend = {
+        friend: response.friend, // Replace 'friend' with the actual property name in the response
+      };
+
+      const currentFriends = this.friendsSubject.getValue();
+      const updatedFriends = [...currentFriends, newFriend];
+      this.friendsSubject.next(updatedFriends);
+    } catch (error) {
+      console.error('Error making POST request for new like:', error);
+    }
+  }
+
+  // Delete friendship with account
+  async deleteFriend(friendId?: number) {
+    const id = await this.checkFriendStatus(
+      this.authService.getUserIdFromToken(),
+      friendId
+    );
+    if (id !== -1) {
+      const token = localStorage.getItem('token');
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // Include the token in the 'Authorization' header
+        }),
+      };
+      try {
+        const response = await this.http
+          .delete<any>(
+            `http://localhost:8080/api/v1/friends/${id}`,
+            httpOptions
+          )
+          .toPromise();
+
+        // get this post's likes behaviorsubject
+        const currentFriends = this.friendsSubject.value;
+        const updatedFriends = currentFriends.filter(
+          (friend: any) => friend.id !== id
+        );
+        this.friendsSubject.next(updatedFriends);
+      } catch (error) {
+        console.error('Error making DELETE request for new like:', error);
+      }
+    }
+  }
+
+  // Check if the logged in user is currently friends with a profile or not
   async checkFriendStatus(userId?: number | null, friendId?: number) {
     const token = localStorage.getItem('token');
     const httpOptions = {
@@ -70,83 +148,5 @@ export class FriendService {
       console.log('ISSUE GETTING FRIENDSHIP STATUS');
     }
     return -1;
-  }
-
-  async postFriend(userId: number | null, friendId?: number) {
-    console.log('add friend');
-    console.log('UserID: ' + userId + '. friendId: ' + friendId);
-    const token = localStorage.getItem('token');
-    const timestamp = new Date();
-
-    const requestBody = {
-      startDate: timestamp.toISOString(),
-    };
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      }),
-    };
-
-    try {
-      const response = await this.http
-        .post<any>(
-          `http://localhost:8080/api/v1/friends/${userId}/${friendId}`,
-          requestBody,
-          httpOptions
-        )
-        .toPromise();
-
-      console.log(response);
-
-      // new like object for the BehaviorSubject
-      const newFriendData = {
-        response,
-      };
-
-      // get this post's likes behaviorsubject
-      const currentFriends = this.friendsSubject.value || [];
-      const newFriends = [...currentFriends, newFriendData];
-      this.friendsSubject.next(newFriends);
-    } catch (error) {
-      console.error('Error making POST request for new like:', error);
-    }
-  }
-
-  async deleteFriend(friendId?: number) {
-    const id = await this.checkFriendStatus(
-      this.authService.getUserIdFromToken(),
-      friendId
-    );
-    if (id !== -1) {
-      const token = localStorage.getItem('token');
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Include the token in the 'Authorization' header
-        }),
-      };
-      try {
-        const response = await this.http
-          .delete<any>(
-            `http://localhost:8080/api/v1/friends/${id}`,
-            httpOptions
-          )
-          .toPromise();
-
-        // new like object for the BehaviorSubject
-        const newFriendData = {
-          response,
-        };
-
-        // get this post's likes behaviorsubject
-        const currentFriends = this.friendsSubject.value || [];
-        const newLikes = [...currentFriends, newFriendData];
-        this.friendsSubject.next(newLikes);
-      } catch (error) {
-        console.error('Error making POST request for new like:', error);
-      }
-    }
   }
 }

@@ -11,15 +11,21 @@ import { Observable } from 'rxjs';
 export class FriendsListComponent implements OnInit {
   searchTerm: string = '';
   suggestions: any = [];
-  friends$: Observable<any[]> | undefined;
+  friendsList: any[] = [];
 
   constructor(
     private authService: AuthService,
     public friendService: FriendService
   ) {}
 
-  ngOnInit(): void {
-    this.listFriends();
+  async ngOnInit() {
+    const userId = this.authService.getUserIdFromToken();
+    console.log(this.friendService.friends$);
+    await this.friendService.fetchFriends(userId);
+    this.friendService.friends$.subscribe((friends) => {
+      this.friendsList = friends;
+      console.log(this.friendsList);
+    });
   }
 
   search() {
@@ -30,10 +36,5 @@ export class FriendsListComponent implements OnInit {
 
   onSearchInputChange() {}
 
-  async listFriends() {
-    const userId = this.authService.getUserIdFromToken();
-    if (userId) {
-      this.friends$ = this.friendService.friends$(userId);
-    }
-  }
+  listFriends() {}
 }

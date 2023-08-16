@@ -38,7 +38,7 @@ public class FriendService {
   }
 
   // Business logic of Posting (adding) new user. Do not add if email already in use.
-  public void addNewFriend(Long userId, Long friendId, Friend friendRequest) {
+  public Friend addNewFriend(Long userId, Long friendId, Friend friendRequest) {
     Optional<User> userOptional = userRepository.findById(userId);
     Optional<User> friendOptional = userRepository.findById(friendId);
     // Add to User table
@@ -55,7 +55,7 @@ public class FriendService {
     friendRequest.setFriend(friend);
     // Associate friendship with user
     friend.addFriend(friendRequest);
-    friendRepository.save(friendRequest);
+    return friendRepository.save(friendRequest);
   }
 
   // Business logic of deleting a user. Check if it exists first.

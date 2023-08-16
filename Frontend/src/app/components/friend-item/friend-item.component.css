@@ -12,6 +12,7 @@
 .friend-item {
   display: flex;
   align-items: center;
+  width: 700px; /* Adjust the width as needed */
   padding: 10px;
   border-bottom: 1px solid #ccc;
   background-color: #f1f1f1;

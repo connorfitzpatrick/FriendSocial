@@ -17,6 +17,7 @@ export class CommentDialogComponent implements OnInit {
   myId: number | null = this.authService.getUserIdFromToken();
   // Grab Id of post owner and use it to allow them to delete comments
   posterId: number | null = 0;
+  userPic = '';
 
   constructor(
     public dialogRef: MatDialogRef<CommentDialogComponent>,
@@ -54,9 +55,6 @@ export class CommentDialogComponent implements OnInit {
     if (this.commentContent) {
       this.commentService.postComment(this.data[0], this.commentContent);
       console.log(this.comments);
-
-      // Clear the new comment input field
-      // this.commentContent = '';
     }
   }
 
