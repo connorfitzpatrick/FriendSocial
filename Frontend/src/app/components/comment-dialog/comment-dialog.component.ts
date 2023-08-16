@@ -38,27 +38,25 @@ export class CommentDialogComponent implements OnInit {
   }
 
   async ngOnInit() {
-    console.log(this.data);
-
+    // Fetch comments and likes when dialog opens
     await this.commentService.fetchComments(this.data[0]);
     await this.likeService.fetchLikes(this.data[0]);
 
+    // Subscribe to the likes and comments and handle image fetching
     await this.likeService.likes$(this.data[0]).subscribe(async (likes) => {
-      await this.fetchProfileImages(likes, this.comments);
-      console.log(this.likes);
+      this.fetchProfileImages(likes, this.comments);
     });
 
     await this.commentService
       .comments$(this.data[0])
       .subscribe(async (comments) => {
-        await this.fetchProfileImages(this.likes, comments);
-        console.log(this.comments);
+        this.fetchProfileImages(this.likes, comments);
       });
   }
 
-  postComment() {
+  async postComment() {
     if (this.commentContent) {
-      this.commentService.postComment(this.data[0], this.commentContent);
+      await this.commentService.postComment(this.data[0], this.commentContent);
       console.log(this.comments);
     }
   }
@@ -72,7 +70,6 @@ export class CommentDialogComponent implements OnInit {
   }
 
   private async fetchProfileImages(likes: any[], comments: any[]) {
-    console.log(likes);
     const likePromises = likes.map(async (like) => {
       if (like && typeof like[2] === 'string') {
         like.userPic = await this.imageService.getImage(like[2]);
@@ -89,9 +86,6 @@ export class CommentDialogComponent implements OnInit {
 
     this.likes = await Promise.all(likePromises);
     this.comments = await Promise.all(commentPromises);
-
-    console.log(this.likes);
-    console.log(this.comments);
   }
 
   closeDialog(): void {

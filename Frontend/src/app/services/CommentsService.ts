@@ -93,7 +93,7 @@ export class CommentsService {
       const newCommentData = [
         response,
         this.authService.getHandle(),
-        this.imageService.getProfilePicUrl(),
+        this.authService.currentUserSubject.getValue()?.userPic,
         myId,
         postId,
       ];
@@ -101,6 +101,7 @@ export class CommentsService {
       // get this post's comments behaviorsubject
       const currentComments = this.commentsSubjectsMap.get(postId)?.value || [];
       const newComments = [...currentComments, newCommentData];
+
       this.commentsSubjectsMap.get(postId)?.next(newComments);
     } catch (error) {
       console.error('Error making POST request for new like:', error);
@@ -117,6 +118,7 @@ export class CommentsService {
         Authorization: `Bearer ${token}`, // Include the token in the 'Authorization' header
       }),
     };
+    const x = this.commentsSubjectsMap.get(postId)?.value || [];
 
     try {
       const response = await this.http
@@ -129,9 +131,9 @@ export class CommentsService {
       const postCommentsSubject = this.commentsSubjectsMap.get(postId);
       if (postCommentsSubject) {
         const currentComments = postCommentsSubject.value || [];
-        const updatedComments = currentComments.filter(
-          (comment) => comment.id !== commentId
-        );
+        const updatedComments = currentComments.filter((comment) => {
+          return comment[0].id !== commentId; // Add the 'return' statement
+        });
         postCommentsSubject.next(updatedComments);
       }
     } catch (error) {
