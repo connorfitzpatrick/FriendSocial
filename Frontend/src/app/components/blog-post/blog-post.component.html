@@ -3,7 +3,13 @@
     <img [src]="userPicUrl" alt="Profile Picture" class="profile-picture" />
     <div class="post-details">
       <h3 class="username">{{ post[3] }} {{ post[4] }}</h3>
-      <p class="username">@{{ post[2] }}</p>
+      <p class="username">
+        <a
+          class="comment-link"
+          href="http://localhost:4200/profile/{{ post[2] }}"
+          >@{{ post[2] }}</a
+        >
+      </p>
       <br />
       <div *ngIf="post[0].postType == 'Image'" class="image-container">
         <img [src]="postImageURL" alt="Post Image" class="post-image" />

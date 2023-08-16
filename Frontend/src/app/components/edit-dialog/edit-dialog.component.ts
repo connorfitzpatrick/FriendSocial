@@ -109,6 +109,7 @@ export class EditDialogComponent implements OnInit {
       this.profileService.updateUserData(updatedUser);
 
       console.log(updatedUser.userPic);
+      this.profilePictureUrl = this.imageService.getProfilePicUrl();
 
       //
       this.authService.updateCurrentUser(updatedUser);

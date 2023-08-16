@@ -113,3 +113,13 @@
   width: auto;
   margin: 16px 0;
 }
+
+.comment-link {
+  color: inherit; /* Inherit color from the parent element (no default blue color) */
+  text-decoration: none; /* Remove default underline */
+}
+
+.comment-link:hover {
+  text-decoration: underline; /* Add underline on hover */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
