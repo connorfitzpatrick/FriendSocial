@@ -24,7 +24,7 @@
   <mat-dialog-content>
     <!-- Display likes content if this.active is 'likes' -->
     <div *ngIf="active === 'likes'">
-      <div *ngIf="likes.length > 0">
+      <div *ngIf="likes && likes.length > 0">
         <div *ngFor="let like of likes">
           <hr />
           <div class="comment-container">
@@ -38,7 +38,7 @@
                 <strong>
                   <a
                     class="comment-link"
-                    [href]="'http://localhost:4200/profile/' + like.userId"
+                    href="http://localhost:4200/profile/{{ like[1] }}"
                   >
                     {{ like[1] }}
                   </a>
@@ -49,11 +49,10 @@
           </div>
         </div>
       </div>
-      <div *ngIf="likes.length === 0">
+      <div *ngIf="likes && likes.length === 0">
         <h1>No Likes Yet</h1>
       </div>
     </div>
-
     <!-- Display comments content if this.active is 'comments' -->
     <div *ngIf="active === 'comments'">
       <div *ngIf="comments.length > 0">
@@ -62,7 +61,7 @@
           <div class="comment-container">
             <div class="user-info">
               <img
-                [src]="comment[2]"
+                [src]="comment.userPic"
                 alt="Profile Picture"
                 class="user-picture"
               />

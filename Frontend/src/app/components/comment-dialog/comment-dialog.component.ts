@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LikeService } from '../../services/LikeService';
 import { CommentsService } from '../../services/CommentsService';
 import { AuthService } from '../../services/AuthService';
+import { ImageService } from '../../services/ImageService';
 
 @Component({
   selector: 'app-comment-dialog',
@@ -24,6 +25,7 @@ export class CommentDialogComponent implements OnInit {
     public likeService: LikeService,
     public commentService: CommentsService,
     public authService: AuthService,
+    public imageService: ImageService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
@@ -35,20 +37,23 @@ export class CommentDialogComponent implements OnInit {
     this.active = 'comments';
   }
 
-  ngOnInit() {
-    this.likeService.fetchLikes(this.data[0]);
-    this.commentService.fetchComments(this.data[0]);
+  async ngOnInit() {
+    console.log(this.data);
 
-    this.likeService.likes$(this.data[0]).subscribe((likes) => {
-      this.likes = likes;
+    await this.commentService.fetchComments(this.data[0]);
+    await this.likeService.fetchLikes(this.data[0]);
+
+    await this.likeService.likes$(this.data[0]).subscribe(async (likes) => {
+      await this.fetchProfileImages(likes, this.comments);
+      console.log(this.likes);
     });
 
-    this.commentService.comments$(this.data[0]).subscribe((comments) => {
-      this.comments = comments;
-    });
-
-    console.log(this.comments);
-    console.log(this.commentService.comments$(this.data[0]));
+    await this.commentService
+      .comments$(this.data[0])
+      .subscribe(async (comments) => {
+        await this.fetchProfileImages(this.likes, comments);
+        console.log(this.comments);
+      });
   }
 
   postComment() {
@@ -64,6 +69,29 @@ export class CommentDialogComponent implements OnInit {
     this.comments = this.comments.filter(
       (comment) => comment[0].id !== commentId
     );
+  }
+
+  private async fetchProfileImages(likes: any[], comments: any[]) {
+    console.log(likes);
+    const likePromises = likes.map(async (like) => {
+      if (like && typeof like[2] === 'string') {
+        like.userPic = await this.imageService.getImage(like[2]);
+      }
+      return like;
+    });
+
+    const commentPromises = comments.map(async (comment) => {
+      if (comment && typeof comment[2] === 'string') {
+        comment.userPic = await this.imageService.getImage(comment[2]);
+      }
+      return comment;
+    });
+
+    this.likes = await Promise.all(likePromises);
+    this.comments = await Promise.all(commentPromises);
+
+    console.log(this.likes);
+    console.log(this.comments);
   }
 
   closeDialog(): void {

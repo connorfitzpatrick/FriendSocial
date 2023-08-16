@@ -11,7 +11,9 @@ export class LikeService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  fetchLikes(postId: number): void {
+  fetchLikes(postId: number) {
+    console.log(postId);
+
     const apiUrl = `http://localhost:8080/api/v1/likes/${postId}`;
     const token = localStorage.getItem('token');
 
@@ -24,7 +26,11 @@ export class LikeService {
 
     this.http.get<any[]>(apiUrl, httpOptions).subscribe(
       (likes) => {
-        this.likesSubjectsMap.get(postId)?.next(likes);
+        console.log(likes);
+        console.log(likes[0]);
+        if (likes) {
+          this.likesSubjectsMap.get(postId)?.next(likes);
+        }
       },
       (error) => {
         console.error('Error fetching likes information:', error);

@@ -104,7 +104,7 @@ public class Like {
 
   @Override
   public String toString() {
-    return "Comment{" +
+    return "Like{" +
             "id=" + id +
             ", userId=" + userId +
             ", postId=" + postId +

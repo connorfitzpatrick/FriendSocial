@@ -17,6 +17,7 @@ export class CommentsService {
   ) {}
 
   fetchComments(postId: number): void {
+    console.log(postId);
     const apiUrl = `http://localhost:8080/api/v1/comments/${postId}`;
     const token = localStorage.getItem('token');
 
@@ -29,7 +30,9 @@ export class CommentsService {
 
     this.http.get<any[]>(apiUrl, httpOptions).subscribe(
       (comments) => {
+        console.log(comments);
         this.commentsSubjectsMap.get(postId)?.next(comments);
+        console.log(this.commentsSubjectsMap.get(postId));
       },
       (error) => {
         console.error('Error fetching comments information:', error);

@@ -34,7 +34,10 @@ public class LikeController {
 
   @GetMapping(path = "{postId}")
   public List<Object[]> getLikesByPost(@PathVariable("postId") Long id) {
-    return likeService.getLikesOfPostById(id);
+    List<Object[]> likes = likeService.getLikesOfPostById(id);
+    System.out.println("likes//");
+    System.out.println(likes.get(0)[0]);
+    return likes;
   }
 
   @GetMapping(path = "isLiked/{postId}/{userId}")

@@ -34,7 +34,10 @@ public class CommentController {
   // GET LIKES OF A POST BY POST ID
   @GetMapping(path = "{postId}")
   public List<Object[]> getCommentsByPost(@PathVariable("postId") Long id) {
-    return commentService.getCommentsOfPostById(id);
+    List<Object[]> comments = commentService.getCommentsOfPostById(id);
+    System.out.println("comments//");
+    System.out.println(comments.get(0)[0]);
+    return comments;
   }
 
   // GET TWO MOST RECENT COMMENTS
