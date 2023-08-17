@@ -1,7 +1,23 @@
-.profile-edit-container {
+.dialog-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
+
+  flex-direction: column;
+  max-height: calc(100vh - 50px);
+  height: 100%;
+}
+
+.dialog-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.dialog-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
 }
 
 .overlay {
@@ -26,15 +42,6 @@
   height: 150px;
   border-radius: 50%;
   margin-bottom: 10px;
-}
-
-.change-profile-pic-button {
-  background-color: blue;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 16px;
-  cursor: pointer;
 }
 
 .basic-info-section {
@@ -63,15 +70,32 @@ textarea {
   width: 100%;
 }
 
-button {
-  background-color: blue;
+.dialog-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0; /* Adjust padding as needed */
+  position: sticky;
+  bottom: 0;
+  z-index: 1; /* Make sure the buttons are on top */
+}
+
+.button-wrapper {
+  display: flex;
+  gap: 20px; /* Adjust gap as needed */
+}
+
+.edit-button {
+  flex: 1; /* Equal width */
+  padding: 8px 28px; /* Adjust padding as needed */
+  background-color: rgb(17, 137, 224);
   color: white;
   border: none;
   border-radius: 4px;
-  padding: 8px 16px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-button:hover {
+.edit-button:hover {
   background-color: darkblue;
 }

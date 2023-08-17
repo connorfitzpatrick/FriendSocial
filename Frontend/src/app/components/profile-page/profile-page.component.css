@@ -1,15 +1,3 @@
-.sidemenu {
-  position: fixed;
-  top: 50px;
-  left: 0;
-  width: 280px;
-  height: calc(100vh - 50px);
-  z-index: 2; /* Increase the z-index to make the sidemenu appear above the content */
-  background-color: #f1f1f1;
-  display: flex;
-  flex-direction: column;
-}
-
 .body-container {
   display: flex;
   flex: 1;
@@ -23,19 +11,19 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 2; /* Increase the z-index to make the header appear above other elements */
+  z-index: 2;
 }
 
 main {
   position: relative;
-  padding-top: 50px; /* Adjust the padding top value to create space for the header */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: rgb(210, 219, 226);
 }
 
 .sidemenu-container {
-  width: 280px; /* Adjust the width as per your requirements */
+  /* Adjust the width as per your requirements */
   position: fixed;
   top: 50px; /* Adjust the top value to match the height of the header */
   left: 0;
@@ -44,22 +32,10 @@ main {
   background-color: #f1f1f1;
 }
 
-.content-container {
+/* .content-container {
   flex: 1;
-  margin-left: 280px; /* Adjust the margin-left to create space for the sidemenu */
-  background-color: gray;
+  margin-left: 280px;
+  background-color: rgb(210, 219, 226);
   position: relative;
-  z-index: 0; /* Set a lower z-index value to place it below the header */
-}
-
-.sidemenu {
-  position: fixed;
-  top: 50px;
-  left: 0;
-  width: 280px;
-  height: calc(100vh - 50px);
-  z-index: 2; /* Increase the z-index to make the sidemenu appear above the content */
-  background-color: #f1f1f1;
-  display: flex;
-  flex-direction: column;
-}
+  z-index: 0; 
+} */

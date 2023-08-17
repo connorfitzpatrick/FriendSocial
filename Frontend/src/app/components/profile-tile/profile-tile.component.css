@@ -37,16 +37,16 @@ p {
   margin: 10px 0;
 }
 
-.edit-button-container {
+.button-container {
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
-  margin-top: -32px;
+  margin-top: 15px;
   margin-right: -8px;
 }
 
-.edit-button-container button {
-  background-color: blue;
+.button-container button {
+  background-color: rgb(17, 137, 224);
   color: white;
   border: none;
   border-radius: 4px;
@@ -55,6 +55,6 @@ p {
   transition: background-color 0.3s;
 }
 
-.edit-button-container button:hover {
+.button-container button:hover {
   background-color: darkblue;
 }

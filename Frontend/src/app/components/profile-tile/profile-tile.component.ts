@@ -66,11 +66,10 @@ export class ProfileTileComponent implements OnChanges {
 
   openCommentDialog(event: Event) {
     event.preventDefault();
-    console.log(this.user);
     const dialogRef = this.dialog.open(EditDialogComponent, {
       width: '60%',
       maxWidth: '800px',
-      autoFocus: false, // Ensure the option is set correctly
+      autoFocus: false,
       panelClass: 'profile-edit-container',
       data: { user: this.user },
     });

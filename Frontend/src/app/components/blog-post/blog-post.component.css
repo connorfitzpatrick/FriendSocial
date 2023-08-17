@@ -52,7 +52,7 @@
   display: flex;
   align-items: center;
   padding: 4px 8px;
-  background-color: blue; /* Change the background color to blue */
+  background-color: rgb(17, 137, 224); /* Change the background color to blue */
   border: none;
   border-radius: 4px;
   cursor: pointer;

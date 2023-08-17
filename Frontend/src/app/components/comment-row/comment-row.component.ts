@@ -36,7 +36,7 @@ export class CommentRowComponent {
     const dialogRef = this.dialog.open(CommentDialogComponent, {
       width: '60%',
       maxWidth: '800px',
-      autoFocus: false, // Ensure the option is set correctly
+      autoFocus: false,
       panelClass: 'comment-dialog-container',
       data: [this.postId],
     });

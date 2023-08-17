@@ -1,15 +1,3 @@
-.sidemenu {
-  position: fixed;
-  top: 50px;
-  left: 0;
-  width: 280px;
-  height: calc(100vh - 50px);
-  z-index: 2; /* Increase the z-index to make the sidemenu appear above the content */
-  background-color: #f1f1f1;
-  display: flex;
-  flex-direction: column;
-}
-
 .body-container {
   display: flex;
   flex: 1;
@@ -28,14 +16,13 @@ header {
 
 main {
   position: relative;
-  padding-top: 50px; /* Adjust the padding top value to create space for the header */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: rgb(210, 219, 226);
 }
 
 .sidemenu-container {
-  width: 280px; /* Adjust the width as per your requirements */
   position: fixed;
   top: 50px; /* Adjust the top value to match the height of the header */
   left: 0;
@@ -44,13 +31,13 @@ main {
   background-color: #f1f1f1;
 }
 
-.content-container {
+/* .content-container {
   flex: 1;
-  margin-left: 280px; /* Adjust the margin-left to create space for the sidemenu */
-  background-color: gray;
+  margin-left: 280px; 
+  background-color: rgb(210, 219, 226);
   position: relative;
-  z-index: 0; /* Set a lower z-index value to place it below the header */
-}
+  z-index: 0;
+} */
 
 .sidemenu {
   position: fixed;
@@ -70,4 +57,24 @@ main {
   align-items: center;
   width: 100%;
   height: 100%;
+}
+
+.search-button {
+  background-color: rgb(17, 137, 224); /* Set the active color */
+  color: #fff; /* Set the text color for active menu item */
+}
+
+.search-button:hover {
+  background-color: darkblue;
+}
+
+.app-feed {
+  position: absolute;
+  top: 10vh; /* To start below the header */
+  left: 250px; /* Width of the side menu */
+  right: 0;
+  bottom: 0;
+  overflow-y: auto; /* Enable vertical scrolling */
+  background-color: rgb(210, 219, 226);
+  box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.1); /* To match the side menu shadow */
 }

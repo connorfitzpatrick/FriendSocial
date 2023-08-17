@@ -1,4 +1,5 @@
 <!-- profile-tile.component.html -->
+<div class="mb-3"></div>
 <div class="post-container">
   <div class="post-content">
     <div class="profile-info">
@@ -16,12 +17,12 @@
         <!-- Move the bio inside the profile-info div -->
       </div>
     </div>
-    <div class="edit-button-container" *ngIf="isCurrentUserProfile">
+    <div class="button-container" *ngIf="isCurrentUserProfile">
       <div class="edit-button-wrapper">
         <button (click)="openCommentDialog($event)">Edit Profile</button>
       </div>
     </div>
-    <div class="friend-button-container">
+    <div class="button-container" *ngIf="!isCurrentUserProfile">
       <button (click)="toggleFriendship()">
         {{ isFriend === -1 ? "Friend" : "UnFriend" }}
       </button>
