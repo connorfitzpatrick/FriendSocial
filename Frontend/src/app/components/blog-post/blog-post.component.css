@@ -25,6 +25,22 @@
   flex-shrink: 0; /* Prevent the image from shrinking */
 }
 
+.image-container {
+  width: 300px; /* Adjust as needed */
+  height: 300px; /* Adjust as needed */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ccc; /* Add border style */
+}
+
+.image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* or 'cover' depending on your preference */
+}
+
 .post-details {
   flex-grow: 1; /* Allow the details to take up remaining space */
 }
@@ -105,14 +121,6 @@
 }
 
 /* Add this style to limit the image dimensions */
-.post-image {
-  max-width: 100%; /* Set a maximum width */
-  max-height: 100%; /* Set a maximum height */
-  object-fit: contain; /* Maintain aspect ratio and fit within the container */
-  height: auto;
-  width: auto;
-  margin: 16px 0;
-}
 
 .comment-link {
   color: inherit; /* Inherit color from the parent element (no default blue color) */

@@ -11,3 +11,40 @@
 .sign-in:hover {
   background-color: darkblue; /* Set the active color */
 }
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Horizontally center logo and name */
+  margin-bottom: 20px;
+}
+
+.app-logo {
+  margin-right: 10px; /* Add some space between logo and app name */
+}
+
+.app-logo img {
+  width: 200px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.app-name {
+  font-size: 7em; /* Adjust font size as needed */
+  font-weight: bold;
+}
+
+.app-logo {
+  margin-right: 10px; /* Add some space between logo and app name */
+}
+
+.app-logo img {
+  width: 200px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Add this CSS to adjust vertical alignment for login content */
+.tab-content .tab-pane.fade.show.active {
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align content to the top */
+}
