@@ -35,11 +35,15 @@
 
 .select-image button {
   padding: 5px 10px;
-  background-color: #007bff;
+  background-color: rgb(17, 137, 224);
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.select-image button:hover {
+  background-color: darkblue;
 }
 
 .caption {
@@ -79,6 +83,15 @@
 }
 
 .submit-button {
-  background-color: #007bff;
+  background-color: rgb(17, 137, 224);
   color: white;
+}
+
+.submit-button {
+  background-color: rgb(17, 137, 224);
+  color: white;
+}
+
+.submit-button:hover {
+  background-color: darkblue;
 }
