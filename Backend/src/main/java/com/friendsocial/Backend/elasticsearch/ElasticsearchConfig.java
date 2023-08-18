@@ -1,5 +1,6 @@
 package com.friendsocial.Backend.elasticsearch;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -21,5 +22,10 @@ public class ElasticsearchConfig {
     return new RestHighLevelClient(
             RestClient.builder(new HttpHost(host, port, "http"))
     );
+  }
+
+  @Bean
+  public ObjectMapper objectMapper() {
+    return new ObjectMapper();
   }
 }

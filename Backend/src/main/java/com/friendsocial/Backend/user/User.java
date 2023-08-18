@@ -6,7 +6,7 @@ import com.friendsocial.Backend.friend.Friend;
 import com.friendsocial.Backend.like.Like;
 import com.friendsocial.Backend.post.Post;
 import jakarta.persistence.*;
-//import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,6 +24,7 @@ import java.util.Set;
 @Entity
 // Specify the table name in the database
 @Table(name="users")
+@Document(indexName = "user_index") // Specify the index name
 public class User implements UserDetails {
   // Defines the primary key
   @Id
@@ -79,17 +80,9 @@ public class User implements UserDetails {
   @JsonIgnore
   private Set<Comment> comments;
 
-//  @ManyToMany(cascade = CascadeType.ALL)
-//  @JoinTable(name = "user_friends",
-//          joinColumns = @JoinColumn(name = "user_id"),
-//          inverseJoinColumns = @JoinColumn(name = "friend_id"))
-//  @JsonIgnore
-//  private Set<Friend> friends;
-
   @OneToMany(mappedBy = "user")
   @JsonIgnore
   private Set<Friend> friends;
-
 
   @OneToMany(mappedBy = "user")
   @JsonIgnore
@@ -281,14 +274,6 @@ public class User implements UserDetails {
     posts.add(post);
   }
 
-//  public Set<Friend> getFriends() {
-//    return friends;
-//  }
-//
-//  public void setFriends(Set<UserUser> friends) {
-//    this.friends = friends;
-//  }
-//
   public void addFriend(Friend friend) {
     if (friends == null) {
       friends = new HashSet<>();
@@ -299,8 +284,6 @@ public class User implements UserDetails {
   public void removeFriend(Friend friend) {
     friends.remove(friend);
   }
-
-
 
   public Set<Comment> getComments() {
     return this.comments;
@@ -325,17 +308,13 @@ public class User implements UserDetails {
   public void addLike(Like like) {
     likes.add(like);
   }
-//
-//  public void removeFriend(Friend friend) {
-//    friends.remove(friend);
-//  }
 
   /////////////////
   /// To String ///
   /////////////////
   @Override
   public String toString() {
-    return "UserUser{" +
+    return "User{" +
             "id=" + id +
             ", username='" + username + '\'' +
             ", handle='" + handle + '\'' +

@@ -1,11 +1,14 @@
 package com.friendsocial.Backend.user;
 
+import com.friendsocial.Backend.elasticsearch.ElasticsearchUserService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.BeanUtils;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 // SERVICE LAYER
@@ -15,10 +18,12 @@ import java.util.Optional;
 @Service
 public class UserService {
   private final UserRepository userRepository;
+  private final ElasticsearchUserService elasticsearchUserService; // Inject the Elasticsearch service
 
   @Autowired
-  public UserService(UserRepository userRepository) {
+  public UserService(UserRepository userRepository, ElasticsearchUserService elasticsearchUserService) {
     this.userRepository = userRepository;
+    this.elasticsearchUserService = elasticsearchUserService;
   }
 
   // Business logic of getting all users. Just get them all.
@@ -44,6 +49,84 @@ public class UserService {
     return userOptional.get();
   }
 
+  // Business logic of Posting (adding) new user. Do not add if email already in use.
+  public void addNewUser(User user) {
+    Optional<User> userOptional = userRepository
+            .findUserByUsername(user.getUsername());
+    // If another user has this email, throw error
+    if (userOptional.isPresent()) {
+      throw new IllegalStateException("Another User is Already Using This Email");
+    }
+    // Add to User table
+    userRepository.save(user);
+    try {
+      // Index the updated user in Elasticsearch
+      elasticsearchUserService.indexUser(user);
+    } catch (IOException e) {
+      System.out.println("ERROR IOException when trying to index user " + user);
+    }
+  }
+
+  // Business logic of modifying a user.
+  // @Transactional's usage means we don't have to use query's. Entity goes into a managed state.
+  @Transactional
+  public void updateUser(Long userId, User updatedUser) {
+    // Check if user with that ID exists, otherwise throw exception
+    User user = userRepository.findById(userId)
+            .orElseThrow(() -> new IllegalStateException(
+                    "User with id " + userId + " does not exist"
+            ));
+    // Copy non-null properties from updatedUser to existingUser
+    BeanUtils.copyProperties(updatedUser, user);
+    // Save the updated user back to the database
+    userRepository.save(user);
+
+    try {
+      // Index the updated user in Elasticsearch
+      elasticsearchUserService.indexUser(user);
+    } catch (IOException e) {
+      System.out.println("ERROR IOException when trying to index user " + user);
+    }
+  }
+
+  // Business logic of deleting a user. Check if it exists first.
+  public void deleteUser(Long userId) {
+    boolean exists = userRepository.existsById(userId);
+    if (!exists) {
+      throw new IllegalStateException(
+              "User with id " + userId + " does not exist"
+      );
+    }
+    userRepository.deleteById(userId);
+  }
+
+  public List<User> searchUsers(String query) {
+    try {
+      return elasticsearchUserService.searchUsers(query);
+    } catch (IOException e) {
+      // Handle Elasticsearch search exception
+      return new ArrayList<>(); // Return an empty list or handle the exception accordingly
+    }
+  }
+
+  public List<User> searchUsersByHandle(String handle) {
+    try {
+      // First, search users in Elasticsearch
+      List<User> elasticSearchResults = elasticsearchUserService.searchUsers(handle);
+
+      // If there are no results in Elasticsearch, fall back to database search
+      if (elasticSearchResults.isEmpty()) {
+        return userRepository.findByHandleStartingWith(handle);
+      }
+      return elasticSearchResults;
+    } catch (IOException e) {
+      // Handle Elasticsearch search exception
+      return new ArrayList<>(); // Return an empty list or handle the exception accordingly
+    }
+  }
+
+}
+
 //  public String getUserPicPathById(Long id) {
 //    Optional<User> userOptional = userRepository.findById(id);
 //    if (!userOptional.isPresent()) {
@@ -62,49 +145,3 @@ public class UserService {
 //    }
 //    return null;
 //  }
-
-  // Business logic of Posting (adding) new user. Do not add if email already in use.
-  public void addNewUser(User user) {
-    Optional<User> userOptional = userRepository
-            .findUserByUsername(user.getUsername());
-    // If another user has this email, throw error
-    if (userOptional.isPresent()) {
-      throw new IllegalStateException("Another User is Already Using This Email");
-    }
-    // Add to User table
-    userRepository.save(user);
-  }
-
-  // Business logic of deleting a user. Check if it exists first.
-  public void deleteUser(Long userId) {
-    boolean exists = userRepository.existsById(userId);
-    if (!exists) {
-      throw new IllegalStateException(
-              "User with id " + userId + " does not exist"
-      );
-    }
-    userRepository.deleteById(userId);
-  }
-
-  // Business logic of modifying a user.
-  // @Transactional's usage means we don't have to use query's. Entity goes into a managed state.
-  @Transactional
-  public void updateUser(Long userId, User updatedUser) {
-    // Check if user with that ID exists, otherwise throw exception
-    User user = userRepository.findById(userId)
-            .orElseThrow(() -> new IllegalStateException(
-                    "User with id " + userId + " does not exist"
-            ));
-    System.out.println("GETS TO SERVICE");
-    // Copy non-null properties from updatedUser to existingUser
-    BeanUtils.copyProperties(updatedUser, user);
-    // Save the updated user back to the database
-    System.out.println(updatedUser);
-    System.out.println(user);
-    userRepository.save(user);
-
-    // if email provided is not null, email length is greater than 0, and different from the current email,
-    // set the email as the new provided one.
-
-  }
-}

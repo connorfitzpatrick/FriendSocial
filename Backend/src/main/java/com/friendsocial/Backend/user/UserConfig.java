@@ -2,6 +2,7 @@ package com.friendsocial.Backend.user;
 
 import com.friendsocial.Backend.comment.Comment;
 import com.friendsocial.Backend.comment.CommentRepository;
+import com.friendsocial.Backend.elasticsearch.ElasticsearchUserService;
 import com.friendsocial.Backend.friend.Friend;
 import com.friendsocial.Backend.friend.FriendRepository;
 import com.friendsocial.Backend.like.Like;
@@ -22,7 +23,8 @@ import java.util.Optional;
 public class UserConfig {
   @Bean(name = "userCommandLineRunner")
   CommandLineRunner userConfig(
-          UserRepository repository) {
+          UserRepository repository,
+          ElasticsearchUserService elasticsearchUserService) {
     return args -> {
       Instant now = Instant.now();
       User connor = new User(
@@ -86,9 +88,20 @@ public class UserConfig {
               Role.USER
       );
 
-      repository.saveAll(
+      List<User> users = userRepository.saveAll(
               List.of(connor, alex, kieran, peyton, bob)
       );
+
+//      repository.saveAll(
+//              List.of(connor, alex, kieran, peyton, bob)
+//      );
+
+      System.out.println(users);
+
+      System.out.println("Adding dummy data users to elasticsearch");
+      for (User user : users) {
+        elasticsearchUserService.indexUser(user);
+      }
     };
   }
 
