@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ImageService } from '../../services/ImageService';
 import { LikeService } from '../../services/LikeService';
-import { AuthService } from '../../services/AuthService';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';

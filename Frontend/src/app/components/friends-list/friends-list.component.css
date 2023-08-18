@@ -78,3 +78,7 @@ main {
   background-color: rgb(210, 219, 226);
   box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.1); /* To match the side menu shadow */
 }
+
+.input-group {
+  margin-top: 1em;
+}
