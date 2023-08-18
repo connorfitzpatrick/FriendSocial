@@ -6,6 +6,7 @@ import com.friendsocial.Backend.friend.Friend;
 import com.friendsocial.Backend.like.Like;
 import com.friendsocial.Backend.post.Post;
 import jakarta.persistence.*;
+//import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

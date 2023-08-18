@@ -65,7 +65,7 @@ public class ImageController {
       Path path = Paths.get(uploadDir + File.separator + uniqueFileName);
       Files.write(path, bytes);
 
-      File resizedImage = resizeImage(path.toFile(), 350);
+      File resizedImage = resizeImage(path.toFile(), 1080);
 
       // Save the file path or URL to your database
       // Or return filepath and save to DB from there
@@ -85,12 +85,12 @@ public class ImageController {
 
     File output = new File(uploadDir + File.separator + "re_" + outputFileName); // Modify the output filename
 
-    
+
     Thumbnails.Builder<File> thumbnailBuilder = Thumbnails.of(input);
     thumbnailBuilder.size(targetSize, targetSize);
 
     // Crop from the center to achieve a 1:1 aspect ratio for rectangular images
-    thumbnailBuilder.keepAspectRatio(false).crop(Positions.CENTER);
+    thumbnailBuilder.crop(Positions.CENTER);
     thumbnailBuilder.outputFormat("png")
             .toFile(output);
 
