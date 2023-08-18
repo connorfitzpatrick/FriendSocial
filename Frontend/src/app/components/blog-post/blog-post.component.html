@@ -10,12 +10,10 @@
           >@{{ post[2] }}</a
         >
       </p>
-      <br />
       <div *ngIf="post[0].postType == 'Image'" class="image-container">
         <img [src]="postImageURL" alt="Post Image" class="post-image" />
       </div>
       <h4 class="bio">{{ post[0].content }}</h4>
-      <br />
       <div class="like-section">
         <button
           class="like-button"

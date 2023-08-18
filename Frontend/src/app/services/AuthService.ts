@@ -28,6 +28,7 @@ export class AuthService {
         'Content-Type': 'application/json',
       }),
     };
+    console.log(credentials);
 
     try {
       const response = await this.http
@@ -42,9 +43,12 @@ export class AuthService {
       localStorage.setItem('token', token);
       this.router.navigate(['/home']);
 
+      console.log(credentials.username);
       const fetchedUser = await this.profileService
-        .fetchLoggedInUserData(credentials.handle)
+        .fetchLoggedInUserData(credentials.username)
         .toPromise();
+      console.log(fetchedUser);
+
       this.currentUserSubject.next(fetchedUser);
 
       return fetchedUser;
@@ -77,6 +81,7 @@ export class AuthService {
       const fetchedUser = await this.profileService
         .fetchLoggedInUserData(user.handle)
         .toPromise();
+      console.log(fetchedUser);
       this.currentUserSubject.next(fetchedUser);
 
       return fetchedUser;

@@ -26,13 +26,15 @@
 }
 
 .image-container {
-  width: 300px; /* Adjust as needed */
-  height: 300px; /* Adjust as needed */
+  width: 60%; /* Adjust as needed */
+  height: 60%px; /* Adjust as needed */
   overflow: hidden;
   display: flex;
   align-items: center;
+  border-radius: 8px;
+  margin-left: 15%;
   justify-content: center;
-  border: 2px solid #ccc; /* Add border style */
+  border: 1px solid rgb(235, 235, 235); /* Add border style */
 }
 
 .image-container img {
