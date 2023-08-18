@@ -58,12 +58,16 @@ public class UserService {
       throw new IllegalStateException("Another User is Already Using This Email");
     }
     // Add to User table
-    userRepository.save(user);
+    System.out.println("SO IT ENDS HERE??");
+    User newUser = userRepository.save(user);
+    System.out.println("LETS FUCKING SEE");
+    System.out.println(newUser);
+
     try {
       // Index the updated user in Elasticsearch
-      elasticsearchUserService.indexUser(user);
+      elasticsearchUserService.indexUser(newUser);
     } catch (IOException e) {
-      System.out.println("ERROR IOException when trying to index user " + user);
+      System.out.println("ERROR IOException when trying to index user " + newUser);
     }
   }
 
@@ -79,13 +83,14 @@ public class UserService {
     // Copy non-null properties from updatedUser to existingUser
     BeanUtils.copyProperties(updatedUser, user);
     // Save the updated user back to the database
-    userRepository.save(user);
+    User modifiedUser = userRepository.save(user);
+    System.out.println("FUCK THIS??");
 
     try {
       // Index the updated user in Elasticsearch
-      elasticsearchUserService.indexUser(user);
+      elasticsearchUserService.indexUser(modifiedUser);
     } catch (IOException e) {
-      System.out.println("ERROR IOException when trying to index user " + user);
+      System.out.println("ERROR IOException when trying to index user " + modifiedUser);
     }
   }
 

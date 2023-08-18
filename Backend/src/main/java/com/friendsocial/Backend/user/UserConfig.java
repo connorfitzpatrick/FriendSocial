@@ -60,7 +60,7 @@ public class UserConfig {
               "Thomas",
               "yankees.png",
               "Dummy data account",
-              now.minusSeconds(30 * 24 * 60 * 60),
+              now.minusSeconds(29 * 25 * 60 * 60),
               Role.USER
       );
       User peyton = new User(
