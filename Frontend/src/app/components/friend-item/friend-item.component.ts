@@ -12,6 +12,7 @@ import { FriendsListComponent } from '../friends-list/friends-list.component';
 export class FriendItemComponent implements OnInit {
   @Input() friend: any;
   postImageURL = '';
+  @Input() suggested: any;
 
   constructor(
     public imageService: ImageService,

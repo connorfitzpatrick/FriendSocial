@@ -53,10 +53,8 @@ export class FriendsListComponent implements OnInit {
       event.target
     );
     if (!clickedInsideSearchGroup) {
-      console.log('F');
       this.showSuggestions = false;
     } else if (!this.showSuggestions && clickedInsideSearchGroup) {
-      console.log('W');
       this.showSuggestions = true;
     }
   }

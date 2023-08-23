@@ -25,6 +25,7 @@ import { EditDialogComponent } from './components/edit-dialog/edit-dialog.compon
 import { NewPostComponent } from './components/new-post/new-post.component';
 import { FriendsListComponent } from './components/friends-list/friends-list.component';
 import { FriendItemComponent } from './components/friend-item/friend-item.component';
+import { SuggestionItemComponent } from './components/suggestion-item/suggestion-item.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { FriendItemComponent } from './components/friend-item/friend-item.compon
     NewPostComponent,
     FriendsListComponent,
     FriendItemComponent,
+    SuggestionItemComponent,
   ],
   imports: [
     BrowserModule,

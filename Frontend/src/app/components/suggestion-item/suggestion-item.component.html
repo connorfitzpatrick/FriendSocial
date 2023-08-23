@@ -1,0 +1,11 @@
+<a [routerLink]="['/profile', suggestion.handle]" class="suggestion-item">
+  <div class="suggestion-item">
+    <div class="profile-pic"></div>
+    <div class="user-info">
+      <p class="full-name">
+        {{ suggestion.firstName }} {{ suggestion.lastName }}
+      </p>
+      <p class="handle">@{{ suggestion.handle }}</p>
+    </div>
+  </div>
+</a>

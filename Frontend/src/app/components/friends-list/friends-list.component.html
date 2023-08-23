@@ -29,17 +29,9 @@
                 class="list-group-item"
                 *ngFor="let suggestion of searchSuggestions"
               >
-                <div>
-                  <p class="username">
-                    <a
-                      class="comment-link"
-                      href="http://localhost:4200/profile/{{
-                        suggestion.handle
-                      }}"
-                      >@{{ suggestion.handle }}</a
-                    >
-                  </p>
-                </div>
+                <app-suggestion-item
+                  [suggestion]="suggestion"
+                ></app-suggestion-item>
               </li>
             </ul>
           </div>
