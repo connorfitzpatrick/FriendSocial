@@ -57,6 +57,7 @@ public class ElasticsearchUserService {
     userMap.put("userPic", user.getUserPic());
     userMap.put("bio", user.getBio());
     userMap.put("dateJoined", user.getDateJoined().toString());
+    userMap.put("role", user.getRole());
     return userMap;
   }
 

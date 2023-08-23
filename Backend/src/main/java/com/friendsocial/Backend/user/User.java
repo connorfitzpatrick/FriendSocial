@@ -325,6 +325,6 @@ public class User implements UserDetails {
             ", userPic='" + userPic + '\'' +
             ", bio='" + bio + '\'' +
             ", dateJoined=" + dateJoined +
-            '}';
+            ", role='" + role + "'}";
   }
 }
