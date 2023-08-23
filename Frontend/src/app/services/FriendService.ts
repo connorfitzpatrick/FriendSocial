@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
 import { AuthService } from './AuthService';
 import { Observable, BehaviorSubject } from 'rxjs';
 
@@ -120,21 +119,12 @@ export class FriendService {
     };
 
     try {
-      console.log(
-        'Checking friendStatus from checkFriendStatus() in FriendService' +
-          ' userID is: ' +
-          userId +
-          ' friendId is: ' +
-          friendId
-      );
-
       const response = await this.http
         .get<any>(
           `http://localhost:8080/api/v1/friends/${userId}/${friendId}`,
           httpOptions
         )
         .toPromise();
-      console.log('Response ID is: ' + response.id);
 
       // at the moment this is returning true no matter what. must fix
       if (response) {

@@ -12,7 +12,6 @@ import { FriendsListComponent } from '../friends-list/friends-list.component';
 export class FriendItemComponent implements OnInit {
   @Input() friend: any;
   postImageURL = '';
-  @Input() suggested: any;
 
   constructor(
     public imageService: ImageService,
@@ -34,8 +33,5 @@ export class FriendItemComponent implements OnInit {
       this.friendsListComponent.friendsList.filter(
         (friend) => friend.friend.id !== this.friend.friend.id
       );
-
-    console.log(this.friendService.friendsSubject);
-    console.log(this.friendsListComponent.friendsList);
   }
 }

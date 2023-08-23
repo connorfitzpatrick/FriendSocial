@@ -1,4 +1,4 @@
-<div class="friend-item">
+<!-- <div class="friend-item">
   <div class="profile-picture">
     <img [src]="postImageURL" alt="Profile Picture" />
   </div>
@@ -12,5 +12,25 @@
   </div>
   <div class="remove-button">
     <button (click)="removeFriend()">X</button>
+  </div>
+</div> -->
+<div class="friend-item-container">
+  <div class="friend-item">
+    <a [routerLink]="['/profile', friend.friend.handle]" class="friend-link">
+      <div class="profile-picture">
+        <img [src]="postImageURL" alt="Profile Picture" />
+      </div>
+      <div class="friend-details">
+        <div class="name">
+          {{ friend.friend.firstName }} {{ friend.friend.lastName }}
+        </div>
+        <div class="handle">
+          {{ friend.friend.handle }}
+        </div>
+      </div>
+    </a>
+    <div class="remove-button">
+      <button (click)="removeFriend()">X</button>
+    </div>
   </div>
 </div>
