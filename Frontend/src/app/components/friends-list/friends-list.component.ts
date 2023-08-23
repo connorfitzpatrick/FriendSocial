@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./friends-list.component.css'],
 })
 export class FriendsListComponent implements OnInit {
-  searchTerm: string = '';
-  suggestions: any = [];
+  userInput: string = '';
+  searchSuggestions: any = [];
   friendsList: any[] = [];
 
   constructor(
@@ -20,7 +20,6 @@ export class FriendsListComponent implements OnInit {
 
   async ngOnInit() {
     const userId = this.authService.getUserIdFromToken();
-    console.log(this.friendService.friends$);
     await this.friendService.fetchFriends(userId);
     this.friendService.friends$.subscribe((friends) => {
       this.friendsList = friends;
@@ -32,9 +31,19 @@ export class FriendsListComponent implements OnInit {
     console.log('Searching');
   }
 
-  selectSuggestion(suggestion: string) {}
+  selectSuggestion(suggestion: string) {
+    console.log('SELECTED SUGGESTION');
+  }
 
-  onSearchInputChange() {}
+  onSearchInputChange() {
+    console.log(this.userInput);
+    this.friendService
+      .searchFriends(this.userInput)
+      .subscribe((suggestions) => {
+        this.searchSuggestions = suggestions;
+      });
+    console.log(this.searchSuggestions);
+  }
 
   listFriends() {}
 }

@@ -27,9 +27,9 @@ public class ElasticsearchController {
   @GetMapping("/search")
   public ResponseEntity<List<User>> searchUsers(@RequestParam String query) {
     // Call your ElasticsearchUserService to search for users based on the query
-    System.out.println("elasticsearch endpoint reached!");
     try {
       // Index the updated user in Elasticsearch
+      System.out.println("Query: " + query);
       List<User> searchResults = elasticsearchUserService.searchUsers(query);
       System.out.println("searchResults");
       System.out.println(searchResults);

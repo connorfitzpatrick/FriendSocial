@@ -149,4 +149,19 @@ export class FriendService {
     }
     return -1;
   }
+
+  searchFriends(prefix: string): Observable<string[]> {
+    const token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+
+    return this.http.get<string[]>(
+      `http://localhost:8080/api/v1/search?query=${prefix}`,
+      httpOptions
+    );
+  }
 }

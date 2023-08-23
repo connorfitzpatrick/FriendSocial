@@ -10,6 +10,7 @@
           <div class="col-md-6 offset-md-3">
             <div class="input-group">
               <input
+                [(ngModel)]="userInput"
                 type="text"
                 class="form-control"
                 placeholder="Search for profiles..."
@@ -22,13 +23,13 @@
               </div>
             </div>
             <!-- Display search suggestions here (ngFor) -->
-            <ul class="list-group mt-2" *ngIf="suggestions.length > 0">
+            <ul class="list-group mt-2" *ngIf="searchSuggestions.length > 0">
               <li
                 class="list-group-item"
-                *ngFor="let suggestion of suggestions"
+                *ngFor="let suggestion of searchSuggestions"
                 (click)="selectSuggestion(suggestion)"
               >
-                {{ suggestion }}
+                <div>{{ suggestion.handle }}</div>
               </li>
             </ul>
           </div>
