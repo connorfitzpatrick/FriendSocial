@@ -7,7 +7,7 @@
     <div class="content-container blue-div">
       <div class="app-feed">
         <div class="row">
-          <div class="col-md-6 offset-md-3">
+          <div class="col-md-6 offset-md-3 search-group" #searchGroup>
             <div class="input-group">
               <input
                 [(ngModel)]="userInput"
@@ -17,19 +17,29 @@
                 (input)="onSearchInputChange()"
               />
               <div class="input-group-append">
-                <button class="btn search-button" (click)="search()">
-                  Search
-                </button>
+                <button class="btn search-button">Search</button>
               </div>
             </div>
             <!-- Display search suggestions here (ngFor) -->
-            <ul class="list-group mt-2" *ngIf="searchSuggestions.length > 0">
+            <ul
+              class="list-group mt-2 search-suggestions"
+              *ngIf="showSuggestions && searchSuggestions.length > 0"
+            >
               <li
                 class="list-group-item"
                 *ngFor="let suggestion of searchSuggestions"
-                (click)="selectSuggestion(suggestion)"
               >
-                <div>{{ suggestion.handle }}</div>
+                <div>
+                  <p class="username">
+                    <a
+                      class="comment-link"
+                      href="http://localhost:4200/profile/{{
+                        suggestion.handle
+                      }}"
+                      >@{{ suggestion.handle }}</a
+                    >
+                  </p>
+                </div>
               </li>
             </ul>
           </div>

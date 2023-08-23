@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  HostListener,
+  ViewChild,
+} from '@angular/core';
 import { AuthService } from '../../services/AuthService';
 import { FriendService } from '../../services/FriendService';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-friends-list',
@@ -10,32 +15,28 @@ import { Observable } from 'rxjs';
 })
 export class FriendsListComponent implements OnInit {
   userInput: string = '';
-  searchSuggestions: any = [];
+  searchSuggestions: any[] = []; // Change the type to an array
   friendsList: any[] = [];
+  showSuggestions: boolean = false;
+  @ViewChild('searchGroup') searchGroup!: ElementRef;
 
   constructor(
     private authService: AuthService,
-    public friendService: FriendService
+    public friendService: FriendService,
+    private elementRef: ElementRef
   ) {}
 
-  async ngOnInit() {
+  ngOnInit() {
     const userId = this.authService.getUserIdFromToken();
-    await this.friendService.fetchFriends(userId);
+    this.friendService.fetchFriends(userId); // No need to await here
     this.friendService.friends$.subscribe((friends) => {
       this.friendsList = friends;
       console.log(this.friendsList);
     });
   }
 
-  search() {
-    console.log('Searching');
-  }
-
-  selectSuggestion(suggestion: string) {
-    console.log('SELECTED SUGGESTION');
-  }
-
   onSearchInputChange() {
+    this.showSuggestions = true;
     console.log(this.userInput);
     this.friendService
       .searchFriends(this.userInput)
@@ -45,5 +46,18 @@ export class FriendsListComponent implements OnInit {
     console.log(this.searchSuggestions);
   }
 
-  listFriends() {}
+  @HostListener('document:click', ['$event'])
+  onClick(event: Event) {
+    // Check if the click event target is outside the suggestions box
+    const clickedInsideSearchGroup = this.searchGroup.nativeElement.contains(
+      event.target
+    );
+    if (!clickedInsideSearchGroup) {
+      console.log('F');
+      this.showSuggestions = false;
+    } else if (!this.showSuggestions && clickedInsideSearchGroup) {
+      console.log('W');
+      this.showSuggestions = true;
+    }
+  }
 }

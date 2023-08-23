@@ -11,7 +11,7 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 2; /* Increase the z-index to make the header appear above other elements */
+  z-index: 2;
 }
 
 main {
@@ -24,20 +24,12 @@ main {
 
 .sidemenu-container {
   position: fixed;
-  top: 50px; /* Adjust the top value to match the height of the header */
+  top: 50px;
   left: 0;
-  bottom: 0; /* Stretch the sidemenu container to the bottom of the viewport */
+  bottom: 0;
   z-index: 1;
   background-color: #f1f1f1;
 }
-
-/* .content-container {
-  flex: 1;
-  margin-left: 280px; 
-  background-color: rgb(210, 219, 226);
-  position: relative;
-  z-index: 0;
-} */
 
 .sidemenu {
   position: fixed;
@@ -45,7 +37,7 @@ main {
   left: 0;
   width: 280px;
   height: calc(100vh - 50px);
-  z-index: 2; /* Increase the z-index to make the sidemenu appear above the content */
+  z-index: 2;
   background-color: #f1f1f1;
   display: flex;
   flex-direction: column;
@@ -60,8 +52,8 @@ main {
 }
 
 .search-button {
-  background-color: rgb(17, 137, 224); /* Set the active color */
-  color: #fff; /* Set the text color for active menu item */
+  background-color: rgb(17, 137, 224);
+  color: #fff;
 }
 
 .search-button:hover {
@@ -70,15 +62,30 @@ main {
 
 .app-feed {
   position: absolute;
-  top: 10vh; /* To start below the header */
-  left: 250px; /* Width of the side menu */
+  top: 10vh;
+  left: 250px;
   right: 0;
   bottom: 0;
-  overflow-y: auto; /* Enable vertical scrolling */
+  /* overflow-y: auto; */
   background-color: rgb(210, 219, 226);
-  box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.1); /* To match the side menu shadow */
+  box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-group {
+  width: 50%;
 }
 
 .input-group {
   margin-top: 1em;
+}
+
+.search-suggestions {
+  position: absolute;
+  /* top: 100%; */
+  /* left: 0; */
+  width: 50%;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 100; /* Ensure the box is on top of the content */
 }
