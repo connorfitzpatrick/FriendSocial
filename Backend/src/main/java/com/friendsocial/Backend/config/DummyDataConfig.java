@@ -1,4 +1,4 @@
-package com.friendsocial.Backend.user;
+package com.friendsocial.Backend.config;
 
 import com.friendsocial.Backend.comment.Comment;
 import com.friendsocial.Backend.comment.CommentRepository;
@@ -9,6 +9,9 @@ import com.friendsocial.Backend.like.Like;
 import com.friendsocial.Backend.like.LikeRepository;
 import com.friendsocial.Backend.post.Post;
 import com.friendsocial.Backend.post.PostRepository;
+import com.friendsocial.Backend.user.Role;
+import com.friendsocial.Backend.user.User;
+import com.friendsocial.Backend.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Configuration
-public class UserConfig {
+public class DummyDataConfig {
   @Bean(name = "userCommandLineRunner")
   CommandLineRunner userConfig(
           UserRepository repository,
