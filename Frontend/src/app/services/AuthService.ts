@@ -111,7 +111,6 @@ export class AuthService {
   // Confirms whether the profile being routed to is owned by current user
   viewingProfile(userId: number | undefined): boolean {
     const currentUserId = this.getUserIdFromToken();
-    console.log('currentUserId: ' + currentUserId);
     return currentUserId === userId;
   }
 
@@ -123,5 +122,21 @@ export class AuthService {
   updateCurrentUser(user: any): void {
     this.currentUserSubject.next(user);
     console.log(this.currentUserSubject);
+  }
+
+  async logout() {
+    const token = localStorage.getItem('token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+    console.log('trying');
+    localStorage.removeItem('token');
+    const response = await this.http
+      .post('http://localhost:8080/api/v1/auth/logout', null, httpOptions)
+      .toPromise();
+    console.log(response);
+    this.router.navigate(['/login']);
   }
 }

@@ -42,8 +42,6 @@ export class ProfileService {
       }),
     };
 
-    console.log(updatedUser);
-
     this.http
       .put<any>(`${this.apiUrl}/${updatedUser.id}`, updatedUser, httpOptions)
       .subscribe(
