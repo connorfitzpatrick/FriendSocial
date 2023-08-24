@@ -49,7 +49,10 @@ export class AuthService {
 
       this.currentUserSubject.next(fetchedUser);
 
-      if (fetchedUser.userPic == null || fetchedUser.bio == null) {
+      if (
+        fetchedUser.userPic == 'NullProfilePic.png' ||
+        fetchedUser.bio == null
+      ) {
         localStorage.setItem('setupDialogShown', 'false');
         this.router.navigate(['/profile', this.getHandle()]);
       } else {
