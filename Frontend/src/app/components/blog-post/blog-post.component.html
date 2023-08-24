@@ -22,7 +22,9 @@
           [ngClass]="{ liked: isLiked > -1 }"
         >
           <span class="like-count">{{ likeCount }}</span>
-          <span class="like-icon">&nbsp;Likes</span>
+          <span class="like-icon"
+            >&nbsp;{{ likeCount === 1 ? "Like" : "Likes" }}</span
+          >
         </button>
       </div>
       <div class="comments-section">

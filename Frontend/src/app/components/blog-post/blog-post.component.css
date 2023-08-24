@@ -76,6 +76,7 @@
   cursor: pointer;
   transition: background-color 0.3s;
   color: white; /* Set the text color to white */
+  text-align: center;
 }
 
 .like-button.liked {
