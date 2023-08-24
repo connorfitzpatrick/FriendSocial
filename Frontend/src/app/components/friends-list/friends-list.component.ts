@@ -15,7 +15,7 @@ import { FriendService } from '../../services/FriendService';
 })
 export class FriendsListComponent implements OnInit {
   userInput: string = '';
-  searchSuggestions: any[] = []; // Change the type to an array
+  searchSuggestions: any[] = [];
   friendsList: any[] = [];
   showSuggestions: boolean = false;
   @ViewChild('searchGroup') searchGroup!: ElementRef;
@@ -28,7 +28,7 @@ export class FriendsListComponent implements OnInit {
 
   ngOnInit() {
     const userId = this.authService.getUserIdFromToken();
-    this.friendService.fetchFriends(userId); // No need to await here
+    this.friendService.fetchFriends(userId);
     this.friendService.friends$.subscribe((friends) => {
       this.friendsList = friends;
       console.log(this.friendsList);
