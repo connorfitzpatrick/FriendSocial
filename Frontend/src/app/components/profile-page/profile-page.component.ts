@@ -4,7 +4,6 @@ import { ProfileService } from '../../services/ProfileService';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from '../../models/profile.model';
 import { AuthService } from '../../services/AuthService';
-import { SetupProfileDialogComponent } from '../../components/setup-profile-dialog/setup-profile-dialog.component';
 
 @Component({
   selector: 'app-profile-page',
@@ -28,24 +27,13 @@ export class ProfilePageComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     // Get the username from the route parameters
     this.route.params.subscribe((params) => {
       this.username = params['handle'];
       // Fetch profile information from the backend
-      this.fetchProfileInfo();
     });
-    const setupDialogShown = localStorage.getItem('setupDialogShown');
-    if (setupDialogShown == 'false') {
-      console.log('opening');
-
-      this.openProfileSetupDialog();
-      console.log('dialog really should be opened');
-
-      localStorage.setItem('setupDialogShown', 'true');
-    } else {
-      console.log('setupDialogShown should be true: ' + setupDialogShown);
-    }
+    this.fetchProfileInfo();
   }
 
   onMyProfileClick() {
@@ -54,9 +42,9 @@ export class ProfilePageComponent implements OnInit {
     this.router.navigateByUrl(`/profile/${myHandle}`);
   }
 
-  fetchProfileInfo(): void {
+  async fetchProfileInfo() {
     // Make an HTTP request to fetch the profile information based on the username
-    this.profileService.fetchLoggedInUserData(this.username).subscribe(
+    await this.profileService.fetchLoggedInUserData(this.username).subscribe(
       (data) => {
         this.userId = data.id;
         this.username = data.username;
@@ -68,21 +56,5 @@ export class ProfilePageComponent implements OnInit {
         console.error('Error fetching profile information:', error);
       }
     );
-  }
-
-  openProfileSetupDialog() {
-    console.log('inside opendialog()');
-    const dialogRef = this.dialog.open(SetupProfileDialogComponent, {
-      width: '60%',
-      maxWidth: '800px',
-      autoFocus: false,
-      panelClass: 'profile-edit-container',
-      data: { user: this.user },
-    });
-    console.log('dialog should be opened');
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-    });
   }
 }

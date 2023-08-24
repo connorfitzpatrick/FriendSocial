@@ -8,13 +8,13 @@
 
 .post-content {
   display: flex;
-  align-items: flex-start; /* Align items at the top */
+  align-items: flex-start;
   padding: 16px;
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #f1f1f1;
-  width: 75%; /* Adjust the width as per your preference */
-  margin-bottom: 16px; /* Add vertical spacing between posts */
+  width: 75%;
+  margin-bottom: 16px;
 }
 
 .profile-picture {
@@ -22,29 +22,29 @@
   height: 40px;
   border-radius: 50%;
   margin-right: 12px;
-  flex-shrink: 0; /* Prevent the image from shrinking */
+  flex-shrink: 0;
 }
 
 .image-container {
-  width: 60%; /* Adjust as needed */
-  height: 60%px; /* Adjust as needed */
+  width: 60%;
+  height: 60%;
   overflow: hidden;
   display: flex;
   align-items: center;
   border-radius: 8px;
   margin-left: 15%;
   justify-content: center;
-  border: 1px solid rgb(235, 235, 235); /* Add border style */
+  border: 1px solid rgb(235, 235, 235);
 }
 
 .image-container img {
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain; /* or 'cover' depending on your preference */
+  object-fit: contain;
 }
 
 .post-details {
-  flex-grow: 1; /* Allow the details to take up remaining space */
+  flex-grow: 1;
 }
 
 .username {
@@ -55,9 +55,9 @@
 
 .post-text {
   margin: 8px 0;
-  overflow-wrap: break-word; /* Break long content into multiple lines */
-  word-break: break-word; /* Break long words */
-  hyphens: auto; /* Enable hyphenation */
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 .timestamp {
@@ -70,26 +70,26 @@
   display: flex;
   align-items: center;
   padding: 4px 8px;
-  background-color: rgb(17, 137, 224); /* Change the background color to blue */
+  background-color: rgb(17, 137, 224);
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
-  color: white; /* Set the text color to white */
+  color: white;
   text-align: center;
 }
 
 .like-button.liked {
-  background-color: white; /* Change background color when liked */
-  color: blue; /* Change text color when liked */
+  background-color: white;
+  color: blue;
 }
 
 .like-button.liked:hover {
-  background-color: lightgray; /* Change background color on hover when liked */
+  background-color: lightgray;
 }
 
 .like-button:hover {
-  background-color: darkblue; /* Change the background color on hover */
+  background-color: darkblue;
 }
 
 .like-icon {
@@ -99,9 +99,23 @@
 .like-count {
   font-weight: bold;
 }
+
+.bio {
+  margin-bottom: 20px; /* Add more space below the content */
+}
+
 .like-section {
   display: flex;
   align-items: center;
+  gap: 10px; /* Provides spacing between the like button and the comments link */
+}
+
+.like-section {
+  align-items: center;
+}
+
+.comments-section {
+  align-items: center; /* Align comments in line with the like button */
 }
 
 .like-buttons {
@@ -109,8 +123,8 @@
 }
 
 .like-link {
-  margin-left: 10px; /* Add margin to separate the "See Likes" link */
-  color: blue; /* Set the color of the link */
+  margin-left: 10px;
+  color: blue;
   cursor: pointer;
   text-decoration: underline;
 }
@@ -119,18 +133,43 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 100%; /* Ensure the image doesn't exceed its container's width */
-  margin-top: 16px; /* Add spacing between image and other content */
+  max-width: 100%;
+  margin-top: 16px;
 }
 
-/* Add this style to limit the image dimensions */
-
 .comment-link {
-  color: inherit; /* Inherit color from the parent element (no default blue color) */
-  text-decoration: none; /* Remove default underline */
+  color: inherit;
+  text-decoration: none;
 }
 
 .comment-link:hover {
-  text-decoration: underline; /* Add underline on hover */
-  cursor: pointer; /* Show pointer cursor on hover */
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.comment-row {
+  margin-bottom: 10px;
+}
+
+.comment-row p {
+  margin: 0;
+  padding: 5px 0;
+}
+
+.comment-row .see-all-comments {
+  margin-top: 5px;
+}
+
+.comment-text {
+  margin: 0;
+}
+
+.comment-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.comment-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }

@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ImageService } from '../../services/ImageService';
 import { LikeService } from '../../services/LikeService';
+import { CommentsService } from '../../services/CommentsService';
+import { CommentDialogComponent } from '../comment-dialog/comment-dialog.component';
+
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,9 +21,13 @@ export class BlogPostComponent implements OnInit {
   isLiked: number = -1;
   postImageURL = '';
   userPicUrl = '';
+  recentComments: any[] = [];
+  showAllComments: boolean = false;
+  threshold: number = 2;
 
   constructor(
     private likeService: LikeService,
+    private commentService: CommentsService,
     public imageService: ImageService,
     private route: ActivatedRoute,
     private datePipe: DatePipe,
@@ -38,6 +45,10 @@ export class BlogPostComponent implements OnInit {
     if (this.post[0].postType == 'Image') {
       this.getPostImage();
     }
+    this.commentService.getRecentComments(this.postId).subscribe((comments) => {
+      this.recentComments = comments;
+    });
+
     this.getPostIsLiked();
   }
 
@@ -91,5 +102,24 @@ export class BlogPostComponent implements OnInit {
       this.isLiked = -1;
       this.likeCount--;
     }
+  }
+
+  toggleComments(): void {
+    this.showAllComments = !this.showAllComments;
+  }
+
+  openCommentDialog(event: Event) {
+    event.preventDefault();
+    const dialogRef = this.dialog.open(CommentDialogComponent, {
+      width: '60%',
+      maxWidth: '800px',
+      autoFocus: false,
+      panelClass: 'comment-dialog-container',
+      data: [this.postId],
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
   }
 }

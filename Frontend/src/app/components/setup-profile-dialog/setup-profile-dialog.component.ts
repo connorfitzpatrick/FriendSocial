@@ -32,7 +32,7 @@ export class SetupProfileDialogComponent {
     password: '',
     role: '',
   };
-  profilePictureUrl = this.imageService.getProfilePicUrl();
+  profilePictureUrl: string | null = '';
   selectedUserPic: File | null = null;
 
   @ViewChild('fileInput', { static: false }) fileInput?: ElementRef;
@@ -44,16 +44,12 @@ export class SetupProfileDialogComponent {
     public profileService: ProfileService,
     private datePipe: DatePipe,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
-    this.authService.currentUser$.subscribe((user) => {
-      this.profilePictureUrl = user?.userPic || ''; // Use an empty string if user?.userPic is null or undefined
-    });
-  }
+  ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     // If data contains the user object, assign it to the component's user property
     this.user = this.data.user;
-    this.profilePictureUrl = this.imageService.getProfilePicUrl();
+    this.profilePictureUrl = await this.imageService.getProfilePicUrl();
   }
 
   onFileSelected(event: any): void {
@@ -80,7 +76,8 @@ export class SetupProfileDialogComponent {
         this.user.userPic = response.userPic;
       }
 
-      const dateJoined = new Date(Number(this.user.dateJoined) * 1000); // Convert Unix timestamp to milliseconds
+      // Convert Unix timestamp to milliseconds
+      const dateJoined = new Date(Number(this.user.dateJoined) * 1000);
       const updatedUser = {
         id: this.user.id,
         username: this.user.username,
@@ -97,19 +94,15 @@ export class SetupProfileDialogComponent {
 
       this.authService.currentUser$.subscribe(async (user) => {
         if (user) {
-          const userPicLocation = this.user.userPic; // Extract the userPic URL
+          const userPicLocation = this.user.userPic;
           const userPicUrl = await this.imageService.getImage(userPicLocation);
           this.imageService.setProfilePicUrl(userPicUrl);
+          this.profilePictureUrl = this.imageService.getProfilePicUrl();
         }
       });
-
       console.log(updatedUser);
       this.profileService.updateUserData(updatedUser);
 
-      console.log(updatedUser.userPic);
-      this.profilePictureUrl = this.imageService.getProfilePicUrl();
-
-      //
       this.authService.updateCurrentUser(updatedUser);
     } catch (error) {
       // Handle error if the backend update fails

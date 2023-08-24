@@ -10,25 +10,45 @@
           >@{{ post[2] }}</a
         >
       </p>
+      <hr />
       <div *ngIf="post[0].postType == 'Image'" class="image-container">
         <img [src]="postImageURL" alt="Post Image" class="post-image" />
       </div>
       <h4 class="bio">{{ post[0].content }}</h4>
-      <div class="like-section">
-        <button
-          class="like-button"
-          (click)="likePost()"
-          tabindex="-1"
-          [ngClass]="{ liked: isLiked > -1 }"
-        >
-          <span class="like-count">{{ likeCount }}</span>
-          <span class="like-icon"
-            >&nbsp;{{ likeCount === 1 ? "Like" : "Likes" }}</span
+      <div class="actions-section">
+        <div class="like-section">
+          <button
+            class="like-button"
+            (click)="likePost()"
+            tabindex="-1"
+            [ngClass]="{ liked: isLiked > -1 }"
           >
-        </button>
+            <span class="like-count">{{ likeCount }}</span>
+            <span class="like-icon"
+              >&nbsp;{{ likeCount === 1 ? "Like" : "Likes" }}</span
+            >
+          </button>
+          <a
+            *ngIf="!showAllComments"
+            (click)="openCommentDialog($event)"
+            class="see-all-comments"
+            tabindex="-1"
+            >See Likes and Comments</a
+          >
+        </div>
       </div>
-      <div class="comments-section">
-        <app-comment-row [postId]="postId"></app-comment-row>
+      <div *ngFor="let comment of recentComments">
+        <p>
+          <strong
+            ><a
+              class="comment-link"
+              href="http://localhost:4200/profile/{{ comment[1] }}"
+              >{{ comment[1] }}</a
+            >:</strong
+          >
+          {{ comment[0].content }}
+        </p>
+        <!-- Display other comment properties as needed -->
       </div>
 
       <p class="timestamp">Posted {{ formatDate(post[0].timestamp) }}</p>
