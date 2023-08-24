@@ -14,11 +14,11 @@ import { ProfileService } from '../../services/ProfileService';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-edit-dialog',
-  templateUrl: './edit-dialog.component.html',
-  styleUrls: ['./edit-dialog.component.css'],
+  selector: 'app-setup-profile-dialog',
+  templateUrl: './setup-profile-dialog.component.html',
+  styleUrls: ['./setup-profile-dialog.component.css'],
 })
-export class EditDialogComponent implements OnInit {
+export class SetupProfileDialogComponent {
   @Input() user: User = {
     id: 0,
     firstName: '',
@@ -38,7 +38,7 @@ export class EditDialogComponent implements OnInit {
   @ViewChild('fileInput', { static: false }) fileInput?: ElementRef;
 
   constructor(
-    public dialogRef: MatDialogRef<EditDialogComponent>,
+    public dialogRef: MatDialogRef<SetupProfileDialogComponent>,
     public authService: AuthService,
     public imageService: ImageService,
     public profileService: ProfileService,

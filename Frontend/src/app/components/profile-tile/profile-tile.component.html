@@ -14,7 +14,6 @@
         <h3>{{ user?.firstName }} {{ user?.lastName }}</h3>
         <h3>@{{ user?.handle }}</h3>
         <p>{{ user?.bio }}</p>
-        <!-- Move the bio inside the profile-info div -->
       </div>
     </div>
     <div class="button-container" *ngIf="isCurrentUserProfile">
@@ -27,7 +26,5 @@
         {{ isFriend === -1 ? "Friend" : "UnFriend" }}
       </button>
     </div>
-
-    <!-- Remove the bio from here -->
   </div>
 </div>

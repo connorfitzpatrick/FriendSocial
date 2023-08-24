@@ -1,0 +1,37 @@
+<div class="dialog-container">
+  <div class="dialog-content">
+    <h1>Finish Setting Up Your Account</h1>
+    <div class="profile-picture-section">
+      <img
+        [src]="profilePictureUrl"
+        class="profile-picture"
+        (click)="fileInput?.click()"
+      />
+      <input
+        type="file"
+        style="display: none"
+        #fileInput
+        accept="image/*"
+        (change)="onFileSelected($event)"
+      />
+      <button class="button edit-button" (click)="fileInput.click()">
+        Add Profile Picture
+      </button>
+    </div>
+
+    <div class="centered-element">
+      <form>
+        <textarea matInput placeholder="Bio" [(ngModel)]="user.bio"></textarea>
+      </form>
+    </div>
+  </div>
+
+  <div class="dialog-buttons">
+    <div class="button-wrapper">
+      <button type="button" class="edit-button" (click)="applyChanges()">
+        Apply
+      </button>
+      <button type="button" class="edit-button" (click)="cancel()">Skip</button>
+    </div>
+  </div>
+</div>

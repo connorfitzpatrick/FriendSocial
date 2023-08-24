@@ -35,14 +35,10 @@ export class ProfileTileComponent implements OnChanges {
 
   async updateFriendStatus() {
     // Use a service method to check friend status based on userId
-    console.log(
-      'Checking friendStatus from updateFriendStatus() in ProfileTileComponent'
-    );
     this.isFriend = await this.friendService.checkFriendStatus(
       this.authService.getUserIdFromToken(),
       this.userId
     );
-    console.log(this.isFriend);
   }
 
   async toggleFriendship() {

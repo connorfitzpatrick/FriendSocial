@@ -28,7 +28,6 @@ export class AuthService {
         'Content-Type': 'application/json',
       }),
     };
-    console.log(credentials);
 
     try {
       const response = await this.http
@@ -41,14 +40,23 @@ export class AuthService {
 
       const token = response.token;
       localStorage.setItem('token', token);
-      this.router.navigate(['/home']);
 
-      console.log(credentials.username);
       const fetchedUser = await this.profileService
         .fetchLoggedInUserData(credentials.username)
         .toPromise();
 
       this.currentUserSubject.next(fetchedUser);
+
+      if (fetchedUser.userPic == null || fetchedUser.bio == null) {
+        localStorage.setItem('setupDialogShown', 'false');
+        this.router.navigate(['/profile', this.getHandle()]);
+      } else {
+        localStorage.setItem('setupDialogShown', 'true');
+        this.router.navigate(['/home']);
+      }
+
+      this.currentUserSubject.next(fetchedUser);
+
       return fetchedUser;
     } catch (error) {
       console.error('Login failed:', error);
@@ -80,7 +88,13 @@ export class AuthService {
         .toPromise();
       this.currentUserSubject.next(fetchedUser);
 
-      this.router.navigate(['/home']);
+      if (fetchedUser.userPic == null || fetchedUser.bio == null) {
+        localStorage.setItem('setupDialogShown', 'false');
+        this.router.navigate(['/profile', this.getHandle()]);
+      } else {
+        localStorage.setItem('setupDialogShown', 'true');
+        this.router.navigate(['/home']);
+      }
 
       return fetchedUser;
     } catch (error) {
@@ -131,12 +145,11 @@ export class AuthService {
         Authorization: `Bearer ${token}`,
       }),
     };
-    console.log('trying');
     localStorage.removeItem('token');
+    localStorage.removeItem('setupDialogShown');
     const response = await this.http
       .post('http://localhost:8080/api/v1/auth/logout', null, httpOptions)
       .toPromise();
-    console.log(response);
     this.router.navigate(['/login']);
   }
 }

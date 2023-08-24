@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProfileService } from '../../services/ProfileService';
+import { MatDialog } from '@angular/material/dialog';
 import { User } from '../../models/profile.model';
 import { AuthService } from '../../services/AuthService';
+import { SetupProfileDialogComponent } from '../../components/setup-profile-dialog/setup-profile-dialog.component';
 
 @Component({
   selector: 'app-profile-page',
@@ -19,6 +21,7 @@ export class ProfilePageComponent implements OnInit {
   user!: User;
 
   constructor(
+    private dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
     private profileService: ProfileService,
@@ -32,6 +35,17 @@ export class ProfilePageComponent implements OnInit {
       // Fetch profile information from the backend
       this.fetchProfileInfo();
     });
+    const setupDialogShown = localStorage.getItem('setupDialogShown');
+    if (setupDialogShown == 'false') {
+      console.log('opening');
+
+      this.openProfileSetupDialog();
+      console.log('dialog really should be opened');
+
+      localStorage.setItem('setupDialogShown', 'true');
+    } else {
+      console.log('setupDialogShown should be true: ' + setupDialogShown);
+    }
   }
 
   onMyProfileClick() {
@@ -54,5 +68,21 @@ export class ProfilePageComponent implements OnInit {
         console.error('Error fetching profile information:', error);
       }
     );
+  }
+
+  openProfileSetupDialog() {
+    console.log('inside opendialog()');
+    const dialogRef = this.dialog.open(SetupProfileDialogComponent, {
+      width: '60%',
+      maxWidth: '800px',
+      autoFocus: false,
+      panelClass: 'profile-edit-container',
+      data: { user: this.user },
+    });
+    console.log('dialog should be opened');
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
   }
 }

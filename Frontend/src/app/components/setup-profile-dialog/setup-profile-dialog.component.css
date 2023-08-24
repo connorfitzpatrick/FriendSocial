@@ -13,13 +13,6 @@
   overflow-y: auto;
 }
 
-.dialog-buttons {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-}
-
 .overlay {
   position: fixed;
   top: 0;
@@ -62,6 +55,13 @@ label {
   font-weight: bold;
 }
 
+.dialog-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
 input,
 textarea {
   padding: 8px;
@@ -98,4 +98,24 @@ textarea {
 
 .edit-button:hover {
   background-color: darkblue;
+}
+
+.dialog-content {
+  text-align: center;
+}
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.centered-element {
+  width: 100%;
+}
+
+.dialog-actions {
+  justify-content: space-between;
 }
