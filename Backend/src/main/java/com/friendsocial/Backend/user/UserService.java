@@ -40,11 +40,23 @@ public class UserService {
     return userOptional.get();
   }
 
+  // this is called when someone registers or logs in with their email
+  public User getUserByUsername(String username) {
+    System.out.println("MY USERNAME IS " + username);
+    Optional<User> userOptional = userRepository.findUserByUsername(username);
+    // If another user has this email, throw error
+    if (!userOptional.isPresent()) {
+      throw new IllegalStateException("User with username " + username + " is not in database");
+    }
+    return userOptional.get();
+  }
+
   public User getUserByHandle(String handle) {
+    System.out.println("SO IT ENDS HERE FUNKY??");
     Optional<User> userOptional = userRepository.findUserByHandle(handle);
     // If another user has this email, throw error
     if (!userOptional.isPresent()) {
-      throw new IllegalStateException("User is not in database");
+      throw new IllegalStateException("User with handle " + handle + " is not in database");
     }
     return userOptional.get();
   }

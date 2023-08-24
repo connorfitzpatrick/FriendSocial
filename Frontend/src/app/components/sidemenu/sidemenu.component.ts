@@ -30,11 +30,13 @@ export class SidemenuComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.updateActiveMenuItem();
-
-    this.authService.currentUser$.subscribe(async (user) => {
+    await this.authService.currentUser$.subscribe(async (user) => {
+      console.log(user);
       if (user) {
+        console.log(user);
+        console.log('user def above');
         const userPicLocation = user.userPic; // Extract the userPic URL
         const userPicUrl = await this.imageService.getImage(userPicLocation);
         this.imageService.setProfilePicUrl(userPicUrl);

@@ -13,9 +13,8 @@ export class ProfileService {
 
   constructor(private http: HttpClient, private postService: PostService) {}
 
-  fetchLoggedInUserData(handle: string): Observable<any> {
+  fetchLoggedInUserData(input: string): Observable<any> {
     const token = localStorage.getItem('token');
-
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -24,11 +23,14 @@ export class ProfileService {
     };
 
     this.postService.clearPosts();
-    console.log(handle);
-    return this.http.get<User>(
-      `${this.apiUrl}/username/${handle}`,
-      httpOptions
-    );
+    if (input.indexOf('@') !== -1) {
+      return this.http.get<User>(`${this.apiUrl}/email/${input}`, httpOptions);
+    } else {
+      return this.http.get<User>(
+        `${this.apiUrl}/username/${input}`,
+        httpOptions
+      );
+    }
   }
 
   updateUserData(updatedUser: any): void {

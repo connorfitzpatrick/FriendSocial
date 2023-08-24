@@ -36,7 +36,6 @@ public class AuthenticationService {
             request.getDateJoined(),
             request.getRole()
     );
-//    userRepository.save(user);
     userService.addNewUser(user);
 
 
@@ -53,6 +52,7 @@ public class AuthenticationService {
                     request.getPassword()
             )
     );
+    // grab the user by their username/email
     var user = userRepository.findUserByUsername(request.getUsername())
             .orElseThrow();
     var jwtToken = jwtService.generateToken(user);

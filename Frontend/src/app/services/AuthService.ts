@@ -47,14 +47,12 @@ export class AuthService {
       const fetchedUser = await this.profileService
         .fetchLoggedInUserData(credentials.username)
         .toPromise();
-      console.log(fetchedUser);
 
       this.currentUserSubject.next(fetchedUser);
-
       return fetchedUser;
     } catch (error) {
       console.error('Login failed:', error);
-      throw error; // Re-throw the error to be handled by the caller
+      throw error;
     }
   }
 
@@ -76,18 +74,18 @@ export class AuthService {
 
       const token = response.token;
       localStorage.setItem('token', token);
-      this.router.navigate(['/home']);
 
       const fetchedUser = await this.profileService
         .fetchLoggedInUserData(user.handle)
         .toPromise();
-      console.log(fetchedUser);
       this.currentUserSubject.next(fetchedUser);
+
+      this.router.navigate(['/home']);
 
       return fetchedUser;
     } catch (error) {
       console.error('Registration failed:', error);
-      throw error; // Re-throw the error to be handled by the caller
+      throw error;
     }
   }
 
