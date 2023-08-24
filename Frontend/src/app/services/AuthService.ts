@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { User } from '../models/profile.model';
 import { ProfileService } from './ProfileService';
+import { ImageService } from './ImageService';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private imageService: ImageService
   ) {}
 
   async login(credentials: any): Promise<User> {
@@ -147,6 +149,8 @@ export class AuthService {
     };
     localStorage.removeItem('token');
     localStorage.removeItem('setupDialogShown');
+    this.imageService.setProfilePicUrl(null);
+
     const response = await this.http
       .post('http://localhost:8080/api/v1/auth/logout', null, httpOptions)
       .toPromise();

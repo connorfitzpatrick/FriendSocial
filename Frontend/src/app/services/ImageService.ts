@@ -52,7 +52,7 @@ export class ImageService {
     }
   }
 
-  setProfilePicUrl(url: string): void {
+  setProfilePicUrl(url: string | null): void {
     this.profilePicSubject.next(url);
   }
 
