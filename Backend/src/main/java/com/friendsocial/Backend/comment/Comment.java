@@ -41,7 +41,7 @@ public class Comment {
   @JoinColumn(name = "post_id", referencedColumnName = "post_id", insertable = false, updatable = false)
   private Post post;
 
-  @Column(nullable=false)
+  @Column(nullable=false, length=280)
   private String content;
 
   @Column(nullable = false)

@@ -1,11 +1,4 @@
-import {
-  Component,
-  ViewChild,
-  Input,
-  Inject,
-  OnInit,
-  ElementRef,
-} from '@angular/core';
+import { Component, ViewChild, Input, Inject, ElementRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService } from '../../services/AuthService';
 import { ImageService } from '../../services/ImageService';
@@ -102,8 +95,8 @@ export class SetupProfileDialogComponent {
       });
       console.log(updatedUser);
       this.profileService.updateUserData(updatedUser);
-
       this.authService.updateCurrentUser(updatedUser);
+      this.closeDialog();
     } catch (error) {
       // Handle error if the backend update fails
       console.error('Error updating profile picture:', error);

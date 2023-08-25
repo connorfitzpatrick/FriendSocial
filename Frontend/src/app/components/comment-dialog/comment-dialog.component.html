@@ -94,8 +94,9 @@
   <div *ngIf="active === 'comments'" class="add-comment-section">
     <input
       type="text"
-      class="form-control"
+      class="form-control form"
       placeholder="Write a comment..."
+      maxlength="280"
       [(ngModel)]="commentContent"
     />
     <button

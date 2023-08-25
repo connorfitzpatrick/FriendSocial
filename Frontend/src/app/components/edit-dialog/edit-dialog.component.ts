@@ -44,11 +44,7 @@ export class EditDialogComponent implements OnInit {
     public profileService: ProfileService,
     private datePipe: DatePipe,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
-    this.authService.currentUser$.subscribe((user) => {
-      this.profilePictureUrl = user?.userPic || ''; // Use an empty string if user?.userPic is null or undefined
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
     // If data contains the user object, assign it to the component's user property
@@ -80,7 +76,8 @@ export class EditDialogComponent implements OnInit {
         this.user.userPic = response.userPic;
       }
 
-      const dateJoined = new Date(Number(this.user.dateJoined) * 1000); // Convert Unix timestamp to milliseconds
+      // Convert Unix timestamp to milliseconds
+      const dateJoined = new Date(Number(this.user.dateJoined) * 1000);
       const updatedUser = {
         id: this.user.id,
         username: this.user.username,
@@ -100,17 +97,14 @@ export class EditDialogComponent implements OnInit {
           const userPicLocation = this.user.userPic; // Extract the userPic URL
           const userPicUrl = await this.imageService.getImage(userPicLocation);
           this.imageService.setProfilePicUrl(userPicUrl);
+          this.profilePictureUrl = this.imageService.getProfilePicUrl();
         }
       });
 
       console.log(updatedUser);
       this.profileService.updateUserData(updatedUser);
-
-      console.log(updatedUser.userPic);
-      this.profilePictureUrl = this.imageService.getProfilePicUrl();
-
-      //
       this.authService.updateCurrentUser(updatedUser);
+      this.closeDialog();
     } catch (error) {
       // Handle error if the backend update fails
       console.error('Error updating profile picture:', error);
