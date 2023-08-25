@@ -25,6 +25,15 @@
   flex-shrink: 0;
 }
 
+.post-details {
+  flex-grow: 1;
+}
+.user-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .image-container {
   width: 60%;
   height: 60%;
@@ -35,6 +44,8 @@
   margin-left: 15%;
   justify-content: center;
   border: 1px solid rgb(235, 235, 235);
+  margin-top: 16px;
+  margin-bottom: 1em;
 }
 
 .image-container img {
@@ -43,8 +54,9 @@
   object-fit: contain;
 }
 
-.post-details {
-  flex-grow: 1;
+/* Add more space below the content */
+.content {
+  margin-bottom: 20px;
 }
 
 .username {
@@ -60,10 +72,13 @@
   hyphens: auto;
 }
 
-.timestamp {
-  margin: 0;
-  font-size: 12px;
-  color: #999;
+/* Provides spacing between the like button and the comments link */
+.like-section {
+  display: flex;
+  align-items: center;
+  gap: 10em;
+  justify-content: space-between;
+  margin-bottom: 1em;
 }
 
 .like-button {
@@ -100,71 +115,17 @@
   font-weight: bold;
 }
 
-/* Add more space below the content */
-.bio {
-  margin-bottom: 20px;
-}
-
-/* Provides spacing between the like button and the comments link */
-.like-section {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.like-section {
-  align-items: center;
-}
-
-/* Align comments in line with the like button */
-.comments-section {
-  align-items: center;
-}
-
-.like-buttons {
-  display: flex;
-}
-
-.like-link {
-  margin-left: 10px;
-  color: blue;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 100%;
-  margin-top: 16px;
-}
-
-.comment-link {
-  color: inherit;
-  text-decoration: none;
-}
-
-.comment-link:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.comment-row {
-  margin-bottom: 10px;
-}
-
-.comment-row p {
-  margin: 0;
-  padding: 5px 0;
-}
-
-.comment-row .see-all-comments {
+.see-all-comments {
+  color: slategray;
+  margin-left: auto;
+  padding-right: 3em;
   margin-top: 5px;
 }
 
-.comment-text {
-  margin: 0;
+.comments {
+  margin-bottom: 0.3em;
+  word-wrap: break-word; /* For older browsers */
+  overflow-wrap: break-word; /* Standard way */
 }
 
 .comment-link {
@@ -175,4 +136,10 @@
 .comment-link:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+.timestamp {
+  margin: 0;
+  font-size: 12px;
+  color: slategray;
 }

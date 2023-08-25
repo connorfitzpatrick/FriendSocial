@@ -78,13 +78,13 @@ export class NewPostComponent implements OnInit {
         });
 
       const user = this.authService.currentUserSubject.getValue();
-
       const newPost = [
         post,
         user?.userPic,
         user?.handle,
         user?.firstName,
         user?.lastName,
+        0,
       ];
 
       const currentPosts = this.postService.postsSubject.getValue();
