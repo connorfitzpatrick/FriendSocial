@@ -1,6 +1,6 @@
 <div class="post-container">
   <div class="post-content">
-    <img [src]="userPicUrl" alt="Profile Picture" class="profile-picture" />
+    <img [src]="userPicUrl" class="profile-picture" />
     <div class="post-details">
       <div class="user-info">
         <!-- New container div -->
@@ -52,7 +52,11 @@
                 >{{ comment[1] }}</a
               >:</strong
             >
-            {{ comment[0].content }}
+            {{
+              comment[0].content.length > 150
+                ? (comment[0].content | slice: 0:150) + "..."
+                : comment[0].content
+            }}
           </p>
           <!-- Display other comment properties as needed -->
         </div>

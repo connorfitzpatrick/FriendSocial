@@ -65,6 +65,11 @@ mat-dialog-content {
   font-weight: bold;
 }
 
+.comment-wrapper {
+  display: flex;
+  align-items: flex-start; /* Align items to the top to ensure correct alignment */
+}
+
 .comment-text {
   margin: 0;
   word-wrap: break-word; /* For older browsers */
@@ -74,11 +79,18 @@ mat-dialog-content {
 .comment-link {
   color: inherit; /* Inherit color from the parent element (no default blue color) */
   text-decoration: none; /* Remove default underline */
+  margin-right: 20px; /* Adjust the margin as needed */
 }
 
 .comment-link:hover {
   text-decoration: underline; /* Add underline on hover */
   cursor: pointer; /* Show pointer cursor on hover */
+}
+
+.comment-content {
+  margin-left: 20px; /* Add left margin to indent the comment content */
+  word-wrap: break-word; /* For older browsers */
+  overflow-wrap: break-word; /* Standard way */
 }
 
 .add-comment-section {
