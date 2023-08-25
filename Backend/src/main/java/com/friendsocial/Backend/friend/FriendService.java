@@ -4,7 +4,9 @@ import com.friendsocial.Backend.user.User;
 import com.friendsocial.Backend.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +30,8 @@ public class FriendService {
   public List<Friend> getFriendsOfUserById(Long userId) {
     List<Friend> friendList = friendRepository.findFriendsOfUserId(userId);
     if (friendList.isEmpty()){
-      throw new IllegalArgumentException("No friendships found");
+      Logger.getLogger(FriendService.class.getName()).log(Level.INFO, "No likes found on post with userId: " + userId);
+      return new ArrayList<>();
     }
     return friendList;
   }
@@ -41,10 +44,15 @@ public class FriendService {
   public Friend addNewFriend(Long userId, Long friendId, Friend friendRequest) {
     Optional<User> userOptional = userRepository.findById(userId);
     Optional<User> friendOptional = userRepository.findById(friendId);
-    // Add to User table
-    if (userOptional.isEmpty() || friendOptional.isEmpty()) {
-      // Handle case when user is not found
-      throw new IllegalArgumentException("Friendship not found");
+
+    // Check if user or friend exists
+    if (userOptional.isEmpty()) {
+      Logger.getLogger(FriendService.class.getName()).log(Level.INFO, "User with with userId: " + userId + " does not exist");
+      throw new IllegalArgumentException("Invalid user ID provided");
+    }
+    if (friendOptional.isEmpty()) {
+      Logger.getLogger(FriendService.class.getName()).log(Level.INFO, "User with with userId: " + friendId + " does not exist");
+      throw new IllegalArgumentException("Invalid user ID provided");
     }
 
     // Will be needed to associate this friendship with the user
@@ -63,16 +71,11 @@ public class FriendService {
     boolean exists = friendRepository.existsById(friendshipId);
     if (!exists) {
       throw new IllegalStateException(
-              "User with id " + friendshipId + " does not exist"
+              "Friendship with id " + friendshipId + " does not exist"
       );
     }
 
     Optional<Friend> user = friendRepository.findById(friendshipId);
-    long userId = user.get().getUser().getId();
-    long friendId = user.get().getFriend().getId();
-
-
-//    friendRepository.deleteReferencesInUserFriendsTable(userId, friendId);
     friendRepository.deleteById(friendshipId);
   }
 

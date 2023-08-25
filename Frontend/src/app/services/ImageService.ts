@@ -13,7 +13,7 @@ export class ImageService {
 
   uploadImage(selectedImage: File): Observable<any> {
     const apiUrl = `http://localhost:8080/api/v1/upload`;
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -29,7 +29,7 @@ export class ImageService {
   }
 
   async getImage(fileName: string): Promise<string> {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

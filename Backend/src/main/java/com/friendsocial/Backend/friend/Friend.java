@@ -21,13 +21,6 @@ public class Friend {
   @JoinColumn(name = "friend_id")
   private User friend;
 
-//  @JoinColumn(name = "user_id")
-//  private User user;
-//
-//  @ManyToOne
-//  @JoinColumn(name = "friend_id")
-//  private User friend;
-
   @Column(name = "start_date")
   private LocalDate startDate;
 

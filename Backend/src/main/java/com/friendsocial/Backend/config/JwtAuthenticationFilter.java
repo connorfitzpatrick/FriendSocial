@@ -14,14 +14,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-import java.io.BufferedReader;
 import java.io.IOException;
 
 /*
 When a request comes in it is first processed in this class.
  */
-
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -37,6 +34,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   ) throws ServletException, IOException {
     final String authHeader = request.getHeader("Authorization");
     final String jwtToken;
+    final String refreshToken;
     final String userEmail;
 
     if (authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -44,8 +42,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       filterChain.doFilter(request, response);
       return;
     }
-
     jwtToken = authHeader.substring(7);
+    refreshToken = request.getHeader("Refresh-Token");
+    System.out.println("jwtToken: " + jwtToken);
+    System.out.println("refreshToken: " + refreshToken);
 
     // the try-catch is necessary to get a 401 ERROR if the token is expired. token is no longer
     // valid, and parsing its claims is not possible, resulting in the exception being thrown.
@@ -63,6 +63,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // If user does not have an active authentication token yet...
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
         if (jwtService.isTokenValid(jwtToken, userDetails)) {
+          if (refreshToken != null && jwtService.isTokenValid(refreshToken, userDetails)) {
+            // Generate a new access token and include it in the response
+            String newAccessToken = jwtService.generateRefreshToken(userDetails);
+            response.setHeader("New-Access-Token", newAccessToken);
+          }
+
           UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                   userDetails,
                   null,
@@ -72,9 +78,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
           SecurityContextHolder.getContext().setAuthentication(authToken);
         }
       }
-      System.out.println("Token: " + jwtToken);
       filterChain.doFilter(request, response);
-      System.out.println("Token: " + jwtToken);
 
     } catch (ExpiredJwtException ex) {
       System.out.println("Token expired: " + ex.getMessage());

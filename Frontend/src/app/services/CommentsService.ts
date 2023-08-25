@@ -19,7 +19,7 @@ export class CommentsService {
   fetchComments(postId: number): void {
     console.log(postId);
     const apiUrl = `http://localhost:8080/api/v1/comments/${postId}`;
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -50,7 +50,7 @@ export class CommentsService {
 
   getRecentComments(postId: number): Observable<any[]> {
     const apiUrl = `http://localhost:8080/api/v1/comments/${postId}/recent-comments`;
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -63,7 +63,7 @@ export class CommentsService {
   }
 
   async postComment(postId: number, commentContent: string) {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
     const timestamp = new Date();
     const myId = this.authService.getUserIdFromToken();
     console.log(commentContent);
@@ -110,7 +110,7 @@ export class CommentsService {
 
   async deleteComment(commentId: number, postId: number) {
     // we will need to get the ID of the like itself!!!!!!
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
 
     const httpOptions = {
       headers: new HttpHeaders({

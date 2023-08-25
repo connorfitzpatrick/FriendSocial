@@ -3,13 +3,15 @@ package com.friendsocial.Backend.post;
 // SERVICE LAYER
 //   - Handles business logic
 
+import com.friendsocial.Backend.friend.FriendService;
 import com.friendsocial.Backend.user.User;
 import com.friendsocial.Backend.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 // @Service allows Spring to detect beans (instances of objects) automatically.
 @Service
@@ -32,21 +34,19 @@ public class PostService {
   public List<Object[]> getPostsOfUserById(Long userId) {
     List<Object[]> postList = postRepository.findPostsOfUserId(userId);
     if (postList.isEmpty()){
-      throw new IllegalArgumentException("No posts found");
+      Logger.getLogger(FriendService.class.getName()).log(Level.INFO, "User with with userId: " + userId + " does not exist");
+      return null;
     }
     return postList;
   }
 
   // Business logic of Posting (adding) new user
   public Post addNewPost(Long userId, Post postRequest) {
-    System.out.println(postRequest);
-    System.out.println("SERVICE");
-
     Optional<User> userOptional = userRepository.findById(userId);
     // Add to User table
     if (userOptional.isEmpty()) {
       // Handle case when user is not found
-      throw new IllegalArgumentException("User not found");
+      throw new IllegalArgumentException("User with Id " + userId + " not found");
     }
 
     User user = userOptional.get();
@@ -61,7 +61,7 @@ public class PostService {
     boolean exists = postRepository.existsById(postId);
     if (!exists) {
       throw new IllegalStateException(
-              "User with id " + postId + " does not exist"
+              "Post with id " + postId + " does not exist"
       );
     }
     postRepository.deleteById(postId);

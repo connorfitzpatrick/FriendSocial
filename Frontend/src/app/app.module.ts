@@ -15,7 +15,6 @@ import { HomeComponent } from './components/home/home.component';
 import { SidemenuComponent } from './components/sidemenu/sidemenu.component';
 import { BlogPostComponent } from './components/blog-post/blog-post.component';
 import { FeedComponent } from './components/feed/feed.component';
-import { CommentRowComponent } from './components/comment-row/comment-row.component';
 import { CommentDialogComponent } from './components/comment-dialog/comment-dialog.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
@@ -36,7 +35,6 @@ import { SetupProfileDialogComponent } from './components/setup-profile-dialog/s
     SidemenuComponent,
     BlogPostComponent,
     FeedComponent,
-    CommentRowComponent,
     CommentDialogComponent,
     LoginFormComponent,
     ProfilePageComponent,

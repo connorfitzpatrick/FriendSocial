@@ -27,7 +27,8 @@ public class CorsConfig {
     config.setAllowedHeaders(Arrays.asList(
             HttpHeaders.AUTHORIZATION,
             HttpHeaders.CONTENT_TYPE,
-            HttpHeaders.ACCEPT));
+            HttpHeaders.ACCEPT,
+            "Refresh-Token"));
     config.setAllowedMethods(Arrays.asList(
             HttpMethod.GET.name(),
             HttpMethod.POST.name(),

@@ -15,7 +15,7 @@ export class PostService {
   constructor(private http: HttpClient) {}
 
   fetchPosts(): void {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -37,7 +37,7 @@ export class PostService {
   }
 
   fetchPostsByUserId(id: number): void {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ export class PostService {
     caption: string,
     imageUrl: string
   ) {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
     const timestamp = new Date();
     // console.log(imageUrl);
 

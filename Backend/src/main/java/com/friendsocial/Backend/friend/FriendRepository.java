@@ -15,13 +15,4 @@ public interface FriendRepository
 
     @Query("SELECT f FROM Friend f WHERE f.user.id = ?1 AND f.friend.id = ?2")
     Friend findIsFriendByIds(Long userId, Long friendId);
-
-//    @Modifying
-//    @Query("DELETE FROM UserFriend uf WHERE uf.user.id = :userId AND uf.friend.id = :friendId")
-//    void deleteReferencesInUserFriendsTable(@Param("userId") Long userId, @Param("friendId") Long friendId);
-
-//    System.out.println("userId: " + userId + " friendId: " + friendId);
-
-//    @Query("SELECT p FROM User p WHERE p.id = ?1")
-//    Optional<User> findById(Long id);
 }

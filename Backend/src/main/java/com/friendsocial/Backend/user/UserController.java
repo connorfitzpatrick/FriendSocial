@@ -10,13 +10,11 @@ import java.util.List;
 // This will have all of the resources for the API
 
 // API LAYER
-// -
 
 // UserController is used, but you need to go to that URL.
 @RestController
 @RequestMapping(path="api/v1/users")
 public class UserController {
-
   private final UserService userService;
 
   @Autowired
@@ -56,29 +54,6 @@ public class UserController {
     System.out.println("BEEEESSSSSSS " + handle);
     return userService.getUserByHandle(handle);
   }
-
-//  // GetUserPicById
-//  @GetMapping(path = "{userId}/user_pic")
-//  public ResponseEntity<Resource> getUserPic(@PathVariable Long id) {
-//    String imagePath = userService.getUserPicPathById(id);
-//    Resource imageResource = userService.loadUserPic(imagePath);
-//    if (imageResource != null && imageResource.exists()) {
-//      // Set the appropriate headers for the image response
-//      System.out.println("IMAGE FOUND!");
-//      HttpHeaders headers = new HttpHeaders();
-//      headers.setContentType(MediaType.IMAGE_JPEG);
-//      try {
-//        // Read the image data from the resource and return it in the response
-//        InputStream inputStream = imageResource.getInputStream();
-//        return new ResponseEntity<>(new InputStreamResource(inputStream), headers, HttpStatus.OK);
-//      } catch (IOException e) {
-//        // Handle the error if image data cannot be read
-//        e.printStackTrace();
-//      }
-//    }
-//    // Return an error response if the image is not found
-//    return ResponseEntity.notFound().build();
-//  }
 
   // POST (ADD) A USER
   // @RequestBody because we are taking the user that comes from the client. Take request and map to user

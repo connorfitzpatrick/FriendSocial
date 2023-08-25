@@ -14,7 +14,7 @@ export class ProfileService {
   constructor(private http: HttpClient, private postService: PostService) {}
 
   fetchLoggedInUserData(input: string): Observable<any> {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export class ProfileService {
   }
 
   updateUserData(updatedUser: any): void {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -47,8 +47,6 @@ export class ProfileService {
       .subscribe(
         (response) => {
           // Handle the response from the backend, e.g., show a success message or redirect to login page
-          // const token = response.token;
-          // localStorage.setItem('token', token);
           console.log('Update successful:', response);
           // this.router.navigate(['/home']);
         },

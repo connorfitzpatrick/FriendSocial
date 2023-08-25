@@ -5,7 +5,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.BeanUtils;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,9 +69,7 @@ public class UserService {
       throw new IllegalStateException("Another User is Already Using This Email");
     }
     // Add to User table
-    System.out.println("SO IT ENDS HERE??");
     User newUser = userRepository.save(user);
-    System.out.println("LETS FUCKING SEE");
     System.out.println(newUser);
 
     try {
@@ -96,7 +93,6 @@ public class UserService {
     BeanUtils.copyProperties(updatedUser, user);
     // Save the updated user back to the database
     User modifiedUser = userRepository.save(user);
-    System.out.println("FUCK THIS??");
 
     try {
       // Index the updated user in Elasticsearch
@@ -141,24 +137,4 @@ public class UserService {
       return new ArrayList<>(); // Return an empty list or handle the exception accordingly
     }
   }
-
 }
-
-//  public String getUserPicPathById(Long id) {
-//    Optional<User> userOptional = userRepository.findById(id);
-//    if (!userOptional.isPresent()) {
-//      throw new IllegalStateException("User is not in database");
-//    }
-//    return userOptional.get().getUserPic();
-//  }
-//
-//  public Resource loadUserPic(String imagePath) {
-//    try {
-//      Path path = Paths.get(imagePath);
-//      Resource imageResource = new FileSystemResource(path);
-//      return imageResource;
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//    }
-//    return null;
-//  }

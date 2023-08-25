@@ -31,7 +31,6 @@ public class SecurityConfiguration {
     return authProvider;
   }
 
-
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthFilter, AuthenticationProvider authenticationProvider) throws Exception {
     http

@@ -15,7 +15,7 @@ export class LikeService {
     console.log(postId);
 
     const apiUrl = `http://localhost:8080/api/v1/likes/${postId}`;
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -47,7 +47,7 @@ export class LikeService {
   }
 
   async postIsLiked(postId: number): Promise<number> {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
     const myId = await this.authService.getUserIdFromToken();
     var isLiked = -1;
 
@@ -73,7 +73,7 @@ export class LikeService {
   }
 
   async postLike(postId: number) {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
     const timestamp = new Date();
     const myId = this.authService.getUserIdFromToken();
 
@@ -116,7 +116,7 @@ export class LikeService {
 
   async deleteLike(postId: number) {
     // we will need to get the ID of the like itself!!!!!!
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
     const likeIdPromise = await this.postIsLiked(postId);
     const likeId = likeIdPromise;
 

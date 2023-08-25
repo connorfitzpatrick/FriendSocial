@@ -35,7 +35,7 @@ export class AuthGuard implements CanActivate {
   }
 
   private checkForToken(): boolean {
-    const token = localStorage.getItem('token'); // Assuming you store the token in local storage
+    const token = localStorage.getItem('authenticationToken'); // Assuming you store the token in local storage
     return !!token; // Return true if the token is not null, undefined, or an empty string
   }
 }

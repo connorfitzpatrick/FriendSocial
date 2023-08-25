@@ -1,8 +1,10 @@
 package com.friendsocial.Backend.auth;
 
+import com.friendsocial.Backend.config.JwtService;
 import com.friendsocial.Backend.config.TokenBlacklistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -15,7 +17,6 @@ public class AuthenticationController {
 
   private final AuthenticationService service;
   private final TokenBlacklistService tokenBlacklistService;
-
 
   @PostMapping("/register")
   public ResponseEntity<AuthenticationResponse> register (
@@ -31,11 +32,17 @@ public class AuthenticationController {
     return ResponseEntity.ok(service.authenticate(request));
   }
 
+  @PostMapping("/refresh")
+  public ResponseEntity<?> refreshTokens(
+          @RequestHeader("Authorization") String authorizationHeader) {
+    return ResponseEntity.ok(service.refresh(authorizationHeader));
+  }
+
   @PostMapping("/logout")
   public ResponseEntity<Map<String, String>> logout(@RequestHeader("Authorization") String authorizationHeader) {
-    System.out.println("LOGOUT TIME!!");
     String token = authorizationHeader.replace("Bearer ", "");
     tokenBlacklistService.addToBlacklist(token);
+    // will I have to add refresh token to blacklist as well?
     Map<String, String> response = new HashMap<>();
     response.put("message", "Logged out successfully.");
 

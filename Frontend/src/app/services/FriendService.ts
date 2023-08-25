@@ -16,7 +16,7 @@ export class FriendService {
 
   fetchFriends(userId: number) {
     const apiUrl = `http://localhost:8080/api/v1/friends/${userId}`;
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ export class FriendService {
   // create friendship with account
   async postFriend(userId: number | null, friendId?: number) {
     console.log('add friend');
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
     const timestamp = new Date();
 
     const requestBody = {
@@ -81,7 +81,7 @@ export class FriendService {
       friendId
     );
     if (id !== -1) {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('authenticationToken');
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ export class FriendService {
 
   // Check if the logged in user is currently friends with a profile or not
   async checkFriendStatus(userId?: number | null, friendId?: number) {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -141,7 +141,7 @@ export class FriendService {
   }
 
   searchFriends(prefix: string): Observable<string[]> {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

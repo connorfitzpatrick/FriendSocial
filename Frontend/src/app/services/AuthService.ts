@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import jwt_decode from 'jwt-decode';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, of, tap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { User } from '../models/profile.model';
@@ -40,8 +40,10 @@ export class AuthService {
         )
         .toPromise();
 
-      const token = response.token;
-      localStorage.setItem('token', token);
+      const authToken = response.authenticationToken;
+      localStorage.setItem('authenticationToken', authToken);
+      const refreshToken = response.refreshToken;
+      localStorage.setItem('refreshToken', refreshToken);
 
       const fetchedUser = await this.profileService
         .fetchLoggedInUserData(credentials.username)
@@ -85,8 +87,10 @@ export class AuthService {
         )
         .toPromise();
 
-      const token = response.token;
-      localStorage.setItem('token', token);
+      const authToken = response.authenticationToken;
+      localStorage.setItem('authenticationToken', authToken);
+      const refreshToken = response.refreshToken;
+      localStorage.setItem('refreshToken', refreshToken);
 
       const fetchedUser = await this.profileService
         .fetchLoggedInUserData(user.handle)
@@ -108,8 +112,43 @@ export class AuthService {
     }
   }
 
+  refreshToken() {
+    // or use a more specific type if possible
+    const storedRefreshToken = localStorage.getItem('refreshToken');
+    console.log('Stored Refresh Token:', storedRefreshToken);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('refreshToken')}`,
+        'Refresh-Token': localStorage.getItem('refreshToken') || 'null', // Assuming you're using the same token; adjust as needed.
+      }),
+    };
+
+    const response = this.http
+      .post<any>('http://localhost:8080/api/v1/auth/refresh', {}, httpOptions)
+      .pipe(
+        tap((response) => {
+          localStorage.setItem(
+            'authenticationToken',
+            response.authenticationToken
+          );
+          console.log(response);
+          // console.log(response.authenticationToken);
+          // console.log(response.refreshToken);
+          // localStorage.setItem('refreshToken', response.refreshToken);
+        }),
+        catchError((error) => {
+          console.error('Refresh token failed:', error);
+          return of(null); // return a safe fallback value, could be 'throwError(error)' if you want to propagate the error
+        })
+      );
+    console.log(response);
+    return response;
+  }
+
   getUserIdFromToken(): number {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
     if (token) {
       const decodedToken: any = jwt_decode(token);
       return decodedToken.userId;
@@ -119,7 +158,7 @@ export class AuthService {
 
   // Grabs the username/email from the authentication token
   getHandle(): string {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
     if (token) {
       const decodedToken: any = jwt_decode<any>(token);
       return decodedToken.handle;
@@ -144,13 +183,14 @@ export class AuthService {
   }
 
   async logout() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authenticationToken');
     const httpOptions = {
       headers: new HttpHeaders({
         Authorization: `Bearer ${token}`,
       }),
     };
-    localStorage.removeItem('token');
+    localStorage.removeItem('authenticationToken');
+    localStorage.removeItem('refreshToken');
     localStorage.removeItem('setupDialogShown');
     this.imageService.setProfilePicUrl(null);
 
