@@ -61,6 +61,8 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;
+  min-height: 3em;
+  max-height: 12em;
 }
 
 .dialog-buttons {
