@@ -80,8 +80,8 @@
 }
 
 .like-button.liked {
-  background-color: white;
-  color: blue;
+  background-color: Gainsboro;
+  color: black;
 }
 
 .like-button.liked:hover {
@@ -89,7 +89,7 @@
 }
 
 .like-button:hover {
-  background-color: darkblue;
+  background-color: #0f52ba;
 }
 
 .like-icon {
@@ -100,22 +100,25 @@
   font-weight: bold;
 }
 
+/* Add more space below the content */
 .bio {
-  margin-bottom: 20px; /* Add more space below the content */
+  margin-bottom: 20px;
 }
 
+/* Provides spacing between the like button and the comments link */
 .like-section {
   display: flex;
   align-items: center;
-  gap: 10px; /* Provides spacing between the like button and the comments link */
+  gap: 10px;
 }
 
 .like-section {
   align-items: center;
 }
 
+/* Align comments in line with the like button */
 .comments-section {
-  align-items: center; /* Align comments in line with the like button */
+  align-items: center;
 }
 
 .like-buttons {

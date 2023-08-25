@@ -42,15 +42,10 @@
   color: white;
 }
 
-.logout-button.liked {
-  background-color: white;
-  color: blue;
-}
-
 .logout-button.liked:hover {
   background-color: lightgray;
 }
 
 .logout-button:hover {
-  background-color: darkblue;
+  background-color: #0f52ba;
 }
