@@ -13,13 +13,6 @@
   overflow-y: auto;
 }
 
-.dialog-buttons {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-}
-
 .overlay {
   position: fixed;
   top: 0;
@@ -74,15 +67,16 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 0;
   position: sticky;
   bottom: 0;
   z-index: 1;
+  justify-content: space-between;
+  padding: 10px 20px;
 }
 
 .button-wrapper {
   display: flex;
-  gap: 20px; /* Adjust gap as needed */
+  gap: 30px; /* Adjust gap as needed */
 }
 
 .edit-button {
@@ -98,4 +92,13 @@ textarea {
 
 .edit-button:hover {
   background-color: darkblue;
+}
+
+.cancel-button {
+  background-color: lightgray; /* Light gray color for cancel button */
+  color: black; /* Text color for cancel button */
+}
+
+.cancel-button:hover {
+  background-color: darkgray; /* Darker gray for hover effect */
 }

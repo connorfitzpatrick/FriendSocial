@@ -30,7 +30,13 @@
 
   <div class="dialog-buttons">
     <div class="button-wrapper">
-      <button type="button" class="edit-button" (click)="cancel()">Skip</button>
+      <button
+        type="button"
+        class="edit-button cancel-button"
+        (click)="cancel()"
+      >
+        Skip
+      </button>
       <button type="button" class="edit-button" (click)="applyChanges()">
         Apply
       </button>
