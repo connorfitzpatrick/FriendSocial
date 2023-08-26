@@ -17,15 +17,15 @@ export class AppComponent implements OnInit {
   title = 'Friends150';
 
   ngOnInit(): void {
-    const handle = this.authService.getHandle();
-    // Fetch the user data and update the currentUserSubject
-    this.profileService.fetchLoggedInUserData(handle).subscribe(
-      (user: User) => {
-        this.authService.currentUserSubject.next(user);
-      },
-      (error) => {
-        console.error('Error fetching user data:', error);
-      }
-    );
+    // const handle = this.authService.getHandle();
+    // // Fetch the user data and update the currentUserSubject
+    // this.profileService.fetchLoggedInUserData(handle).subscribe(
+    //   (user: User) => {
+    //     this.authService.currentUserSubject.next(user);
+    //   },
+    //   (error) => {
+    //     console.error('Error fetching user data:', error);
+    //   }
+    // );
   }
 }

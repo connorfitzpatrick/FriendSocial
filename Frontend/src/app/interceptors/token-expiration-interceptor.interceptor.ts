@@ -9,10 +9,17 @@ import {
 import { Router } from '@angular/router';
 import { AuthService } from '../services/AuthService';
 import { catchError, switchMap } from 'rxjs/operators';
-import { throwError, Observable } from 'rxjs';
+import { throwError, Observable, BehaviorSubject } from 'rxjs';
+import { filter } from 'rxjs';
+import { take } from 'rxjs';
 
 @Injectable()
 export class TokenExpirationInterceptor implements HttpInterceptor {
+  private isRefreshing = false;
+  private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(
+    null
+  );
+
   constructor(private router: Router, private authService: AuthService) {}
 
   intercept(
@@ -21,31 +28,47 @@ export class TokenExpirationInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 401) {
-          // Unauthorized
-          return this.authService.refreshToken().pipe(
-            switchMap(() => {
-              // Clone the original request and set the new token
-              const newRequest = req.clone({
-                headers: req.headers.set(
-                  'Authorization',
-                  `Bearer ${localStorage.getItem('refreshToken')}`
-                ),
-              });
-              console.log(localStorage.getItem('refreshToken'));
-              console.log(newRequest);
-              return next.handle(newRequest);
-            }),
-            catchError((refreshError) => {
-              console.error('Refresh token failed:', refreshError);
-              // If refreshing the token also fails, logout and redirect to the login page
-              this.router.navigate(['/login']);
-              return throwError(refreshError);
-            })
-          );
+        if (error.status === 401 && !req.url.includes('/auth/refresh')) {
+          if (this.isRefreshing) {
+            // If another request is already refreshing the token, wait for it to complete
+            return this.refreshTokenSubject.pipe(
+              filter((result) => result !== null),
+              take(1),
+              switchMap(() => next.handle(this.addTokenToRequest(req)))
+            );
+          } else {
+            this.isRefreshing = true;
+            this.refreshTokenSubject.next(null);
+
+            return this.authService.refreshToken().pipe(
+              switchMap((refreshResponse) => {
+                this.isRefreshing = false;
+                this.refreshTokenSubject.next(refreshResponse);
+                return next.handle(this.addTokenToRequest(req));
+              }),
+              catchError((refreshError) => {
+                this.isRefreshing = false;
+                console.error('Refresh token failed:', refreshError);
+                this.router.navigate(['/login']);
+                return throwError(refreshError);
+              })
+            );
+          }
         }
         return throwError(error);
       })
     );
+  }
+
+  private addTokenToRequest(req: HttpRequest<any>): HttpRequest<any> {
+    const authToken = localStorage.getItem('authenticationToken');
+    if (authToken) {
+      return req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+    }
+    return req;
   }
 }

@@ -42,6 +42,7 @@ export class AuthService {
 
       const authToken = response.authenticationToken;
       localStorage.setItem('authenticationToken', authToken);
+      this.setLoggedInUserData();
       const refreshToken = response.refreshToken;
       localStorage.setItem('refreshToken', refreshToken);
 
@@ -89,6 +90,7 @@ export class AuthService {
 
       const authToken = response.authenticationToken;
       localStorage.setItem('authenticationToken', authToken);
+      this.setLoggedInUserData();
       const refreshToken = response.refreshToken;
       localStorage.setItem('refreshToken', refreshToken);
 
@@ -140,6 +142,7 @@ export class AuthService {
         }),
         catchError((error) => {
           console.error('Refresh token failed:', error);
+          this.router.navigate(['/login']);
           return of(null); // return a safe fallback value, could be 'throwError(error)' if you want to propagate the error
         })
       );
@@ -164,6 +167,19 @@ export class AuthService {
       return decodedToken.handle;
     }
     return '';
+  }
+
+  setLoggedInUserData() {
+    const handle = this.getHandle();
+    // Fetch the user data and update the currentUserSubject
+    this.profileService.fetchLoggedInUserData(handle).subscribe(
+      (user: User) => {
+        this.currentUserSubject.next(user);
+      },
+      (error) => {
+        console.error('Error fetching user data:', error);
+      }
+    );
   }
 
   // Confirms whether the profile being routed to is owned by current user

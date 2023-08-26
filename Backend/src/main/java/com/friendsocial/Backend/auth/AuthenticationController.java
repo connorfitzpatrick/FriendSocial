@@ -1,10 +1,8 @@
 package com.friendsocial.Backend.auth;
 
-import com.friendsocial.Backend.config.JwtService;
 import com.friendsocial.Backend.config.TokenBlacklistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
