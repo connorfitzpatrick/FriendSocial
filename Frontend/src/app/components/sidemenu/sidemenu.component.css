@@ -24,6 +24,6 @@
 }
 
 .nav-link.active {
-  background-color: rgb(17, 137, 224); /* Set the active color */
-  color: #fff; /* Set the text color for active menu item */
+  background-color: rgb(17, 137, 224);
+  color: #fff;
 }

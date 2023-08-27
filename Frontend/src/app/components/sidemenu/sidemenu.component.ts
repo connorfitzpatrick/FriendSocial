@@ -37,7 +37,7 @@ export class SidemenuComponent implements OnInit {
       if (user) {
         console.log(user);
         console.log('user def above');
-        const userPicLocation = user.userPic; // Extract the userPic URL
+        const userPicLocation = user.userPic;
         const userPicUrl = await this.imageService.getImage(userPicLocation);
         this.imageService.setProfilePicUrl(userPicUrl);
       }

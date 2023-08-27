@@ -17,7 +17,7 @@ export class LoginFormComponent {
   handle: string = '';
   password: string = '';
   dateJoined: number = Date.now();
-  today: string; // To set the maximum date allowed
+  today: string;
   role: String = 'USER';
   bio: String | null = null;
   userPic: String | null = 'NullProfilePic.png';

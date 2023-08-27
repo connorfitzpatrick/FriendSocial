@@ -58,7 +58,8 @@ export class BlogPostComponent implements OnInit {
     }
 
     const currentDate = new Date();
-    const postDate = new Date(parseInt(timestamp) * 1000); // Convert seconds to milliseconds
+    // Convert seconds to milliseconds
+    const postDate = new Date(parseInt(timestamp) * 1000);
     const difference = currentDate.getTime() - postDate.getTime();
 
     // Define the time intervals in milliseconds

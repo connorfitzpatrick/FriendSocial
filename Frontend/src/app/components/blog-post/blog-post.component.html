@@ -3,7 +3,6 @@
     <img [src]="userPicUrl" class="profile-picture" />
     <div class="post-details">
       <div class="user-info">
-        <!-- New container div -->
         <h3 class="username">{{ post[3] }} {{ post[4] }}</h3>
         <p class="timestamp">Posted {{ formatDate(post[0].timestamp) }}</p>
       </div>
@@ -42,7 +41,6 @@
         </div>
       </div>
       <div class="comment-section" *ngIf="recentComments.length > 0">
-        <!-- <p class="c"><strong>Comments:</strong></p> -->
         <div *ngFor="let comment of recentComments">
           <p class="comments">
             <strong

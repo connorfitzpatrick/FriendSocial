@@ -1,5 +1,5 @@
 mat-dialog-content {
-  max-width: 100%; /* or whatever maximum width you want */
+  max-width: 100%;
 }
 
 .comment-dialog-container {
@@ -34,8 +34,8 @@ mat-dialog-content {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1000; /* Adjust the z-index value as needed */
-  background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .comment-container {
@@ -48,8 +48,8 @@ mat-dialog-content {
 .user-info {
   display: flex;
   align-items: center;
-  word-wrap: break-word; /* For older browsers */
-  overflow-wrap: break-word; /* Standard way */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .user-picture {
@@ -67,30 +67,30 @@ mat-dialog-content {
 
 .comment-wrapper {
   display: flex;
-  align-items: flex-start; /* Align items to the top to ensure correct alignment */
+  align-items: flex-start;
 }
 
 .comment-text {
   margin: 0;
-  word-wrap: break-word; /* For older browsers */
-  overflow-wrap: break-word; /* Standard way */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .comment-link {
-  color: inherit; /* Inherit color from the parent element (no default blue color) */
-  text-decoration: none; /* Remove default underline */
-  margin-right: 20px; /* Adjust the margin as needed */
+  color: inherit;
+  text-decoration: none;
+  margin-right: 20px;
 }
 
 .comment-link:hover {
-  text-decoration: underline; /* Add underline on hover */
-  cursor: pointer; /* Show pointer cursor on hover */
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .comment-content {
-  margin-left: 20px; /* Add left margin to indent the comment content */
-  word-wrap: break-word; /* For older browsers */
-  overflow-wrap: break-word; /* Standard way */
+  margin-left: 20px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .add-comment-section {
@@ -122,7 +122,7 @@ mat-dialog-content {
 .delete-button {
   position: absolute;
   top: 50%;
-  right: 0; /* Align the button to the right */
+  right: 0;
   transform: translateY(-50%);
   width: 30px;
   height: 30px;

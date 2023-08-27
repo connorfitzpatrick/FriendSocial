@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ElementRef,
-  HostListener,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/AuthService';
 import { ProfileService } from '../../services/ProfileService';
 import { User } from '../../models/profile.model';

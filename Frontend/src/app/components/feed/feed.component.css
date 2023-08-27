@@ -3,7 +3,6 @@
   right: 0;
   bottom: 0;
   overflow-y: auto;
-  /* background-color: rgb(210, 219, 226); */
   background-color: rgb(210, 219, 226);
   box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.1);
   min-height: 90vh;

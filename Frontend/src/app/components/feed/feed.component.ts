@@ -3,7 +3,7 @@ import { PostService } from '../../services/PostService';
 import { User } from '../../models/profile.model';
 import { AuthService } from '../../services/AuthService';
 import { ImageService } from '../../services/ImageService';
-import { ElementRef, AfterViewInit } from '@angular/core';
+import { AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-feed',
@@ -23,9 +23,7 @@ export class FeedComponent implements OnInit, AfterViewInit {
   constructor(
     public postService: PostService,
     private authService: AuthService,
-    private renderer: Renderer2,
-    private imageService: ImageService,
-    private elementRef: ElementRef
+    private imageService: ImageService
   ) {}
 
   async ngOnInit() {
@@ -58,28 +56,23 @@ export class FeedComponent implements OnInit, AfterViewInit {
           .filter((post) => post.userId === this.userId)
           .map((post) => ({
             ...post,
-            userPic: this.user?.userPic, // Set the userPic property for each post object
+            userPic: this.user?.userPic,
           }));
       });
-      this.postService.fetchPostsByUserId(this.userId); // Trigger the fetching of posts by userId
+      this.postService.fetchPostsByUserId(this.userId, page);
     } else {
       // Default behavior, get all posts
-      this.postService.fetchPosts(page); // Trigger the fetching of all posts
+      this.postService.fetchPosts(page);
     }
   }
 
   onScroll(event: any): void {
-    console.log('onScroll');
-
     // Vertical pixels scrolled
     const scrolled = window.scrollY;
-
     // Full height of the window's content
     const fullHeight = document.documentElement.scrollHeight;
-
     // Height of the visible window
     const windowHeight = window.innerHeight;
-
     // Check if we've scrolled to the bottom
     if (Math.ceil(scrolled + windowHeight) >= fullHeight) {
       this.currentPage++;

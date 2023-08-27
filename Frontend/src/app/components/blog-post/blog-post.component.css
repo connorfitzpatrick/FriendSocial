@@ -54,7 +54,6 @@
   object-fit: contain;
 }
 
-/* Add more space below the content */
 .content {
   margin-bottom: 20px;
 }
@@ -72,7 +71,6 @@
   hyphens: auto;
 }
 
-/* Provides spacing between the like button and the comments link */
 .like-section {
   display: flex;
   align-items: center;
@@ -124,8 +122,8 @@
 
 .comments {
   margin-bottom: 0.3em;
-  word-wrap: break-word; /* For older browsers */
-  overflow-wrap: break-word; /* Standard way */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .comment-link {

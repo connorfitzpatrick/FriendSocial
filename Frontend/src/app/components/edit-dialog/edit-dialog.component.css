@@ -1,7 +1,6 @@
 .dialog-container {
   display: flex;
   align-items: center;
-
   flex-direction: column;
   max-height: calc(100vh - 50px);
   height: 100%;
@@ -78,12 +77,12 @@ textarea {
 
 .button-wrapper {
   display: flex;
-  gap: 30px; /* Adjust gap as needed */
+  gap: 30px;
 }
 
 .edit-button {
-  flex: 1; /* Equal width */
-  padding: 8px 28px; /* Adjust padding as needed */
+  flex: 1;
+  padding: 8px 28px;
   background-color: rgb(17, 137, 224);
   color: white;
   border: none;
@@ -97,10 +96,10 @@ textarea {
 }
 
 .cancel-button {
-  background-color: lightgray; /* Light gray color for cancel button */
-  color: black; /* Text color for cancel button */
+  background-color: lightgray;
+  color: black;
 }
 
 .cancel-button:hover {
-  background-color: darkgray; /* Darker gray for hover effect */
+  background-color: darkgray;
 }
