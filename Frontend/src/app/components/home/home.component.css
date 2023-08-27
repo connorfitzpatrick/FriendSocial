@@ -1,9 +1,8 @@
-.body-container {
+/* .body-container {
   display: flex;
   flex: 1;
-  position: relative;
   padding-top: 15px;
-  overflow: hidden;
+  overflow: auto;
 }
 
 header {
@@ -20,23 +19,53 @@ main {
   flex-direction: column;
   min-height: 100vh;
   background-color: rgb(210, 219, 226);
+  overflow: auto;
 }
 
 .sidemenu-container {
-  /* Adjust the width as per your requirements */
   position: fixed;
-  top: 50px; /* Adjust the top value to match the height of the header */
+  top: 50px;
   left: 0;
-  bottom: 0; /* Stretch the sidemenu container to the bottom of the viewport */
+  bottom: 0;
   z-index: 1;
   background-color: #f1f1f1;
 }
 
-/* .content-container {
-  flex: 1;
-  margin-left: 280px;
-  background-color: rgb(210, 219, 226);
-  position: relative;
-  z-index: 0; 
-} 
-*/
+.content-container {
+  overflow: auto;
+} */
+
+/* home.component.css */
+
+/* For flexbox container */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 10vh;
+  /* background-color: rgb(210, 219, 226); */
+}
+
+.header {
+  height: 10vh;
+  width: 100%;
+  z-index: 2;
+}
+
+.body-container {
+  flex: 1; /* Fill remaining height */
+  display: flex;
+  flex-direction: row;
+  overflow: hidden; /* Hide scrollbars */
+}
+
+.sidemenu-container {
+  flex-basis: 20%; /* Take up 20% width */
+  height: 100%;
+  position: sticky;
+  /* top: 10vh; To start below the header */
+}
+
+.content-container {
+  flex: 1; /* Fill remaining width */
+  overflow-y: auto; /* Add vertical scrollbar */
+}

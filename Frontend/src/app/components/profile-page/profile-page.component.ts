@@ -28,6 +28,17 @@ export class ProfilePageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.username = this.authService.getHandle();
+    // Fetch the user data and update the currentUserSubject
+    this.profileService.fetchLoggedInUserData(this.username).subscribe(
+      (user: User) => {
+        this.authService.currentUserSubject.next(user);
+      },
+      (error) => {
+        console.error('Error fetching user data:', error);
+      }
+    );
+
     // Get the username from the route parameters
     this.route.params.subscribe((params) => {
       this.username = params['handle'];

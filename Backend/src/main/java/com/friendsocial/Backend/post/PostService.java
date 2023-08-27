@@ -8,6 +8,8 @@ import com.friendsocial.Backend.user.User;
 import com.friendsocial.Backend.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -26,15 +28,22 @@ public class PostService {
   }
 
   // Business logic of getting all users. Just get them all.
-  public List<Object[]> getPosts() {
-    return postRepository.findPostsAndUserInfo();
+//  public List<Object[]> getPosts() {
+//    return postRepository.findPostsAndUserInfo();
+//  }
+
+  public List<Object[]> getPosts(int page, int size) {
+    Pageable pageable = PageRequest.of(page, size);
+    return postRepository.findPostsAndUserInfo(pageable);
   }
 
   // Business logic of getting all friendships that are associated with an user
-  public List<Object[]> getPostsOfUserById(Long userId) {
-    List<Object[]> postList = postRepository.findPostsOfUserId(userId);
+  public List<Object[]> getPostsOfUserById(Long userId, int page, int size) {
+    Pageable pageable = PageRequest.of(page, size);
+    List<Object[]> postList = postRepository.findPostsOfUserId(userId, pageable);
     if (postList.isEmpty()){
-      Logger.getLogger(FriendService.class.getName()).log(Level.INFO, "User with with userId: " + userId + " does not exist");
+      Logger.getLogger(FriendService.class.getName()).log(Level.INFO, "User with with userId: " + userId
+              + " has no posts");
       return null;
     }
     return postList;

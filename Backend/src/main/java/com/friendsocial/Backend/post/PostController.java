@@ -31,14 +31,25 @@ public class PostController {
 
   // GET ALL POSTS
   // Get mapping because we want to get something out from our server
+  //  @GetMapping
+  //  public List<Object[]> getPosts() {
+  //    return postService.getPosts();
+  //  }
+
   @GetMapping
-  public List<Object[]> getPosts() {
-    return postService.getPosts();
+  public List<Object[]> getPosts(
+          @RequestParam(defaultValue = "0") int page,
+          @RequestParam(defaultValue = "5") int size
+  ) {
+    return postService.getPosts(page, size);
   }
 
   @GetMapping(path = "{userId}")
-  public List<Object[]> getFriends(@PathVariable("userId") Long id) {
-    return postService.getPostsOfUserById(id);
+  public List<Object[]> getFriends(@PathVariable("userId") Long id,
+                                   @RequestParam(defaultValue = "0") int page,
+                                   @RequestParam(defaultValue = "5") int size
+  ) {
+    return postService.getPostsOfUserById(id, page, size);
   }
 
   // POST (ADD) A Post

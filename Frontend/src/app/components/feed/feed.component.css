@@ -1,10 +1,10 @@
 .app-feed {
-  position: absolute;
-  top: 10vh; /* To start below the header */
-  left: 250px; /* Width of the side menu */
+  position: relative;
   right: 0;
   bottom: 0;
-  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-y: auto;
+  /* background-color: rgb(210, 219, 226); */
   background-color: rgb(210, 219, 226);
-  box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.1); /* To match the side menu shadow */
+  box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.1);
+  min-height: 90vh;
 }

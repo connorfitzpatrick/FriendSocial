@@ -7,6 +7,8 @@ import {
 } from '@angular/core';
 import { AuthService } from '../../services/AuthService';
 import { FriendService } from '../../services/FriendService';
+import { ProfileService } from '../../services/ProfileService';
+import { User } from '../../models/profile.model';
 
 @Component({
   selector: 'app-friends-list',
@@ -22,11 +24,22 @@ export class FriendsListComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private profileService: ProfileService,
     public friendService: FriendService,
     private elementRef: ElementRef
   ) {}
 
   ngOnInit() {
+    const handle = this.authService.getHandle();
+    // Fetch the user data and update the currentUserSubject
+    this.profileService.fetchLoggedInUserData(handle).subscribe(
+      (user: User) => {
+        this.authService.currentUserSubject.next(user);
+      },
+      (error) => {
+        console.error('Error fetching user data:', error);
+      }
+    );
     const userId = this.authService.getUserIdFromToken();
     this.friendService.fetchFriends(userId);
     this.friendService.friends$.subscribe((friends) => {

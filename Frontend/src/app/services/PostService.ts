@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 
@@ -14,7 +14,7 @@ export class PostService {
 
   constructor(private http: HttpClient) {}
 
-  fetchPosts(): void {
+  fetchPosts(page: number = 0, size: number = 5): void {
     const token = localStorage.getItem('authenticationToken');
 
     const httpOptions = {
@@ -22,12 +22,20 @@ export class PostService {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       }),
+      params: new HttpParams()
+        .set('page', String(page))
+        .set('size', String(size)),
     };
 
     this.http.get<any[]>(this.apiUrl, httpOptions).subscribe(
       (posts) => {
         // Update the BehaviorSubject with new posts
-        this.postsSubject.next(posts);
+        //this.postsSubject.next(posts);
+        const currentPosts = this.postsSubject.value;
+        this.postsSubject.next([
+          ...(Array.isArray(currentPosts) ? currentPosts : []),
+          ...posts,
+        ]);
       },
       (error) => {
         console.error('Error fetching posts information:', error);
@@ -36,18 +44,25 @@ export class PostService {
     console.log(this.postsSubject);
   }
 
-  fetchPostsByUserId(id: number): void {
+  fetchPostsByUserId(id: number, page: number = 0, size: number = 5): void {
     const token = localStorage.getItem('authenticationToken');
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       }),
+      params: new HttpParams()
+        .set('page', String(page))
+        .set('size', String(size)),
     };
     this.http.get<any[]>(`${this.apiUrl}/${id}`, httpOptions).subscribe(
       (posts) => {
         // Update the BehaviorSubject with new posts
-        this.postsSubject.next(posts);
+        const currentPosts = this.postsSubject.value;
+        this.postsSubject.next([
+          ...(Array.isArray(currentPosts) ? currentPosts : []),
+          ...posts,
+        ]);
       },
       (error) => {
         console.error('Error fetching posts information:', error);

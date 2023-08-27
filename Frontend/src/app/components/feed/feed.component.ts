@@ -1,15 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Renderer2 } from '@angular/core';
 import { PostService } from '../../services/PostService';
 import { User } from '../../models/profile.model';
 import { AuthService } from '../../services/AuthService';
 import { ImageService } from '../../services/ImageService';
+import { ElementRef, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-feed',
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.css'],
 })
-export class FeedComponent implements OnInit {
+export class FeedComponent implements OnInit, AfterViewInit {
   @Input() userId: number | undefined;
   @Input() user: User | undefined;
   posts: any[] = [];
@@ -17,11 +18,14 @@ export class FeedComponent implements OnInit {
 
   isCurrentUserProfile: boolean = false;
   @Input() isProfilePage: boolean = false;
+  currentPage: number = 0;
 
   constructor(
     public postService: PostService,
     private authService: AuthService,
-    private imageService: ImageService
+    private renderer: Renderer2,
+    private imageService: ImageService,
+    private elementRef: ElementRef
   ) {}
 
   async ngOnInit() {
@@ -29,7 +33,11 @@ export class FeedComponent implements OnInit {
     if (this.isProfilePage) {
       this.userPic = await this.imageService.getProfilePicUrl();
     }
-    this.fetchPosts();
+    this.fetchPosts(this.currentPage);
+  }
+
+  ngAfterViewInit() {
+    window.addEventListener('scroll', this.onScroll.bind(this));
   }
 
   isMyProfile(): boolean {
@@ -40,8 +48,9 @@ export class FeedComponent implements OnInit {
     return false;
   }
 
-  fetchPosts(): void {
+  fetchPosts(page: number): void {
     // If there is a userId, we are on a profile page. Grab only the posts from that userId
+    console.log('fetching posts at page ' + page);
     if (this.userId) {
       this.isCurrentUserProfile = this.isMyProfile();
       this.postService.posts$.subscribe((posts) => {
@@ -55,7 +64,26 @@ export class FeedComponent implements OnInit {
       this.postService.fetchPostsByUserId(this.userId); // Trigger the fetching of posts by userId
     } else {
       // Default behavior, get all posts
-      this.postService.fetchPosts(); // Trigger the fetching of all posts
+      this.postService.fetchPosts(page); // Trigger the fetching of all posts
+    }
+  }
+
+  onScroll(event: any): void {
+    console.log('onScroll');
+
+    // Vertical pixels scrolled
+    const scrolled = window.scrollY;
+
+    // Full height of the window's content
+    const fullHeight = document.documentElement.scrollHeight;
+
+    // Height of the visible window
+    const windowHeight = window.innerHeight;
+
+    // Check if we've scrolled to the bottom
+    if (Math.ceil(scrolled + windowHeight) >= fullHeight) {
+      this.currentPage++;
+      this.fetchPosts(this.currentPage);
     }
   }
 }
