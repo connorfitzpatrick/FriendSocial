@@ -6,6 +6,7 @@ import { NewPostComponent } from '../new-post/new-post.component';
 import { ImageService } from '../../services/ImageService';
 
 import { PostService } from '../../services/PostService';
+import { Subscription } from 'rxjs';
 
 /*
     - ActivatedRoute respresents the current activated route in the app, provided to a component. It allows us to extract username from URL (route parameter)
@@ -19,6 +20,9 @@ import { PostService } from '../../services/PostService';
   styleUrls: ['./sidemenu.component.css'],
 })
 export class SidemenuComponent implements OnInit {
+  private authSubscription?: Subscription;
+  private eventSubscription?: Subscription;
+
   activeMenuItem!: string;
 
   constructor(
@@ -32,22 +36,26 @@ export class SidemenuComponent implements OnInit {
 
   async ngOnInit() {
     this.updateActiveMenuItem();
-    await this.authService.currentUser$.subscribe(async (user) => {
-      console.log(user);
-      if (user) {
-        console.log(user);
-        console.log('user def above');
-        const userPicLocation = user.userPic;
-        const userPicUrl = await this.imageService.getImage(userPicLocation);
-        this.imageService.setProfilePicUrl(userPicUrl);
+    this.authSubscription = await this.authService.currentUser$.subscribe(
+      async (user) => {
+        if (user) {
+          const userPicLocation = user.userPic;
+          const userPicUrl = await this.imageService.getImage(userPicLocation);
+          this.imageService.setProfilePicUrl(userPicUrl);
+        }
       }
-    });
+    );
     // Subscribe to route changes
-    this.router.events.subscribe((event) => {
+    this.eventSubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.updateActiveMenuItem();
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.authSubscription?.unsubscribe();
+    this.eventSubscription?.unsubscribe();
   }
 
   // keep track of active menu item
@@ -72,7 +80,7 @@ export class SidemenuComponent implements OnInit {
   }
 
   onProfileClick(): void {
-    console.log('sidemenu runing');
+    console.log('faggots');
     this.postService.clearPosts();
     this.router.navigate(['/profile', this.getHandle()]);
   }

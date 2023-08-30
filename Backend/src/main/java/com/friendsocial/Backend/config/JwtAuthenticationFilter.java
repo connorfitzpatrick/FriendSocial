@@ -44,8 +44,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
     jwtToken = authHeader.substring(7);
     refreshToken = request.getHeader("Refresh-Token");
-    System.out.println("jwtToken: " + jwtToken);
-    System.out.println("refreshToken: " + refreshToken);
 
     // the try-catch is necessary to get a 401 ERROR if the token is expired. token is no longer
     // valid, and parsing its claims is not possible, resulting in the exception being thrown.
@@ -58,7 +56,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
       // Token is not expired, so extract the username from it
       userEmail = jwtService.extractUsername(jwtToken);
-      System.out.println("Java searching this email in userDetailsService.loadByUsername: " + userEmail);
       if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
         // If user does not have an active authentication token yet...
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);

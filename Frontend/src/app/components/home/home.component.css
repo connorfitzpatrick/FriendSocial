@@ -1,48 +1,7 @@
-/* .body-container {
-  display: flex;
-  flex: 1;
-  padding-top: 15px;
-  overflow: auto;
-}
-
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 2;
-}
-
-main {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: rgb(210, 219, 226);
-  overflow: auto;
-}
-
-.sidemenu-container {
-  position: fixed;
-  top: 50px;
-  left: 0;
-  bottom: 0;
-  z-index: 1;
-  background-color: #f1f1f1;
-}
-
-.content-container {
-  overflow: auto;
-} */
-
-/* home.component.css */
-
-/* For flexbox container */
 .main-container {
   display: flex;
   flex-direction: column;
   min-height: 10vh;
-  /* background-color: rgb(210, 219, 226); */
 }
 
 .header {
@@ -52,20 +11,19 @@ main {
 }
 
 .body-container {
-  flex: 1; /* Fill remaining height */
+  flex: 1;
   display: flex;
   flex-direction: row;
-  overflow: hidden; /* Hide scrollbars */
+  overflow: hidden;
 }
 
 .sidemenu-container {
-  flex-basis: 20%; /* Take up 20% width */
+  flex-basis: 20%;
   height: 100%;
   position: sticky;
-  /* top: 10vh; To start below the header */
 }
 
 .content-container {
-  flex: 1; /* Fill remaining width */
-  overflow-y: auto; /* Add vertical scrollbar */
+  flex: 1;
+  overflow-y: auto;
 }

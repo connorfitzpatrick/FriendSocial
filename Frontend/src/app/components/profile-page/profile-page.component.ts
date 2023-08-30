@@ -4,6 +4,7 @@ import { ProfileService } from '../../services/ProfileService';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from '../../models/profile.model';
 import { AuthService } from '../../services/AuthService';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile-page',
@@ -11,6 +12,8 @@ import { AuthService } from '../../services/AuthService';
   styleUrls: ['./profile-page.component.css'],
 })
 export class ProfilePageComponent implements OnInit {
+  private profileSubscription?: Subscription;
+  private routeSubscription?: Subscription;
   userId: number = 0;
   username: string = '';
   userPic: string = '';
@@ -29,22 +32,18 @@ export class ProfilePageComponent implements OnInit {
 
   ngOnInit() {
     this.username = this.authService.getHandle();
-    // Fetch the user data and update the currentUserSubject
-    this.profileService.fetchLoggedInUserData(this.username).subscribe(
-      (user: User) => {
-        this.authService.currentUserSubject.next(user);
-      },
-      (error) => {
-        console.error('Error fetching user data:', error);
-      }
-    );
-
+    this.fetchProfileInfo();
     // Get the username from the route parameters
-    this.route.params.subscribe((params) => {
+    this.routeSubscription = this.route.params.subscribe((params) => {
       this.username = params['handle'];
       // Fetch profile information from the backend
     });
     this.fetchProfileInfo();
+  }
+
+  ngOnDestroy() {
+    this.profileSubscription?.unsubscribe();
+    this.routeSubscription?.unsubscribe();
   }
 
   onMyProfileClick() {
@@ -54,18 +53,21 @@ export class ProfilePageComponent implements OnInit {
   }
 
   async fetchProfileInfo() {
+    this.username = this.authService.getHandle();
     // Make an HTTP request to fetch the profile information based on the username
-    await this.profileService.fetchLoggedInUserData(this.username).subscribe(
-      (data) => {
-        this.userId = data.id;
-        this.username = data.username;
-        this.userPic = data.userPic;
-        this.bio = data.bio;
-        this.user = data;
-      },
-      (error) => {
-        console.error('Error fetching profile information:', error);
-      }
-    );
+    this.profileSubscription = await this.profileService
+      .fetchLoggedInUserData(this.username)
+      .subscribe(
+        (data) => {
+          this.userId = data.id;
+          this.username = data.username;
+          this.userPic = data.userPic;
+          this.bio = data.bio;
+          this.user = data;
+        },
+        (error) => {
+          console.error('Error fetching profile information:', error);
+        }
+      );
   }
 }

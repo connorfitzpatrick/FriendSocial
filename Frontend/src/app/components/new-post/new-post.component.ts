@@ -2,8 +2,9 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ImageService } from '../../services/ImageService';
 import { PostService } from '../../services/PostService';
 import { AuthService } from '../../services/AuthService';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-new-post',
@@ -11,8 +12,10 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./new-post.component.css'],
 })
 export class NewPostComponent implements OnInit {
+  private routeSubscription?: Subscription;
   pictureUrl = '';
   postType = 'Text';
+  currentUrl: string = '';
   caption: string = '';
   selectedUserPic: File | null = null;
   @ViewChild('fileInput', { static: false }) fileInput?: ElementRef;
@@ -20,11 +23,25 @@ export class NewPostComponent implements OnInit {
   constructor(
     private imageService: ImageService,
     private postService: PostService,
+    private route: ActivatedRoute,
+    private router: Router,
     private authService: AuthService,
     public dialogRef: MatDialogRef<NewPostComponent>
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Get the profile's handle from the route parameters
+    this.routeSubscription = this.route.params.subscribe((params) => {
+      //this.handle = params['handle'];
+      this.currentUrl = this.router.routerState.snapshot.url;
+      //console.log(currentUrl);
+      // Fetch profile information from the backend
+    });
+  }
+
+  ngOnDestroy() {
+    this.routeSubscription?.unsubscribe();
+  }
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
@@ -47,7 +64,7 @@ export class NewPostComponent implements OnInit {
       if (this.selectedUserPic) {
         this.postType = 'Image';
         const response = await this.imageService
-          .uploadImage(this.selectedUserPic)
+          .uploadImage(this.selectedUserPic, false)
           .toPromise();
         console.log(response.userPic);
         this.pictureUrl = response.userPic;
@@ -71,10 +88,10 @@ export class NewPostComponent implements OnInit {
       var post;
       await response
         .then((l) => {
-          post = l; // Output the resolved value
+          post = l;
         })
         .catch((error) => {
-          console.error(error); // Handle any errors
+          console.error(error);
         });
 
       const user = this.authService.currentUserSubject.getValue();
@@ -87,9 +104,20 @@ export class NewPostComponent implements OnInit {
         0,
       ];
 
-      const currentPosts = this.postService.postsSubject.getValue();
-      const updatedPosts = [newPost, ...currentPosts];
-      this.postService.postsSubject.next(updatedPosts);
+      // If on the user's own profile page or no ha
+      console.log(this.currentUrl);
+      console.log(this.authService.getHandle());
+      if (
+        this.currentUrl.includes(this.authService.getHandle()) ||
+        this.currentUrl == '/home'
+      ) {
+        const currentPosts = this.postService.postsSubject.getValue();
+        const updatedPosts = [newPost, ...currentPosts];
+        this.postService.postsSubject.next(updatedPosts);
+      }
+      // const currentPosts = this.postService.postsSubject.getValue();
+      // const updatedPosts = [newPost, ...currentPosts];
+      // this.postService.postsSubject.next(updatedPosts);
 
       this.closeDialog();
     } catch (error) {

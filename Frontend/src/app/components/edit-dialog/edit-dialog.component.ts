@@ -71,7 +71,7 @@ export class EditDialogComponent implements OnInit {
     try {
       if (this.selectedUserPic) {
         const response = await this.imageService
-          .uploadImage(this.selectedUserPic)
+          .uploadImage(this.selectedUserPic, true)
           .toPromise();
         this.user.userPic = response.userPic;
       }

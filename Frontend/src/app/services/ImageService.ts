@@ -11,7 +11,7 @@ export class ImageService {
 
   constructor(private http: HttpClient) {}
 
-  uploadImage(selectedImage: File): Observable<any> {
+  uploadImage(selectedImage: File, isProfilePic: boolean): Observable<any> {
     const apiUrl = `http://localhost:8080/api/v1/upload`;
     const token = localStorage.getItem('authenticationToken');
 
@@ -24,6 +24,7 @@ export class ImageService {
 
     const formData = new FormData();
     formData.append('file', selectedImage);
+    formData.append('isProfilePic', isProfilePic.toString());
 
     return this.http.post<any>(`${apiUrl}`, formData, httpOptions);
   }

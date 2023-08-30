@@ -58,6 +58,7 @@ export class PostService {
     this.http.get<any[]>(`${this.apiUrl}/${id}`, httpOptions).subscribe(
       (posts) => {
         // Update the BehaviorSubject with new posts
+        console.log(posts);
         const currentPosts = this.postsSubject.value;
         this.postsSubject.next([
           ...(Array.isArray(currentPosts) ? currentPosts : []),
@@ -78,7 +79,6 @@ export class PostService {
   ) {
     const token = localStorage.getItem('authenticationToken');
     const timestamp = new Date();
-    // console.log(imageUrl);
 
     const requestBody = {
       postType: postType,
@@ -90,7 +90,7 @@ export class PostService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`, // Include the token in the 'Authorization' header
+        Authorization: `Bearer ${token}`,
       }),
     };
 
