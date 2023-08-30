@@ -32,7 +32,7 @@ public class DummyDataConfig {
       Instant now = Instant.now();
       User user1 = new User(
               "c@gmail.com",
-              "connorfitz429",
+              "fitz_connor",
               "svsb",
               LocalDate.of(1999, 4, 29),
               "Connor",
@@ -56,11 +56,11 @@ public class DummyDataConfig {
       );
       User user3 = new User(
               "kieran@gmail.com",
-              "kieran620",
+              "fitz_kieran",
               "bbbbbbb",
               LocalDate.of(1995, 06, 20),
               "Kieran",
-              "Thomas",
+              "Fitzpatrick",
               "yankees.png",
               "Dummy data account",
               now.minusSeconds(29 * 25 * 60 * 60),
@@ -117,14 +117,14 @@ public class DummyDataConfig {
       );
 
       User user8 = new User(
-              "user3@example.com",
-              "MichaelJohnson",
+              "Inky@example.com",
+              "Inky",
               "password3",
               LocalDate.of(1987, 9, 5),
-              "Michael",
-              "Johnson",
+              "Bashful",
+              "Ghost",
               "8cc87ea1-3326-4449-a18a-f3c3c0cf4bd9.png",
-              "Life is short, make it sweet",
+              "I am the blue ghost",
               now.minusSeconds(5 * 24 * 60 * 60),
               Role.USER
       );
@@ -143,27 +143,27 @@ public class DummyDataConfig {
       );
 
       User user10 = new User(
-              "DanielD@example.com",
-              "DanielDavis10",
+              "Clyde@example.com",
+              "Clyde",
               "password5",
               LocalDate.of(1998, 11, 8),
-              "Daniel",
-              "Davis",
+              "Pokey",
+              "Ghost",
               "9cae6944-5a7b-423c-9bde-4c60af5101b3.png",
-              "Spreading positivity and good vibes",
+              "I am the orange Ghost",
               now.minusSeconds(8 * 24 * 60 * 60),
               Role.USER
       );
 
       User user11 = new User(
-              "OliviaWilson@example.com",
-              "OliviaWilson",
+              "Blinky@example.com",
+              "Blinky",
               "password6",
               LocalDate.of(1985, 1, 25),
-              "Olivia",
-              "Wilson",
+              "Shadow",
+              "Ghost",
               "0734ef5f-01e3-4e5c-9f78-913b13d00c61.png",
-              "Living my best life, one click at a time",
+              "I am the red ghost",
               now.minusSeconds(23 * 24 * 60 * 60),
               Role.USER
       );
@@ -195,14 +195,14 @@ public class DummyDataConfig {
       );
 
       User user14 = new User(
-              "LiamM@example.com",
-              "LiamMiller",
+              "Pinky@example.com",
+              "Pinky",
               "password9",
               LocalDate.of(2000, 8, 9),
-              "Liam",
-              "Miller",
+              "Speedy",
+              "Ghost",
               "20603be3-144f-4c37-b861-28ee1610a976.png",
-              "Inspiring others with my visual stories",
+              "I am the pink ghost",
               now.minusSeconds(12 * 24 * 60 * 60),
               Role.USER
       );
@@ -219,12 +219,50 @@ public class DummyDataConfig {
               now.minusSeconds(40 * 24 * 60 * 60),
               Role.USER
       );
+      User user16 = new User(
+              "aileen@example.com",
+              "fitz_aileen",
+              "password10",
+              LocalDate.of(2003, 2, 22),
+              "Aileen",
+              "Fitzpatrick",
+              "5b17f9c0-47fb-4966-bdf4-707a0383d3e5.png",
+              "I am Aileen",
+              now.minusSeconds(40 * 24 * 60 * 60),
+              Role.USER
+      );
+      User user17 = new User(
+              "ian@example.com",
+              "fitz_ian",
+              "password10",
+              LocalDate.of(2003, 2, 22),
+              "Ian",
+              "Fitzpatrick",
+              "cd78afa0-8510-4432-b461-822e1ec48de9.png",
+              "I am Ian",
+              now.minusSeconds(40 * 24 * 60 * 60),
+              Role.USER
+      );
 
 
       List<User> users = userRepository.saveAll(
-              List.of(user1, user2, user3, user4, user5, user6,
-                      user7, user8, user9, user10, user11, user12,
-                      user13, user14, user15
+              List.of(user1,
+                      user2,
+                      user3,
+                      user4,
+                      user5,
+                      user6,
+                      user7,
+                      user8,
+                      user9,
+                      user10,
+                      user11,
+                      user12,
+                      user13,
+                      user14,
+                      user15,
+                      user16,
+                      user17
               )
       );
 
@@ -317,9 +355,59 @@ public class DummyDataConfig {
               Instant.parse("2023-08-10T11:30:15Z"),
               "re_resized_605b1bd5-200e-4eb5-8311-ae7e62b1f5ea.png"
       );
+      Post inky1 = new Post(
+              8L,
+              "Text",
+              "I combine the positions of Blinky and a spot relative to myself to determine where to go",
+              Instant.parse("2023-08-29T15:40:00Z"),
+              ""
+      );
+      Post inky2 = new Post(
+              8L,
+              "Text",
+              "In other words, my movement is unpredictable",
+              Instant.parse("2023-08-29T15:39:00Z"),
+              ""
+      );
+      Post clyde = new Post(
+              10L,
+              "Text",
+              "I chase pacman directly but scatter when close",
+              Instant.parse("2023-08-29T15:00:00Z"),
+              ""
+      );
+      Post blinky = new Post(
+              11L,
+              "Text",
+              "I head directly towards pac-man's current position",
+              Instant.parse("2023-08-29T15:20:00Z"),
+              ""
+      );
+      Post pinky = new Post(
+              14L,
+              "Text",
+              "I try to sneak up in front of pac-man's path",
+              Instant.parse("2023-08-29T15:10:00Z"),
+              ""
+      );
 
       drepository.saveAll(
-              List.of(connorsFirst, bob1, connorsSecond, peyton1, alexFirst, alexSecond, bob2, connorsThird, connorsFourth, connorsFifth)
+              List.of(connorsFirst,
+                      bob1,
+                      connorsSecond,
+                      peyton1,
+                      alexFirst,
+                      alexSecond,
+                      bob2,
+                      connorsThird,
+                      connorsFourth,
+                      connorsFifth,
+                      inky1,
+                      inky2,
+                      clyde,
+                      blinky,
+                      pinky
+              )
       );
     };
   }
@@ -413,6 +501,24 @@ public class DummyDataConfig {
               "Weird post bro",
               Instant.now()
       );
+      Comment comment8 = new Comment(
+              11L,
+              11L,
+              "Wait you do what?",
+              Instant.now()
+      );
+      Comment comment7 = new Comment(
+              10L,
+              11L,
+              "Dumbass",
+              Instant.now()
+      );
+      Comment comment6 = new Comment(
+              14L,
+              11L,
+              "For fucks sake",
+              Instant.now()
+      );
 //      Comment comment6 = new Comment(
 //              1L,
 //              1L,
@@ -504,6 +610,9 @@ public class DummyDataConfig {
                       comment3,
                       comment4,
                       comment5,
+                      comment6,
+                      comment7,
+                      comment8,
                       comment18,
                       comment19
               )
@@ -563,6 +672,66 @@ public class DummyDataConfig {
               9L,
               Instant.now()
       );
+      Like like10 = new Like(
+              10L,
+              11L,
+              Instant.now()
+      );
+      Like like11 = new Like(
+              11L,
+              11L,
+              Instant.now()
+      );
+      Like like12 = new Like(
+              14L,
+              11L,
+              Instant.now()
+      );
+      Like like13 = new Like(
+              14L,
+              14L,
+              Instant.now()
+      );
+      Like like14 = new Like(
+              10L,
+              14L,
+              Instant.now()
+      );
+      Like like15 = new Like(
+              8L,
+              14L,
+              Instant.now()
+      );
+      Like like16 = new Like(
+              11L,
+              15L,
+              Instant.now()
+      );
+      Like like17 = new Like(
+              10L,
+              15L,
+              Instant.now()
+      );
+      Like like18 = new Like(
+              8L,
+              15L,
+              Instant.now()
+      );
+      Like like19 = new Like(
+              14L,
+              13L,
+              Instant.now()
+      );
+      Like like20 = new Like(
+              8L,
+              13L,
+              Instant.now()
+      );
+      Like like21 = new Like(
+              11L,
+              13L,
+              Instant.now()
+      );
 
       lrepository.saveAll(
               List.of(like1,
@@ -573,7 +742,19 @@ public class DummyDataConfig {
                       like6,
                       like7,
                       like8,
-                      like9
+                      like9,
+                      like10,
+                      like11,
+                      like12,
+                      like13,
+                      like14,
+                      like15,
+                      like16,
+                      like17,
+                      like18,
+                      like19,
+                      like20,
+                      like21
               )
       );
     };

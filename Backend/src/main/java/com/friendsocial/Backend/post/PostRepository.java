@@ -23,7 +23,8 @@ public interface PostRepository
             "ORDER BY p.timestamp DESC")
     List<Object[]> findPostsAndUserInfo(Pageable pageable);
 
-    @Query("SELECT p, pr.userPic, pr.handle, pr.firstName, pr.lastName " +
+    @Query("SELECT p, pr.userPic, pr.handle, pr.firstName, pr.lastName, " +
+            "(SELECT COUNT(l) FROM Like l WHERE l.postId = p.id) " +
             "FROM Post p JOIN p.user pr " +
             "WHERE p.userId = ?1 " +
             "ORDER BY p.timestamp DESC")

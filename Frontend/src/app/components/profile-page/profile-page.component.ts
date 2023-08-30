@@ -48,8 +48,8 @@ export class ProfilePageComponent implements OnInit {
     this.routeSubscription = this.route.params.subscribe((params) => {
       this.username = params['handle'];
       // Fetch profile information from the backend
+      this.fetchProfileInfo();
     });
-    this.fetchProfileInfo();
   }
 
   ngOnDestroy() {

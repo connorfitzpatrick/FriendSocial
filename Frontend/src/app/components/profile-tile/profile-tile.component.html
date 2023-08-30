@@ -17,12 +17,18 @@
     </div>
     <div class="button-container" *ngIf="isCurrentUserProfile">
       <div class="edit-button-wrapper">
-        <button (click)="openCommentDialog($event)">Edit Profile</button>
+        <button (click)="openCommentDialog($event)" class="friend-button">
+          Edit Profile
+        </button>
       </div>
     </div>
     <div class="button-container" *ngIf="!isCurrentUserProfile">
-      <button (click)="toggleFriendship()">
-        {{ isFriend === -1 ? "Friend" : "UnFriend" }}
+      <button
+        class="friend-button"
+        (click)="toggleFriendship()"
+        [ngClass]="{ isFriend: isFriend > -1 }"
+      >
+        {{ isFriend === -1 ? "Friend" : "Unfriend" }}
       </button>
     </div>
   </div>

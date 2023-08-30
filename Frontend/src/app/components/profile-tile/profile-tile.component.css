@@ -39,22 +39,34 @@ p {
 
 .button-container {
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-  margin-top: 15px;
-  margin-right: -8px;
+  align-items: center;
+  gap: 10em;
+  justify-content: space-between;
+  margin-bottom: 1em;
 }
 
-.button-container button {
+.friend-button {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
   background-color: rgb(17, 137, 224);
-  color: white;
   border: none;
   border-radius: 4px;
-  padding: 4px 8px;
   cursor: pointer;
   transition: background-color 0.3s;
+  color: white;
+  text-align: center;
 }
 
-.button-container button:hover {
+.friend-button:hover {
   background-color: #0f52ba;
+}
+
+.friend-button.isFriend {
+  background-color: Gainsboro;
+  color: black;
+}
+
+.friend-button.isFriend:hover {
+  background-color: lightgray;
 }

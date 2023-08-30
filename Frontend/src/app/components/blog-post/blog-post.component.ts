@@ -37,6 +37,7 @@ export class BlogPostComponent implements OnInit {
   async ngOnInit() {
     this.route.params.subscribe((params) => {
       // get the postId from route params and convert it to a number
+      console.log(this.post);
       this.postId = this.post[0].id;
       this.likeCount = this.post[5];
     });

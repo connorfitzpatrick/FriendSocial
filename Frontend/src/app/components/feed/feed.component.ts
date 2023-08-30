@@ -1,4 +1,10 @@
-import { Component, OnInit, Input, Renderer2 } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { PostService } from '../../services/PostService';
 import { User } from '../../models/profile.model';
 import { AuthService } from '../../services/AuthService';
@@ -12,8 +18,9 @@ import { Subscription } from 'rxjs';
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.css'],
 })
-export class FeedComponent implements OnInit {
+export class FeedComponent implements OnInit, OnChanges {
   private postsSubscription?: Subscription;
+  private isInitialized = false;
   @Input() userId: number | undefined;
   @Input() user: User | undefined;
   posts: any[] = [];
@@ -37,7 +44,18 @@ export class FeedComponent implements OnInit {
       this.userPic = await this.imageService.getProfilePicUrl();
     }
     this.fetchPosts(this.currentPage);
+    this.isInitialized = true;
     window.addEventListener('scroll', this.scroll, true);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (
+      this.isInitialized &&
+      ('userId' in changes || 'isProfilePage' in changes || 'user' in changes)
+    ) {
+      console.log('COnnor');
+      this.fetchPosts(0); // Replace this with the actual method you use to load posts
+    }
   }
 
   // ngAfterViewInit() {
@@ -59,8 +77,6 @@ export class FeedComponent implements OnInit {
 
   fetchPosts(page: number): void {
     // If there is a userId, we are on a profile page. Grab only the posts from that userId
-    console.log(this.userId);
-    console.log('fetching posts at page ' + this.currentPage);
     if (this.router.url != '/home' && this.userId) {
       // if (this.userId) {
       this.isCurrentUserProfile = this.isMyProfile();
