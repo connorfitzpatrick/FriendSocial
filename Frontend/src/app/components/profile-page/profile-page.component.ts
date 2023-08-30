@@ -32,7 +32,18 @@ export class ProfilePageComponent implements OnInit {
 
   ngOnInit() {
     this.username = this.authService.getHandle();
-    this.fetchProfileInfo();
+    // Fetch the user data and update the currentUserSubject
+    this.profileSubscription = this.profileService
+      .fetchLoggedInUserData(this.username)
+      .subscribe(
+        (user: User) => {
+          this.authService.currentUserSubject.next(user);
+        },
+        (error) => {
+          console.error('Error fetching user data:', error);
+        }
+      );
+
     // Get the username from the route parameters
     this.routeSubscription = this.route.params.subscribe((params) => {
       this.username = params['handle'];
@@ -43,7 +54,6 @@ export class ProfilePageComponent implements OnInit {
 
   ngOnDestroy() {
     this.profileSubscription?.unsubscribe();
-    this.routeSubscription?.unsubscribe();
   }
 
   onMyProfileClick() {
@@ -53,21 +63,18 @@ export class ProfilePageComponent implements OnInit {
   }
 
   async fetchProfileInfo() {
-    this.username = this.authService.getHandle();
     // Make an HTTP request to fetch the profile information based on the username
-    this.profileSubscription = await this.profileService
-      .fetchLoggedInUserData(this.username)
-      .subscribe(
-        (data) => {
-          this.userId = data.id;
-          this.username = data.username;
-          this.userPic = data.userPic;
-          this.bio = data.bio;
-          this.user = data;
-        },
-        (error) => {
-          console.error('Error fetching profile information:', error);
-        }
-      );
+    await this.profileService.fetchLoggedInUserData(this.username).subscribe(
+      (data) => {
+        this.userId = data.id;
+        this.username = data.username;
+        this.userPic = data.userPic;
+        this.bio = data.bio;
+        this.user = data;
+      },
+      (error) => {
+        console.error('Error fetching profile information:', error);
+      }
+    );
   }
 }

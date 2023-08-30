@@ -45,7 +45,7 @@ export class FeedComponent implements OnInit {
   // }
 
   ngOnDestroy() {
-    this.postsSubscription?.unsubscribe();
+    //this.postsSubscription?.unsubscribe();
     window.removeEventListener('scroll', this.scroll, true);
   }
 
