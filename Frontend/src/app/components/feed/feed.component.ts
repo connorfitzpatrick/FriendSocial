@@ -9,7 +9,6 @@ import { PostService } from '../../services/PostService';
 import { User } from '../../models/profile.model';
 import { AuthService } from '../../services/AuthService';
 import { ImageService } from '../../services/ImageService';
-import { AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -53,14 +52,9 @@ export class FeedComponent implements OnInit, OnChanges {
       this.isInitialized &&
       ('userId' in changes || 'isProfilePage' in changes || 'user' in changes)
     ) {
-      console.log('COnnor');
-      this.fetchPosts(0); // Replace this with the actual method you use to load posts
+      this.fetchPosts(0);
     }
   }
-
-  // ngAfterViewInit() {
-  //   window.addEventListener('scroll', this.onScroll.bind(this));
-  // }
 
   ngOnDestroy() {
     //this.postsSubscription?.unsubscribe();
@@ -96,7 +90,6 @@ export class FeedComponent implements OnInit, OnChanges {
   }
 
   scroll = (event: any): void => {
-    console.log('onScroll triggered');
     // Vertical pixels scrolled
     const scrolled = window.scrollY;
     // Full height of the window's content
@@ -106,7 +99,6 @@ export class FeedComponent implements OnInit, OnChanges {
     // Check if we've scrolled to the bottom
     if (Math.ceil(scrolled + windowHeight) >= fullHeight) {
       this.currentPage++;
-      console.log('Calling fetchPosts for page:', this.currentPage);
       this.fetchPosts(this.currentPage);
     }
   };
