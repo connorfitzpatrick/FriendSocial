@@ -39,53 +39,50 @@ export class CommentDialogComponent implements OnInit {
 
   async ngOnInit() {
     // Fetch comments and likes when dialog opens
-    await this.commentService.fetchComments(this.data[0]);
     await this.likeService.fetchLikes(this.data[0]);
+    this.commentService.fetchComments(this.data[0]);
 
-    // Subscribe to the likes and comments and handle image fetching
-    await this.likeService.likes$(this.data[0]).subscribe(async (likes) => {
-      this.fetchProfileImages(likes, this.comments);
+    // Handle profile pic collection for likes
+    this.likeService.likes$(this.data[0]).subscribe(async (likes) => {
+      this.fetchProfileImages(likes, true);
     });
 
-    await this.commentService
-      .comments$(this.data[0])
-      .subscribe(async (comments) => {
-        this.fetchProfileImages(this.likes, comments);
-      });
+    // Handle profile pic collection for comments
+    this.commentService.comments$(this.data[0]).subscribe(async (comments) => {
+      this.fetchProfileImages(comments, false);
+    });
   }
 
+  // post comment to database
   async postComment() {
     if (this.commentContent) {
       await this.commentService.postComment(this.data[0], this.commentContent);
-      console.log(this.comments);
     }
   }
 
+  // delete comment if you it is the user's post or comment
   async deleteComment(commentId: number) {
     await this.commentService.deleteComment(commentId, this.data[0]);
-    console.log(this.comments);
     this.comments = this.comments.filter(
       (comment) => comment[0].id !== commentId
     );
   }
 
-  private async fetchProfileImages(likes: any[], comments: any[]) {
-    const likePromises = likes.map(async (like) => {
-      if (like && typeof like[2] === 'string') {
-        like.userPic = await this.imageService.getImage(like[2]);
+  // fetch profile images for likes or comments
+  private async fetchProfileImages(profiles: any[], forLikes: boolean) {
+    const picPromises = profiles.map(async (p) => {
+      if (p && typeof p[2] === 'string') {
+        p.userPic = await this.imageService.getImage(p[2]);
       }
-      return like;
+      return p;
     });
 
-    const commentPromises = comments.map(async (comment) => {
-      if (comment && typeof comment[2] === 'string') {
-        comment.userPic = await this.imageService.getImage(comment[2]);
-      }
-      return comment;
-    });
-
-    this.likes = await Promise.all(likePromises);
-    this.comments = await Promise.all(commentPromises);
+    // set this.likes or comments depending on forLikes boolean
+    if (forLikes == true) {
+      this.likes = await Promise.all(picPromises);
+    } else {
+      this.comments = await Promise.all(picPromises);
+    }
   }
 
   closeDialog(): void {
