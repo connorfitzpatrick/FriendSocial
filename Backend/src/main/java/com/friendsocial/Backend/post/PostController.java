@@ -33,9 +33,6 @@ public class PostController {
           @RequestParam(defaultValue = "0") int page,
           @RequestParam(defaultValue = "5") int size
   ) {
-    System.out.println("HELLO FROM getPosts");
-    System.out.println(page);
-    System.out.println(size);
 
     return postService.getPosts(page, size);
   }

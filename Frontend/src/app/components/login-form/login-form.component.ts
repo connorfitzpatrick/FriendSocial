@@ -91,7 +91,7 @@ export class LoginFormComponent implements OnInit {
       const date = new Date();
 
       const user = {
-        ...this.registerForm.value, // Use form data
+        ...this.registerForm.value,
         dateJoined: new Date().toISOString(),
         role: this.role,
         userPic: this.userPic,

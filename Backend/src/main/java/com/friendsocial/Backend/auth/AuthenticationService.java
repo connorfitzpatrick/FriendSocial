@@ -45,7 +45,6 @@ public class AuthenticationService {
             request.getDateJoined(),
             request.getRole()
     );
-    System.out.println(user);
     userService.addNewUser(user);
 
 

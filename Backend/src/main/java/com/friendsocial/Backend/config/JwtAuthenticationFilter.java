@@ -36,8 +36,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     final String jwtToken;
     final String refreshToken;
     final String userEmail;
-    System.out.println("doFilterInternal");
-    System.out.println(request);
     if (authHeader == null || !authHeader.startsWith("Bearer ")) {
       // If authorization header is missing or doesn't start with "Bearer <Token>"
       filterChain.doFilter(request, response);
@@ -57,7 +55,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
       // Token is not expired, so extract the username from it
       userEmail = jwtService.extractUsername(jwtToken);
-      System.out.println(userEmail);
       if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
         // If user does not have an active authentication token yet...
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);

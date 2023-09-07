@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ImageService } from '../../services/ImageService';
 import { LikeService } from '../../services/LikeService';
+import { AuthService } from '../../services/AuthService';
+
 import { CommentsService } from '../../services/CommentsService';
 import { CommentDialogComponent } from '../comment-dialog/comment-dialog.component';
 
@@ -16,6 +18,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class BlogPostComponent implements OnInit {
   @Input() post: any;
   @Input() userPic: any;
+  @Input() isCurrentUserProfile: boolean = false;
   postId!: number;
   likeCount: number = 0;
   isLiked: number = -1;
@@ -28,6 +31,7 @@ export class BlogPostComponent implements OnInit {
   constructor(
     private likeService: LikeService,
     private commentService: CommentsService,
+    private authService: AuthService,
     public imageService: ImageService,
     private route: ActivatedRoute,
     private datePipe: DatePipe,
@@ -35,6 +39,7 @@ export class BlogPostComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
+    console.log(this.isCurrentUserProfile);
     this.route.params.subscribe((params) => {
       // get the postId from route params and convert it to a number
       console.log(this.post);
