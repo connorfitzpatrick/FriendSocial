@@ -35,12 +35,9 @@ public class ImageController {
   @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/image/{fileName:.+}")
   public ResponseEntity<Resource> getProfilePicture(@PathVariable String fileName) throws IOException {
-    System.out.println(fileName);
-
     Path filePath = Paths.get("Backend/uploads").resolve(fileName);
     Resource resource = new UrlResource(filePath.toUri());
 
-    System.out.println(resource.getURL());
     return ResponseEntity.ok()
             .contentType(MediaType.IMAGE_JPEG) // Change the media type based on your image format
             .body(resource);
@@ -55,12 +52,6 @@ public class ImageController {
       throw new RuntimeException("No file detected");
     }
     try {
-      // Create the directory if it doesn't exist
-//      File directory = new File(uploadDir);
-//      if (!directory.exists()) {
-//        directory.mkdirs();
-//      }
-      // Generate a unique filename
       // Generate a unique filename
       String uniqueFileName = generateUniqueFileName(file.getOriginalFilename());
 
@@ -76,7 +67,6 @@ public class ImageController {
 
       // Resize the image
       File resizedImage = resizeImage(tempPath.toFile(), uniqueFileName, targetSize);
-      System.out.println("Resized image path: " + resizedImage.getAbsolutePath());
       File debugFile = new File(resizedImage.getAbsolutePath());
       if(debugFile.exists() && debugFile.canRead()) {
         System.out.println("File exists and can be read.");
@@ -84,10 +74,8 @@ public class ImageController {
         System.out.println("File either does not exist or cannot be read.");
       }
 
-
       // Move the resized image to the final directory with the unique filename
       Path finalPath = Paths.get(uploadDir + File.separator + uniqueFileName);
-      System.out.println("Final image path: " + finalPath.toString());
 
       if (Files.exists(resizedImage.toPath())) {
         Files.move(resizedImage.toPath(), finalPath, StandardCopyOption.REPLACE_EXISTING);
@@ -127,7 +115,6 @@ public class ImageController {
       throw new IOException("Error resizing image: " + e.getMessage());
     }
   }
-
 
   // Generates a unique filename using combo of UUID and original file extension.
   private String generateUniqueFileName(String originalFileName) {

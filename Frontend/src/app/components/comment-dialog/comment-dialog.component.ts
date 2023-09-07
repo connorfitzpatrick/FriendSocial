@@ -43,7 +43,7 @@ export class CommentDialogComponent implements OnInit {
     this.commentService.fetchComments(this.data[0]);
 
     // Handle profile pic collection for likes
-    this.likeService.likes$(this.data[0]).subscribe(async (likes) => {
+    await this.likeService.likes$(this.data[0]).subscribe(async (likes) => {
       this.fetchProfileImages(likes, true);
     });
 
@@ -80,6 +80,7 @@ export class CommentDialogComponent implements OnInit {
     // set this.likes or comments depending on forLikes boolean
     if (forLikes == true) {
       this.likes = await Promise.all(picPromises);
+      console.log(this.likes.length);
     } else {
       this.comments = await Promise.all(picPromises);
     }

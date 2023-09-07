@@ -69,6 +69,7 @@ public class UserService {
       throw new IllegalStateException("Another User is Already Using This Email");
     }
     // Add to User table
+    System.out.println(user);
     User newUser = userRepository.save(user);
     System.out.println(newUser);
 

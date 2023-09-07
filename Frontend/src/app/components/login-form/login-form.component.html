@@ -1,4 +1,13 @@
-<div class="container d-flex align-items-center justify-content-center vh-100">
+<div
+  class="
+    container
+    d-flex
+    align-items-center
+    justify-content-center
+    vh-100
+    scrollable-content
+  "
+>
   <div class="col-4">
     <div *ngIf="active === 'login'" class="text-center app-header">
       <div class="app-logo">
@@ -33,16 +42,26 @@
           active == 'login' ? 'tab-pane fade show active' : 'tab-pane fade'
         "
       >
-        <form (ngSubmit)="onSubmitLogin()" #loginForm="ngForm">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
           <div class="form-outline mb-4">
             <input
               type="login"
-              id="loginName"
+              id="login"
               name="login"
               class="form-control"
-              [(ngModel)]="login"
+              formControlName="username"
             />
-            <label class="form-label" for="loginName">Email</label>
+            <div class="form-label-group">
+              <label class="form-label" for="loginName">Email</label>
+              <div
+                *ngIf="
+                  loginForm.controls['username'].touched &&
+                  loginForm.controls['username'].invalid
+                "
+              >
+                <small class="text-danger">Invalid email</small>
+              </div>
+            </div>
           </div>
 
           <div class="form-outline mb-4">
@@ -51,12 +70,24 @@
               id="loginPassword"
               name="password"
               class="form-control"
-              [(ngModel)]="password"
+              formControlName="password"
             />
             <label class="form-label" for="loginPassword">Password</label>
+            <div
+              *ngIf="
+                loginForm.controls['password'].touched &&
+                loginForm.controls['password'].invalid
+              "
+            >
+              <small class="text-danger">Password is required</small>
+            </div>
           </div>
 
-          <button type="submit" class="btn sign-in btn-block mb-4">
+          <button
+            type="submit"
+            class="btn sign-in btn-block mb-4"
+            [disabled]="!loginForm.valid"
+          >
             Sign in
           </button>
         </form>
@@ -66,16 +97,24 @@
           active == 'register' ? 'tab-pane fade show active' : 'tab-pane fade'
         "
       >
-        <form (ngSubmit)="onSubmitRegister()" #registerForm="ngForm">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmitRegister()">
           <div class="form-outline mb-4">
             <input
               type="text"
               id="firstName"
               name="firstName"
               class="form-control"
-              [(ngModel)]="firstName"
+              formControlName="firstName"
             />
             <label class="form-label" for="firstName">First name</label>
+            <div
+              *ngIf="
+                registerForm.controls['firstName'].touched &&
+                registerForm.controls['firstName'].invalid
+              "
+            >
+              <small class="text-danger">First name is required</small>
+            </div>
           </div>
 
           <div class="form-outline mb-4">
@@ -84,9 +123,17 @@
               id="lastName"
               name="lastName"
               class="form-control"
-              [(ngModel)]="lastName"
+              formControlName="lastName"
             />
             <label class="form-label" for="lastName">Last name</label>
+            <div
+              *ngIf="
+                registerForm.controls['lastName'].touched &&
+                registerForm.controls['lastName'].invalid
+              "
+            >
+              <small class="text-danger">Last name is required</small>
+            </div>
           </div>
 
           <div class="form-outline mb-4">
@@ -95,9 +142,17 @@
               id="handle"
               name="handle"
               class="form-control"
-              [(ngModel)]="handle"
+              formControlName="handle"
             />
             <label class="form-label" for="handle">Username</label>
+            <div
+              *ngIf="
+                registerForm.controls['handle'].touched &&
+                registerForm.controls['handle'].invalid
+              "
+            >
+              <small class="text-danger">Username is required</small>
+            </div>
           </div>
 
           <div class="form-outline mb-4">
@@ -106,23 +161,38 @@
               id="dateOfBirth"
               name="dateOfBirth"
               class="form-control"
-              [(ngModel)]="dob"
+              formControlName="dob"
               [max]="today"
-              [ngModelOptions]="{ standalone: true }"
               required
             />
             <label class="form-label" for="dateOfBirth">Date of Birth</label>
+            <div
+              *ngIf="
+                registerForm.controls['dob'].touched &&
+                registerForm.controls['dob'].invalid
+              "
+            >
+              <small class="text-danger">Date of Birth is required</small>
+            </div>
           </div>
 
           <div class="form-outline mb-4">
             <input
-              type="text"
+              type="login"
               id="login"
               name="login"
               class="form-control"
-              [(ngModel)]="login"
+              formControlName="username"
             />
-            <label class="form-label" for="login">Email</label>
+            <label class="form-label" for="loginName">Email</label>
+            <div
+              *ngIf="
+                registerForm.controls['username'].touched &&
+                registerForm.controls['username'].invalid
+              "
+            >
+              <small class="text-danger">Invalid email</small>
+            </div>
           </div>
 
           <div class="form-outline mb-4">
@@ -131,13 +201,25 @@
               id="registerPassword"
               name="password"
               class="form-control"
-              [(ngModel)]="password"
+              formControlName="password"
             />
             <label class="form-label" for="registerPassword">Password</label>
+            <div
+              *ngIf="
+                registerForm.controls['password'].touched &&
+                registerForm.controls['password'].invalid
+              "
+            >
+              <small class="text-danger">Password is required</small>
+            </div>
           </div>
 
-          <button type="submit" class="btn btn-block mb-3 sign-in">
-            Sign in
+          <button
+            type="submit"
+            class="btn btn-block mb-3 sign-in"
+            [disabled]="!registerForm.valid"
+          >
+            Register
           </button>
         </form>
       </div>

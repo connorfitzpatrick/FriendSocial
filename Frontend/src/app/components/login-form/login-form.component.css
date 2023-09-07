@@ -41,3 +41,12 @@
   width: 200px;
   height: auto;
 }
+
+.form-label {
+  margin-bottom: 0rem;
+}
+
+.scrollable-content {
+  max-height: 100vh;
+  overflow-y: auto;
+}

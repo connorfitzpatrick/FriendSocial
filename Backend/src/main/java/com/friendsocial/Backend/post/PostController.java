@@ -17,7 +17,6 @@ public class PostController {
   @Autowired
   private UserRepository userRepository;
 
-
   @Autowired
   public PostController(PostService postService) {
     /*
@@ -28,13 +27,6 @@ public class PostController {
      */
     this.postService = postService;
   }
-
-  // GET ALL POSTS
-  // Get mapping because we want to get something out from our server
-  //  @GetMapping
-  //  public List<Object[]> getPosts() {
-  //    return postService.getPosts();
-  //  }
 
   @GetMapping
   public List<Object[]> getPosts(
@@ -53,10 +45,6 @@ public class PostController {
                                    @RequestParam(defaultValue = "0") int page,
                                    @RequestParam(defaultValue = "5") int size
   ) {
-    System.out.println("HELLO FROM getPostsOfUserById");
-    System.out.println(page);
-    System.out.println(size);
-
     return postService.getPostsOfUserById(id, page, size);
   }
 

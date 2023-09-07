@@ -80,6 +80,7 @@ export class AuthService {
     };
 
     try {
+      console.log(user);
       const response = await this.http
         .post<any>(
           'http://localhost:8080/api/v1/auth/register',
@@ -87,7 +88,6 @@ export class AuthService {
           httpOptions
         )
         .toPromise();
-
       const authToken = response.authenticationToken;
       localStorage.setItem('authenticationToken', authToken);
       this.setLoggedInUserData();

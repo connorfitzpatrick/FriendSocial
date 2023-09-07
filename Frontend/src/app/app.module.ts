@@ -6,7 +6,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { DatePipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -53,6 +53,7 @@ import { SetupProfileDialogComponent } from './components/setup-profile-dialog/s
     MatButtonModule,
     MatIconModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([]),
     HttpClientModule,
   ],
