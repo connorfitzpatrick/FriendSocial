@@ -41,7 +41,6 @@ public class UserService {
 
   // this is called when someone registers or logs in with their email
   public User getUserByUsername(String username) {
-    System.out.println("MY USERNAME IS " + username);
     Optional<User> userOptional = userRepository.findUserByUsername(username);
     // If another user has this email, throw error
     if (!userOptional.isPresent()) {
@@ -51,7 +50,6 @@ public class UserService {
   }
 
   public User getUserByHandle(String handle) {
-    System.out.println("SO IT ENDS HERE FUNKY??");
     Optional<User> userOptional = userRepository.findUserByHandle(handle);
     // If another user has this email, throw error
     if (!userOptional.isPresent()) {
@@ -69,9 +67,7 @@ public class UserService {
       throw new IllegalStateException("Another User is Already Using This Email");
     }
     // Add to User table
-    System.out.println(user);
     User newUser = userRepository.save(user);
-    System.out.println(newUser);
 
     try {
       // Index the updated user in Elasticsearch

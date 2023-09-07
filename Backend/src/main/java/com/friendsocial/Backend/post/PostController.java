@@ -38,11 +38,19 @@ public class PostController {
   }
 
   @GetMapping(path = "{userId}")
-  public List<Object[]> getFriends(@PathVariable("userId") Long id,
+  public List<Object[]> getPostsOfUser(@PathVariable("userId") Long id,
                                    @RequestParam(defaultValue = "0") int page,
                                    @RequestParam(defaultValue = "5") int size
   ) {
     return postService.getPostsOfUserById(id, page, size);
+  }
+
+  @GetMapping(path = "feed/{userId}")
+  public List<Object[]> getPostsOfAllFriends(@PathVariable("userId") Long id,
+          @RequestParam(defaultValue = "0") int page,
+          @RequestParam(defaultValue = "5") int size
+  ) {
+    return postService.getPostsOfFriends(id, page, size);
   }
 
   // POST (ADD) A Post

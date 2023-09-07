@@ -72,7 +72,6 @@ export class FeedComponent implements OnInit, OnChanges {
   fetchPosts(page: number): void {
     // If there is a userId, we are on a profile page. Grab only the posts from that userId
     if (this.router.url != '/home' && this.userId) {
-      // if (this.userId) {
       this.isCurrentUserProfile = this.isMyProfile();
       this.postsSubscription = this.postService.posts$.subscribe((posts) => {
         this.posts = posts
@@ -85,7 +84,11 @@ export class FeedComponent implements OnInit, OnChanges {
       this.postService.fetchPostsByUserId(this.userId, this.currentPage);
     } else if (this.router.url == '/home') {
       // Default behavior, get all posts
-      this.postService.fetchPosts(this.currentPage);
+
+      // Uncomment this line below to show ALL post. Not just friend's
+      // this.postService.fetchPosts(this.currentPage);
+      this.userId = this.authService.getUserIdFromToken();
+      this.postService.fetchFriendsPosts(this.userId, this.currentPage);
     }
   }
 

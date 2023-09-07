@@ -27,11 +27,6 @@ public class PostService {
     this.userRepository = userRepository;
   }
 
-  // Business logic of getting all users. Just get them all.
-//  public List<Object[]> getPosts() {
-//    return postRepository.findPostsAndUserInfo();
-//  }
-
   public List<Object[]> getPosts(int page, int size) {
     Pageable pageable = PageRequest.of(page, size);
     return postRepository.findPostsAndUserInfo(pageable);
@@ -44,6 +39,17 @@ public class PostService {
     if (postList.isEmpty()){
       Logger.getLogger(FriendService.class.getName()).log(Level.INFO, "User with with userId: " + userId
               + " has no posts");
+      return null;
+    }
+    return postList;
+  }
+
+  public List<Object[]> getPostsOfFriends(Long userId, int page, int size) {
+    Pageable pageable = PageRequest.of(page, size);
+    List<Object[]> postList = postRepository.findPostsOfFriendsByUserId(userId, pageable);
+    if (postList.isEmpty()){
+      Logger.getLogger(FriendService.class.getName()).log(Level.INFO, "User with with userId: " + userId
+              + " has no friends with posts");
       return null;
     }
     return postList;

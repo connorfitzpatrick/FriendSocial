@@ -44,6 +44,33 @@ export class PostService {
     console.log(this.postsSubject);
   }
 
+  fetchFriendsPosts(id: number, page: number = 0, size: number = 5) {
+    const token = localStorage.getItem('authenticationToken');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }),
+      params: new HttpParams()
+        .set('page', String(page))
+        .set('size', String(size)),
+    };
+    this.http.get<any[]>(`${this.apiUrl}/feed/${id}`, httpOptions).subscribe(
+      (posts) => {
+        // Update the BehaviorSubject with new posts
+        const currentPosts = this.postsSubject.value;
+        this.postsSubject.next([
+          ...(Array.isArray(currentPosts) ? currentPosts : []),
+          ...posts,
+        ]);
+        console.log(this.postsSubject);
+      },
+      (error) => {
+        console.error('Error fetching posts information:', error);
+      }
+    );
+  }
+
   fetchPostsByUserId(id: number, page: number = 0, size: number = 5): void {
     const token = localStorage.getItem('authenticationToken');
     const httpOptions = {

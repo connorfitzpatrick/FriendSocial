@@ -44,14 +44,12 @@ public class UserController {
   // GET USER BY Email
   @GetMapping(path = "email/{username}")
   public User getUserByUsername(@PathVariable("username") String username) {
-    System.out.println("BEEEESSSSSSS " + username);
     return userService.getUserByUsername(username);
   }
 
   // GET USER BY Handle
   @GetMapping(path = "username/{handle}")
   public User getUserByHandle(@PathVariable("handle") String handle) {
-    System.out.println("BEEEESSSSSSS " + handle);
     return userService.getUserByHandle(handle);
   }
 
