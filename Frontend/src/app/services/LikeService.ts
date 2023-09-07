@@ -12,8 +12,6 @@ export class LikeService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   fetchLikes(postId: number) {
-    console.log(postId);
-
     const apiUrl = `http://localhost:8080/api/v1/likes/${postId}`;
     const token = localStorage.getItem('authenticationToken');
 
@@ -26,8 +24,6 @@ export class LikeService {
 
     this.http.get<any[]>(apiUrl, httpOptions).subscribe(
       (likes) => {
-        console.log(likes);
-        console.log(likes[0]);
         if (likes) {
           this.likesSubjectsMap.get(postId)?.next(likes);
         }
@@ -54,7 +50,7 @@ export class LikeService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`, // Include the token in the 'Authorization' header
+        Authorization: `Bearer ${token}`,
       }),
     };
 
@@ -84,7 +80,7 @@ export class LikeService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`, // Include the token in the 'Authorization' header
+        Authorization: `Bearer ${token}`,
       }),
     };
 
@@ -123,7 +119,7 @@ export class LikeService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`, // Include the token in the 'Authorization' header
+        Authorization: `Bearer ${token}`,
       }),
     };
 

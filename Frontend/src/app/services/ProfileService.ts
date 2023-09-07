@@ -46,12 +46,11 @@ export class ProfileService {
       .put<any>(`${this.apiUrl}/${updatedUser.id}`, updatedUser, httpOptions)
       .subscribe(
         (response) => {
-          // Handle the response from the backend, e.g., show a success message or redirect to login page
+          // Handle the response from the backend
           console.log('Update successful:', response);
           // this.router.navigate(['/home']);
         },
         (error) => {
-          // Handle the error, e.g., display an error message to the user
           console.error('Update failed:', error);
         }
       );

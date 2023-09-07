@@ -22,11 +22,12 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    // Check if the user has a token (you'll need to implement your own token checking logic here)
+    // Check if the user has a token
     const hasToken = this.checkForToken();
 
     if (hasToken) {
-      return true; // Allow access to the route
+      // Allow access to the route
+      return true;
     } else {
       // Redirect to the login page
       this.router.navigate(['/login']);
@@ -35,7 +36,9 @@ export class AuthGuard implements CanActivate {
   }
 
   private checkForToken(): boolean {
-    const token = localStorage.getItem('authenticationToken'); // Assuming you store the token in local storage
-    return !!token; // Return true if the token is not null, undefined, or an empty string
+    // get token in local storage
+    const token = localStorage.getItem('authenticationToken');
+    // Return true if the token is not null, undefined, or an empty string
+    return !!token;
   }
 }

@@ -115,7 +115,7 @@ export class CommentsService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`, // Include the token in the 'Authorization' header
+        Authorization: `Bearer ${token}`,
       }),
     };
     const x = this.commentsSubjectsMap.get(postId)?.value || [];
@@ -132,7 +132,7 @@ export class CommentsService {
       if (postCommentsSubject) {
         const currentComments = postCommentsSubject.value || [];
         const updatedComments = currentComments.filter((comment) => {
-          return comment[0].id !== commentId; // Add the 'return' statement
+          return comment[0].id !== commentId;
         });
         postCommentsSubject.next(updatedComments);
       }

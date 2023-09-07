@@ -15,7 +15,7 @@
       </p>
       <hr />
       <div *ngIf="post[0].postType == 'Image'" class="image-container">
-        <img [src]="postImageURL" alt="Post Image" />
+        <img [src]="postImageURL" loading="lazy" class="image" />
       </div>
       <h5 class="content">{{ post[0].content }}</h5>
       <div class="actions-section">

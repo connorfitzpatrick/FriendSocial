@@ -63,7 +63,7 @@ export class FriendService {
 
       // new like object for the BehaviorSubject
       const newFriend = {
-        friend: response.friend, // Replace 'friend' with the actual property name in the response
+        friend: response.friend,
       };
 
       const currentFriends = this.friendsSubject.getValue();
@@ -85,7 +85,7 @@ export class FriendService {
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Include the token in the 'Authorization' header
+          Authorization: `Bearer ${token}`,
         }),
       };
       try {

@@ -59,7 +59,6 @@ export class NewPostComponent implements OnInit {
 
   async onSubmit() {
     // Handle submit action
-
     try {
       if (this.selectedUserPic) {
         this.postType = 'Image';

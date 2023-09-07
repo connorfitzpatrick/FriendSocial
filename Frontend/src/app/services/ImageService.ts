@@ -36,7 +36,7 @@ export class ImageService {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       }),
-      responseType: 'blob' as 'json', // Set the responseType to 'blob'
+      responseType: 'blob' as 'json',
     };
 
     try {
@@ -46,10 +46,10 @@ export class ImageService {
 
       // Convert the Blob data to a URL that can be used as the image source.
       const imageUrl = URL.createObjectURL(response as Blob);
-      return imageUrl; // Return the imageUrl directly as a string
+      return imageUrl;
     } catch (error) {
       console.error('Error getting image:', error);
-      throw error; // Rethrow the error if needed
+      throw error;
     }
   }
 

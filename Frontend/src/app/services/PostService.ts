@@ -58,7 +58,6 @@ export class PostService {
     this.http.get<any[]>(`${this.apiUrl}/${id}`, httpOptions).subscribe(
       (posts) => {
         // Update the BehaviorSubject with new posts
-        console.log(posts);
         const currentPosts = this.postsSubject.value;
         this.postsSubject.next([
           ...(Array.isArray(currentPosts) ? currentPosts : []),

@@ -123,7 +123,7 @@ export class AuthService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Authorization: `Bearer ${localStorage.getItem('refreshToken')}`,
-        'Refresh-Token': localStorage.getItem('refreshToken') || 'null', // Assuming you're using the same token; adjust as needed.
+        'Refresh-Token': localStorage.getItem('refreshToken') || 'null',
       }),
     };
 
@@ -136,17 +136,13 @@ export class AuthService {
             response.authenticationToken
           );
           console.log(response);
-          // console.log(response.authenticationToken);
-          // console.log(response.refreshToken);
-          // localStorage.setItem('refreshToken', response.refreshToken);
         }),
         catchError((error) => {
           console.error('Refresh token failed:', error);
           this.router.navigate(['/login']);
-          return of(null); // return a safe fallback value, could be 'throwError(error)' if you want to propagate the error
+          return of(null);
         })
       );
-    console.log(response);
     return response;
   }
 
