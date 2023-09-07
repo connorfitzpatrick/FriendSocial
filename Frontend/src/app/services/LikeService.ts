@@ -39,6 +39,7 @@ export class LikeService {
       this.likesSubjectsMap.set(postId, new BehaviorSubject<any[]>([]));
       this.fetchLikes(postId);
     }
+    console.log(this.likesSubjectsMap.get(postId)?.asObservable());
     return this.likesSubjectsMap.get(postId)?.asObservable() ?? EMPTY;
   }
 
