@@ -37,10 +37,13 @@
           </div>
         </div>
         <br />
-        <div class="friendsListTileContainer">
-          <div *ngFor="let friend of friendService.friends$ | async">
-            <div class="post-container">
-              <app-friend-item [friend]="friend"></app-friend-item>
+        <div class="wrapper">
+          <!-- New wrapper -->
+          <div class="friendsListTileContainer">
+            <div *ngFor="let friend of friendService.friends$ | async">
+              <div class="post-container">
+                <app-friend-item [friend]="friend"></app-friend-item>
+              </div>
             </div>
           </div>
         </div>

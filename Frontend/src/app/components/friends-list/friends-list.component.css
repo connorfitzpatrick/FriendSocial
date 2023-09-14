@@ -87,5 +87,15 @@ main {
   background-color: white;
   border: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 100; /* Ensure the box is on top of the content */
+  z-index: 100;
+}
+
+.friendsListTileContainer {
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.wrapper {
+  height: 72vh;
+  margin-bottom: 10px;
 }
