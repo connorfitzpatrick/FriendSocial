@@ -35,7 +35,7 @@ public interface PostRepository
             "FROM Post p JOIN p.user pr " +
             "WHERE pr.id IN (" +
             "SELECT f.friend.id FROM Friend f WHERE f.user.id = ?1" +
-            ") " +
+            ") OR pr.id = ?1 " +
             "ORDER BY p.timestamp DESC")
     List<Object[]> findPostsOfFriendsByUserId(Long id, Pageable pageable);
 

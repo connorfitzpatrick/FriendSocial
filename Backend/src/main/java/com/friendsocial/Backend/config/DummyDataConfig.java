@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -24,16 +25,18 @@ import java.util.Optional;
 
 @Configuration
 public class DummyDataConfig {
+
   @Bean(name = "userCommandLineRunner")
   CommandLineRunner userConfig(
           UserRepository repository,
+          PasswordEncoder passwordEncoder,
           ElasticsearchUserService elasticsearchUserService) {
     return args -> {
       Instant now = Instant.now();
       User user1 = new User(
               "c@gmail.com",
               "fitz_connor",
-              "svsb",
+              passwordEncoder.encode("123"),
               LocalDate.of(1999, 4, 29),
               "Connor",
               "Fitzpatrick",
@@ -418,20 +421,47 @@ public class DummyDataConfig {
     return args -> {
       Instant now = Instant.now();
 
-      Long userId = 1L;
-      Long friendId = 2L;
-      Long friend2Id = 3L;
-      Long friend4Id = 4L;
-      Optional<User> userOptional = userRepository.findById(userId);
-      Optional<User> userOptional2 = userRepository.findById(friendId);
-      Optional<User> userOptional3 = userRepository.findById(friend2Id);
-      Optional<User> userOptional4 = userRepository.findById(friend4Id);
-      User connor = userOptional.orElseThrow(() -> new RuntimeException("User not found"));
+//      Long userId = 1L;
+//      Long friendId = 2L;
+//      Long friend2Id = 3L;
+//      Long friend4Id = 4L;
+      Optional<User> userOptional1 = userRepository.findById(1L);
+      Optional<User> userOptional2 = userRepository.findById(2L);
+      Optional<User> userOptional3 = userRepository.findById(3L);
+      Optional<User> userOptional4 = userRepository.findById(4L);
+      Optional<User> userOptional5 = userRepository.findById(5L);
+      Optional<User> userOptional6 = userRepository.findById(6L);
+      Optional<User> userOptional7 = userRepository.findById(7L);
+      Optional<User> userOptional8 = userRepository.findById(8L);
+      Optional<User> userOptional9 = userRepository.findById(9L);
+      Optional<User> userOptional10 = userRepository.findById(10L);
+      Optional<User> userOptional11 = userRepository.findById(11L);
+      Optional<User> userOptional12 = userRepository.findById(12L);
+      Optional<User> userOptional13 = userRepository.findById(13L);
+      Optional<User> userOptional14 = userRepository.findById(14L);
+      Optional<User> userOptional15 = userRepository.findById(15L);
+      Optional<User> userOptional16 = userRepository.findById(16L);
+      Optional<User> userOptional17 = userRepository.findById(17L);
+
+      User connor = userOptional1.orElseThrow(() -> new RuntimeException("User not found"));
       User alex = userOptional2.orElseThrow(() -> new RuntimeException("User not found"));
       User kieran = userOptional3.orElseThrow(() -> new RuntimeException("User not found"));
       User peyton = userOptional4.orElseThrow(() -> new RuntimeException("User not found"));
+      User bob = userOptional5.orElseThrow(() -> new RuntimeException("User not found"));
+      User john = userOptional6.orElseThrow(() -> new RuntimeException("User not found"));
+      User jane = userOptional7.orElseThrow(() -> new RuntimeException("User not found"));
+      User bashful = userOptional8.orElseThrow(() -> new RuntimeException("User not found"));
+      User emily = userOptional9.orElseThrow(() -> new RuntimeException("User not found"));
+      User pokey = userOptional10.orElseThrow(() -> new RuntimeException("User not found"));
+      User shadow = userOptional11.orElseThrow(() -> new RuntimeException("User not found"));
+      User william = userOptional12.orElseThrow(() -> new RuntimeException("User not found"));
+      User sophia = userOptional13.orElseThrow(() -> new RuntimeException("User not found"));
+      User speedy = userOptional14.orElseThrow(() -> new RuntimeException("User not found"));
+      User ava = userOptional15.orElseThrow(() -> new RuntimeException("User not found"));
+      User aileen = userOptional16.orElseThrow(() -> new RuntimeException("User not found"));
+      User ian = userOptional17.orElseThrow(() -> new RuntimeException("User not found"));
 
-      Friend connorfriend = new Friend(
+      Friend connorfriend1 = new Friend(
               connor,
               alex,
               LocalDate.now()
@@ -446,19 +476,101 @@ public class DummyDataConfig {
               peyton,
               LocalDate.now()
       );
-      Friend bobfriend1 = new Friend(
+      Friend connorfriend4 = new Friend(
+              connor,
+              bob,
+              LocalDate.now()
+      );
+      Friend connorfriend5 = new Friend(
+              connor,
+              john,
+              LocalDate.now()
+      );
+      Friend connorfriend6 = new Friend(
+              connor,
+              jane,
+              LocalDate.now()
+      );
+      Friend connorfriend7 = new Friend(
+              connor,
+              bashful,
+              LocalDate.now()
+      );
+      Friend connorfriend8 = new Friend(
+              connor,
+              emily,
+              LocalDate.now()
+      );
+      Friend connorfriend9 = new Friend(
+              connor,
+              pokey,
+              LocalDate.now()
+      );
+      Friend connorfriend10 = new Friend(
+              connor,
+              shadow,
+              LocalDate.now()
+      );
+      Friend connorfriend11 = new Friend(
+              connor,
+              william,
+              LocalDate.now()
+      );
+      Friend connorfriend12 = new Friend(
+              connor,
+              sophia,
+              LocalDate.now()
+      );
+      Friend connorfriend13 = new Friend(
+              connor,
+              speedy,
+              LocalDate.now()
+      );
+      Friend connorfriend14 = new Friend(
+              connor,
+              ava,
+              LocalDate.now()
+      );
+      Friend connorfriend15 = new Friend(
+              connor,
+              aileen,
+              LocalDate.now()
+      );
+      Friend connorfriend16 = new Friend(
+              connor,
+              ian,
+              LocalDate.now()
+      );
+      Friend peytonfriend1 = new Friend(
               peyton,
               connor,
               LocalDate.now()
       );
-      Friend bobfriend2 = new Friend(
+      Friend peytonfriend2 = new Friend(
               peyton,
               alex,
               LocalDate.now()
       );
 
       frepository.saveAll(
-              List.of(connorfriend, connorfriend2, connorfriend3, bobfriend1, bobfriend2)
+              List.of(connorfriend1,
+                      connorfriend2,
+                      connorfriend3,
+                      connorfriend4,
+                      connorfriend5,
+                      connorfriend6,
+                      connorfriend7,
+                      connorfriend8,
+                      connorfriend9,
+                      connorfriend10,
+                      connorfriend11,
+                      connorfriend12,
+                      connorfriend13,
+                      connorfriend14,
+                      connorfriend15,
+                      connorfriend16,
+                      peytonfriend1,
+                      peytonfriend2)
       );
     };
   }
@@ -510,87 +622,15 @@ public class DummyDataConfig {
       Comment comment7 = new Comment(
               10L,
               11L,
-              "Dumbass",
+              "Huh",
               Instant.now()
       );
       Comment comment6 = new Comment(
               14L,
               11L,
-              "For fucks sake",
+              "That makes no sense",
               Instant.now()
       );
-//      Comment comment6 = new Comment(
-//              1L,
-//              1L,
-//              "This is the Fourth comment",
-//              Instant.now()
-//      );
-//      Comment comment7 = new Comment(
-//              1L,
-//              1L,
-//              "This is the Fifth comment",
-//              Instant.now()
-//      );
-//      Comment comment8 = new Comment(
-//              1L,
-//              1L,
-//              "This is the Sixth comment",
-//              Instant.now()
-//      );
-//      Comment comment9 = new Comment(
-//              1L,
-//              1L,
-//              "This is the Seventh comment",
-//              Instant.now()
-//      );
-//      Comment comment10 = new Comment(
-//              3L,
-//              1L,
-//              "This is the Eighth comment",
-//              Instant.now()
-//      );
-//      Comment comment11 = new Comment(
-//              2L,
-//              1L,
-//              "This is the Ninth comment",
-//              Instant.now()
-//      );
-//      Comment comment12 = new Comment(
-//              1L,
-//              1L,
-//              "This is the Tenth comment",
-//              Instant.now()
-//      );
-//      Comment comment13 = new Comment(
-//              1L,
-//              1L,
-//              "This is the Eleventh comment",
-//              Instant.now()
-//      );
-//      Comment comment14 = new Comment(
-//              3L,
-//              1L,
-//              "This is the Twelvth comment",
-//              Instant.now()
-//      );
-//      Comment comment15 = new Comment(
-//              2L,
-//              1L,
-//              "This is the Thirtheenth comment",
-//              Instant.now()
-//      );
-//      Comment comment16 = new Comment(
-//              1L,
-//              1L,
-//              "This is the Fourtheenth comment",
-//              Instant.now()
-//      );
-//      Comment comment17 = new Comment(
-//              4L,
-//              1L,
-//              "This is the Fifteenth comment",
-//              Instant.now()
-//      );
       Comment comment18 = new Comment(
               4L,
               9L,
