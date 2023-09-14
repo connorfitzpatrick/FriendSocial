@@ -25,6 +25,10 @@
   align-items: center;
 }
 
+.bio-text {
+  font-size: 1.5em;
+}
+
 .profile-picture {
   width: 200px;
   height: 200px;
