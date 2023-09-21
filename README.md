@@ -1,5 +1,8 @@
 # Tribe
 
+<b>Click image below to see a video demo</b>
+[![Link to demo](https://i3.ytimg.com/vi/U-hmLXwd3D4/maxresdefault.jpg)](https://www.youtube.com/watch?v=U-hmLXwd3D4&t=1s)
+
 ### This is a simple social media app I am making to teach myself Java Spring and an Angular!
 
 #### The app takes into account, Dunbar’s number,” which is defined as "the number of stable relationships people are cognitively able to maintain at once. (The proposed number is 150)." [^1]
