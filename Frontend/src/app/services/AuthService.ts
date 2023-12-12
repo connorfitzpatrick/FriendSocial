@@ -186,15 +186,14 @@ export class AuthService {
 
   onProfileClick(): void {
     // this.postService.clearPosts(); // Clear the posts before navigating to the profile page
-    console.log('FAGGOTS');
     this.router.navigate(['/profile', this.getHandle()]);
   }
 
   updateCurrentUser(user: any): void {
     this.currentUserSubject.next(user);
-    console.log(this.currentUserSubject);
   }
 
+  // logout and remove tokens
   async logout() {
     const token = localStorage.getItem('authenticationToken');
     const httpOptions = {

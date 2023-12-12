@@ -32,9 +32,7 @@ export class NewPostComponent implements OnInit {
   ngOnInit(): void {
     // Get the profile's handle from the route parameters
     this.routeSubscription = this.route.params.subscribe((params) => {
-      //this.handle = params['handle'];
       this.currentUrl = this.router.routerState.snapshot.url;
-      //console.log(currentUrl);
       // Fetch profile information from the backend
     });
   }
@@ -43,6 +41,7 @@ export class NewPostComponent implements OnInit {
     this.routeSubscription?.unsubscribe();
   }
 
+  // Runs when an image is selected for posting
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
 
@@ -114,9 +113,6 @@ export class NewPostComponent implements OnInit {
         const updatedPosts = [newPost, ...currentPosts];
         this.postService.postsSubject.next(updatedPosts);
       }
-      // const currentPosts = this.postService.postsSubject.getValue();
-      // const updatedPosts = [newPost, ...currentPosts];
-      // this.postService.postsSubject.next(updatedPosts);
 
       this.closeDialog();
     } catch (error) {
