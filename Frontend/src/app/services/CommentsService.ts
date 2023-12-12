@@ -108,8 +108,8 @@ export class CommentsService {
     }
   }
 
+  // delete comment if the comment or post belongs to the user
   async deleteComment(commentId: number, postId: number) {
-    // we will need to get the ID of the like itself!!!!!!
     const token = localStorage.getItem('authenticationToken');
 
     const httpOptions = {

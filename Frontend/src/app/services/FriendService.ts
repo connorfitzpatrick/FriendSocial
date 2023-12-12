@@ -140,6 +140,7 @@ export class FriendService {
     return -1;
   }
 
+  // Send prefix to backend so that elasticsearch can receive it and return suggested users using that prefix
   searchFriends(prefix: string): Observable<string[]> {
     const token = localStorage.getItem('authenticationToken');
     const httpOptions = {

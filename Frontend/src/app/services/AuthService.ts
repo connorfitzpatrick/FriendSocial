@@ -185,7 +185,6 @@ export class AuthService {
   }
 
   onProfileClick(): void {
-    // this.postService.clearPosts(); // Clear the posts before navigating to the profile page
     this.router.navigate(['/profile', this.getHandle()]);
   }
 

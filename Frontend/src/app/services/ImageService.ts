@@ -53,10 +53,12 @@ export class ImageService {
     }
   }
 
+  // sets the profile pic url if it is changed
   setProfilePicUrl(url: string | null): void {
     this.profilePicSubject.next(url);
   }
 
+  // returns the URL for the profile picture
   getProfilePicUrl(): string | null {
     return this.profilePicSubject.getValue();
   }
