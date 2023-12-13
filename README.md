@@ -13,12 +13,17 @@
 
 # How To Start:
 
-1. `cd` into the `Tribe` directory
+1. From Terminal, `cd` into the `Tribe` directory
 2. Frontend
    - `cd` into `frontend` directory
    - Run `ng serve`
-3. Elasticsearch
-   - Run `elasticsearch` in new terminal window
-4. Backend
+3. MySQL Database
+   - Open a new terminal window
+   - Enter `mysql`
+   - Enter `USE FRIENDSOCIAL`
+4. Elasticsearch
+   - Open a new terminal window
+   - Enter `elasticsearch`
+5. Backend
    - Open up the project in IntelliJ
    - Click `Run` < `Run 'BackendApplication'`
