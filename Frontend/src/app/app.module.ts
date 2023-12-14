@@ -26,6 +26,7 @@ import { FriendsListComponent } from './components/friends-list/friends-list.com
 import { FriendItemComponent } from './components/friend-item/friend-item.component';
 import { SuggestionItemComponent } from './components/suggestion-item/suggestion-item.component';
 import { SetupProfileDialogComponent } from './components/setup-profile-dialog/setup-profile-dialog.component';
+import { MessagingPageComponent } from './messaging-page/messaging-page.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { SetupProfileDialogComponent } from './components/setup-profile-dialog/s
     FriendItemComponent,
     SuggestionItemComponent,
     SetupProfileDialogComponent,
+    MessagingPageComponent,
   ],
   imports: [
     BrowserModule,
