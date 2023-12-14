@@ -83,6 +83,10 @@
             </div>
           </div>
 
+          <div *ngIf="hasErrors" class="alert alert-danger mt-3">
+            {{ errorMessage }}
+          </div>
+
           <button
             type="submit"
             class="btn sign-in btn-block mb-4"
